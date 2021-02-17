@@ -19,7 +19,7 @@ module.exports = {
       crossorigin: 'use-credentials',
       icons: [
         {
-          src: path.resolve('src/pictures/llama.png'),
+          src: path.resolve('src/assets/pictures/llama.png'),
           sizes: [96, 128, 192, 256, 384, 512]
         },
       ]
