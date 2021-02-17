@@ -1,4 +1,6 @@
 'use strict';
+import {Toast, Tooltip} from 'bootstrap';
+import './styles/styles.scss';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
