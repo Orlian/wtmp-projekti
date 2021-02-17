@@ -11,3 +11,13 @@ import './assets/styles/styles.scss';
     });
   });
 }*/
+/**
+ * Lollifoi oskarin
+ * @param {string} osku
+ * @returns {string} modifoitu oskari
+ */
+const testiFunkkari = (osku) => {
+  return osku + ' lol';
+};
+
+console.log(testiFunkkari('oskari'));
