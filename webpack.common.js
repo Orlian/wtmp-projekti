@@ -78,7 +78,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(scss)$/,
+        test: /\.s[ac]ss$/i,
         use: [{
           // inject CSS to page
           loader: 'style-loader'
