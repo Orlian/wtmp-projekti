@@ -1,5 +1,4 @@
 'use strict';
-import {Toast, Tooltip} from 'bootstrap';
 import './assets/styles/styles.scss';
 
 if ('serviceWorker' in navigator) {
