@@ -1,7 +1,7 @@
 'use strict';
 import './assets/styles/styles.scss';
 
-if ('serviceWorker' in navigator) {
+/*if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').then(registration => {
       console.log('SW registered: ', registration);
@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
       console.log('SW registration failed: ', registrationError);
     });
   });
-}
+}*/
 /**
  * Lollifoi oskarin
  * @param {string} osku
