@@ -1,5 +1,5 @@
 'use strict';
-import './assets/styles/styles.scss';
+import './styles/styles.scss';
 
 /*if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
