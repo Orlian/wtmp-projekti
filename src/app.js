@@ -1,5 +1,6 @@
 'use strict';
 import './styles/styles.scss';
+import 'bootstrap';
 
 /*if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

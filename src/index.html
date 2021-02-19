@@ -1,35 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <!-- Metropolian fontteja/kuvia/värejä -->
-  <body>
-  <div>
-    <!-- Landing page josta valitaan mahdollisesti toimipaikka, jonka tietoja näytetään.
-     Säilötään välimuistiin valinta, ja näytetään landing page vain,
-     jos ei löydy aikaisempaa valintaa.
-    -->
-  </div>
-  <nav>
-    <!-- Tänne nav asiat -->
+<head>
+  <meta charset="utf-8"/>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<!-- Metropolian fontteja/kuvia/värejä -->
+<body>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img id="navbar-brand-img" src="./assets/pictures/metropolia_s_orange_eng.png"
+                                            alt="metropolia logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarcontent"
+              aria-controls="navbarcontent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarcontent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a id="nav-item-home" class="nav-link active" aria-current="page" href="#"></a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-item-menu" class="nav-link" href="#">ASD</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="nav-item-hsl" class="nav-link" href="#">ASD</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-item-weather" class="nav-link" href="#">ADS</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
   </nav>
-  <div>
-    <!-- Tänne koronaohjeistusta -->
+  <div id="corona-carousel" class="carousel slide hide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="" class="d-block w-100" alt="">
+      </div>
+      <div class="carousel-item">
+        <img src="" class="d-block w-100" alt="">
+      </div>
+      <div class="carousel-item">
+        <img src="" class="d-block w-100" alt="">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
   <div>
     <!-- Tänne HSL-dataa -->
   </div>
-  <div class="card">
-    <img class="card-img-top" src="assets/pictures/llama.png" alt="this is a llama">
-    <div class="card-body">
-    <p>
-      Hello! Open the developer tools, please.<br />
-      Start by editing the files in <code>src/</code> folder.
-    </p>
-    <button>Nappi</button>
-    </div>
-  </div>
-  </body>
+</div>
+</body>
 </html>
