@@ -10632,17 +10632,18 @@ textarea.form-control-lg {
   box-sizing: border-box;
 }
 
-body {
-  margin: 10%;
-}
-
 p {
   font-family: "Roboto Slab", serif;
   font-weight: 400;
 }
 
 button {
-  width: 10vw;
+  width: 10em;
+}
+
+#navbar-brand-img {
+  height: auto;
+  width: 12em;
 }
 
 /*# sourceMappingURL=styles.css.map */
