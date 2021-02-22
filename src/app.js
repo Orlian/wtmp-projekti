@@ -20,3 +20,21 @@ const testiFunkkari = (osku) => {
 };
 
 console.log(testiFunkkari('oskari'));
+
+
+// Async function with error handling
+const getMeal = async () => {
+  let response;
+  try {
+    response = await fetch(`https://cors-anywhere.herokuapp.com/https://users.metropolia.fi/~oskarpi/media-alustat/compass.json`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error('getGithubReposOfUser error', error.message);
+  }
+  let repos = await response.json();
+  return repos;
+};
+getMeal()
+.then(data => console.log(data));
