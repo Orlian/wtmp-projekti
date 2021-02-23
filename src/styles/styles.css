@@ -10637,13 +10637,22 @@ p {
   font-weight: 400;
 }
 
-button {
+#navbar-brand-img {
+  height: auto;
   width: 10em;
 }
 
-#navbar-brand-img {
-  height: auto;
-  width: 12em;
+.carousel-control-prev, .carousel-control-next {
+  filter: invert(1);
+}
+
+.carousel-item img {
+  position: relative;
+}
+
+.carousel-caption {
+  color: black;
+  font-size: 1em;
 }
 
 /*# sourceMappingURL=styles.css.map */

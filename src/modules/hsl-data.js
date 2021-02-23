@@ -1,31 +1,39 @@
-import {fetchPostJson} from "./network";
+import {fetchPostJson} from './network';
 
 const apiUrl = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
 
-const getRidesByStopId = async (id) => {
+/**
+ * Fetches nearby stops based on user coordinates and their upcoming buses
+ *
+ * @param {object} location - User's geolocation object
+ * @param {number} radius - Search radius in meters
+ * @returns {Promise<*>}
+ */
+const getStopsByRadius = async (location, radius) => {
   const query = `{
-    stop(id: "HSL:${id}") {
-      name
-      stoptimesWithoutPatterns {
-        scheduledArrival
-        realtimeArrival
-        arrivalDelay
-        scheduledDeparture
-        realtimeDeparture
-        departureDelay
-        realtime
-        realtimeState
-        serviceDay
-        headsign
-        trip {
-          routeShortName
-          tripHeadsign
+    stopsByRadius(lat:${location.latitude}, lon:${location.longitude}, radius:${radius}, first: 5) {
+      edges {
+        node {
+          stop {
+            gtfsId
+            name
+            stoptimesWithoutPatterns {
+              realtimeArrival
+              arrivalDelay
+              serviceDay
+              headsign
+            }
+          }
+          distance
         }
       }
     }
   }`;
-  // TODO: add try-catch error handling
-  return await fetchPostJson(apiUrl, 'application/graphql', query);
+  try {
+    return await fetchPostJson(apiUrl, 'application/graphql', query);
+  } catch(err) {
+    return console.log(`error ${err.status}, message: ${err.message}`);
+  }
 
 };
 
@@ -41,5 +49,5 @@ const formatTime = (seconds) => {
   return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
 };
 
-const HSLData = {getRidesByStopId, formatTime};
+const HSLData = {getStopsByRadius, formatTime};
 export default HSLData;
