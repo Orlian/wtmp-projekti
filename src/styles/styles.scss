@@ -16,11 +16,21 @@ p {
   font-weight: fonts.$m;
 }
 
-button {
- width: 10em;
-}
+
 
 #navbar-brand-img {
   height: auto;
-  width: 12em;
+  width: 10em;
+}
+.carousel-control-prev, .carousel-control-next{
+  filter: invert(1);
+}
+
+.carousel-item img{
+  position: relative;
+}
+
+.carousel-caption{
+  color: black;
+  font-size: 1em;
 }

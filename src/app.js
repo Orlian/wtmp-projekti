@@ -1,6 +1,7 @@
 'use strict';
 import './styles/styles.scss';
 import 'bootstrap';
+import WeatherData from './modules/weather-data';
 
 /*if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -22,6 +23,17 @@ const testiFunkkari = (osku) => {
 
 console.log(testiFunkkari('oskari'));
 
+const renderData = async () => {
+  try{
+    await console.log(WeatherData.getHourlyForecast(60.2149594,24.7854673,'fi'));
+  }catch (error){
+    console.log(error.message);
+  }
+};
+
+renderData();
+
+
 
 // Async function with error handling
 const getMeal = async () => {
@@ -39,3 +51,5 @@ const getMeal = async () => {
 };
 getMeal()
 .then(data => console.log(data));
+
+

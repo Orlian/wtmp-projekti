@@ -33,7 +33,7 @@ const parseSodexoMenu = (sodexoDailyMenu) => {
  * @param {number} restaurantId
  * @param {string} lang
  * @param {string} date in ISO format (YYYY-MM-DD)
- * @return {Promise<string>} Daily menu data
+ * @return {Promise<Array>} Daily menu data
  */
 const getDailyMenu = async (restaurantId, lang, date) => {
   let menuData;
