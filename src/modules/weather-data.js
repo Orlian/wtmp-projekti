@@ -9,7 +9,6 @@ import {fetchGetJson} from './network';
 
 const hourlyForecastUrl = 'https://api.openweathermap.org/data/2.5/onecall';
 const appid = 'd5f46b97c0d3618c2e85e2939ec55a4b';
-//lat=60.2149594&lon=24.7854673&exclude=minutely,daily,alerts&units=metric&lang=fi&appid=d5f46b97c0d3618c2e85e2939ec55a4b
 
 
 /**
@@ -21,13 +20,29 @@ const appid = 'd5f46b97c0d3618c2e85e2939ec55a4b';
  */
 const parseHourlyForecastData = (hourlyForecastData) => {
   const hourlyForecastArray = [];
-  const currentWeather = hourlyForecastData.current.weather[0];
+  let currentWeatherObject = {
+    'time': formatHourMins(hourlyForecastData.current.dt),
+    'temp': hourlyForecastData.current.temp,
+    'feels_like': hourlyForecastData.current.feels_like,
+    'desc': hourlyForecastData.current.weather[0].description,
+    'icon': `http://openweathermap.org/img/wn/${hourlyForecastData.current.weather[0].icon}.png`,
+  };
   for (const hourlyWeather of hourlyForecastData.hourly) {
-    hourlyForecastArray.push(hourlyWeather.weather[0]);
-  }
-  return {currentWeather: currentWeather, weatherForecast: hourlyForecastArray};
-};
+    let hourlyWeatherObject = {
+      'time': formatHourMins(hourlyWeather.dt),
+      'temp': hourlyWeather.temp,
+      'feels_like': hourlyWeather.feels_like,
+      'desc': hourlyWeather.weather[0].description,
+      'icon': `http://openweathermap.org/img/wn/${hourlyWeather.weather[0].icon}.png`,
+    };
 
+    hourlyForecastArray.push(hourlyWeatherObject);
+  }
+  return {
+    currentWeather: currentWeatherObject,
+    weatherForecast: hourlyForecastArray,
+  };
+};
 
 /**
  * Get daily menu from Sodexo API
@@ -38,16 +53,26 @@ const parseHourlyForecastData = (hourlyForecastData) => {
  * @param {string} lang
  * @return {Promise<Object>} Hourly forecast data
  */
-const getHourlyForecast = async (lat, lon, lang) =>{
+const getHourlyForecast = async (lat, lon, lang) => {
   let hourlyForecastData;
   try {
-    hourlyForecastData = await fetchGetJson(`${hourlyForecastUrl}?lat=${lat}&lon=${lon}&exclude=minutely,daily,alerts&units=metric&lang=${lang}&appid=${appid}`);
-  } catch (error) {
+    hourlyForecastData = await fetchGetJson(
+      `${hourlyForecastUrl}?lat=${lat}&lon=${lon}&exclude=minutely,daily,alerts&units=metric&lang=${lang}&appid=${appid}`);
+  }
+  catch (error) {
     throw new Error(error.message);
   }
-  let parsedForecast =  await parseHourlyForecastData(hourlyForecastData);
+  let parsedForecast = await parseHourlyForecastData(hourlyForecastData);
   return parsedForecast;
 };
+
+const formatHourMins = (unixtime) =>{
+  let currentDate = new Date(unixtime*1000);
+  let hours = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+  return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+};
+
 
 const WeatherData = {getHourlyForecast};
 export default WeatherData;
