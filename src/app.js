@@ -2,10 +2,15 @@
 import './styles/styles.scss';
 import 'bootstrap';
 import WeatherData from './modules/weather-data';
+import HSLData from './modules/hsl-data';
 
 const weatherCard = document.querySelector('#weather-card');
 const weatherCardBody = document.querySelector('#weather-card-body');
 const weatherCardUl = document.querySelector('#weather-card-ul');
+
+const hslCard = document.querySelector('#hsl-data');
+const hslCardBody = document.querySelector('#hsl-data-body');
+const hslCardUl = document.querySelector('.hsl-data-ul');
 
 /*if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -18,8 +23,9 @@ const weatherCardUl = document.querySelector('#weather-card-ul');
 }*/
 
 
-const success = (position) => {
-  loadWeatherData(position.coords.latitude, position.coords.longitude);
+const success = async (position) => {
+  await loadWeatherData(position.coords.latitude, position.coords.longitude);
+  await loadBusStops(position.coords);
 };
 
 const error = () => {
@@ -69,6 +75,24 @@ const renderWeatherData = (weatherObject) => {
     weatherCardUl.appendChild(listItem);
   }
 
+};
+
+const loadBusStops = async (location) => {
+  try {
+    const stops = await HSLData.getStopsByRadius(location, 700);
+    console.log('stops data:', stops.data.stopsByRadius.edges);
+    renderBusStops(stops.data.stopsByRadius.edges);
+  } catch (err) {
+
+  }
+};
+
+const renderBusStops = (stops) => {
+  for(let stop of stops) {
+    const stopLi = document.createElement('li');
+    stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
+    hslCardUl.append(stopLi);
+  }
 };
 
 // Async function with error handling

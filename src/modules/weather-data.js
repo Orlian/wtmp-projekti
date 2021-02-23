@@ -45,7 +45,7 @@ const parseHourlyForecastData = (hourlyForecastData) => {
 };
 
 /**
- * Get daily menu from Sodexo API
+ * Get hourly weather data from openWeather API based on current coordinates
  *
  * @async
  * @param {number} lat
