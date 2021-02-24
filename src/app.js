@@ -110,12 +110,12 @@ const renderBusStops = (stops) => {
     addMarker(stop.node.stop.lat, stop.node.stop.lon, stop.node.stop.name);
     const stopLi = document.createElement('li');
     stopLi.classList.add('list-group-item');
-    stopLi.dataBsToggle = 'collapse';
-    stopLi.href = `#collapse${i}`;
-    stopLi.role = 'button';
+    stopLi.setAttribute('data-bs-toggle', 'collapse');
+    stopLi.setAttribute('href', `#collapse${i}`);
+    stopLi.setAttribute('role', 'button');
     stopLi.ariaExpanded = 'false';
-    stopLi.ariaControls = `collapse${i}`;
-    stopLi.innerHTML = `<h1>Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.</h1>`;
+    stopLi.setAttribute('aria-controls', 'collapse');
+    stopLi.innerHTML = `<h1>${stop.node.stop.name} - ${stop.node.distance}m</h1>`;
 
     const stopCollapse = document.createElement('div');
     stopCollapse.classList.add('collapse');
@@ -130,7 +130,7 @@ const renderBusStops = (stops) => {
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
       if(0<arrivaltime){
         arrivaltime = HSLData.formatTime(arrivaltime);
-        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign}`;
+        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign} - ${arrival.trip.route.shortName}`;
       }else {
         stopCollapseLi.textContent += `lähtee huomenna`;
       }
