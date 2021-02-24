@@ -140,3 +140,4 @@ const addMarker = (lat, lon, text = '') => {
     bindPopup(text).
     openPopup();
 };
+
