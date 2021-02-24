@@ -17,13 +17,13 @@ const getStopsByRadius = async (location, radius) => {
           stop {
             gtfsId
             name
+            lat
+            lon
             stoptimesWithoutPatterns {
               realtimeArrival
               arrivalDelay
               serviceDay
               headsign
-              lat
-              lon
             }
           }
           distance

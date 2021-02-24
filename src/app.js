@@ -15,7 +15,7 @@ const hslCard = document.querySelector('#hsl-data');
 const hslCardBody = document.querySelector('#hsl-data-body');
 const hslCardUl = document.querySelector('.hsl-data-ul');
 
-const map =L.map('map-card-body');
+const map = L.map('map-card-body');
 
 const defaultIcon = L.icon({
   iconUrl: icon,
@@ -24,7 +24,7 @@ const defaultIcon = L.icon({
   popupAnchor: [-3, -76],
   shadowUrl: iconShadow,
   shadowSize: [30, 40],
-  shadowAnchor: [24, 36]
+  shadowAnchor: [24, 36],
 });
 
 L.Marker.prototype.options.icon = defaultIcon;
@@ -38,7 +38,6 @@ L.Marker.prototype.options.icon = defaultIcon;
     });
   });
 }*/
-
 
 const success = async (position) => {
   await loadWeatherData(position.coords.latitude, position.coords.longitude);
@@ -61,9 +60,7 @@ const options = {
   timeout: 0,
 };
 
-
 navigator.geolocation.getCurrentPosition(success, error, options);
-
 
 const loadWeatherData = async (lat, lon) => {
   try {
@@ -71,13 +68,10 @@ const loadWeatherData = async (lat, lon) => {
       'fi');
     console.log(weather);
     renderWeatherData(weather);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error.message);
   }
 };
-
-
 
 const renderWeatherData = (weatherObject) => {
   const listItem = document.createElement('li');
@@ -111,7 +105,7 @@ const loadBusStops = async (location) => {
 };
 
 const renderBusStops = (stops) => {
-  for(let stop of stops) {
+  for (let stop of stops) {
     addMarker(stop.node.stop.lat, stop.node.stop.lon);
     const stopLi = document.createElement('li');
     stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
@@ -128,8 +122,7 @@ const getMeal = async () => {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status} ${response.statusText}`);
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error('getGithubReposOfUser error', error.message);
   }
   let repos = await response.json();
@@ -137,7 +130,12 @@ const getMeal = async () => {
 };
 getMeal().then(data => console.log(data));
 
+const addMarker = (lat, lon, text = '') => {
+  L.marker([lat, lon]).
+    addTo(map).
+    bindPopup(text).
+    openPopup().
+    on('click', function() {
 
-const addMarker = (lat, lon) =>{
-  L.marker([lat, lon]).addTo(map);
+    });
 };
