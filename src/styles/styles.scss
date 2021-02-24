@@ -1,6 +1,7 @@
 @use 'colors';
 @use 'fonts';
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/leaflet/dist/leaflet.css";
 
 * {
   margin: 0;
@@ -32,4 +33,10 @@ p {
 .carousel-caption{
   color: black;
   font-size: 1em;
+}
+
+#map-card-body{
+  position: relative;
+  height: 400px;
+  width: 100%;
 }

@@ -1,6 +1,9 @@
 'use strict';
 import './styles/styles.scss';
 import 'bootstrap';
+import 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import WeatherData from './modules/weather-data';
 import HSLData from './modules/hsl-data';
 
@@ -11,6 +14,20 @@ const weatherCardUl = document.querySelector('#weather-card-ul');
 const hslCard = document.querySelector('#hsl-data');
 const hslCardBody = document.querySelector('#hsl-data-body');
 const hslCardUl = document.querySelector('.hsl-data-ul');
+
+const map =L.map('map-card-body');
+
+const defaultIcon = L.icon({
+  iconUrl: icon,
+  iconSize: [24, 36],
+  iconAnchor: [24, 36],
+  popupAnchor: [-3, -76],
+  shadowUrl: iconShadow,
+  shadowSize: [30, 40],
+  shadowAnchor: [24, 36]
+});
+
+L.Marker.prototype.options.icon = defaultIcon;
 
 /*if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -26,6 +43,12 @@ const hslCardUl = document.querySelector('.hsl-data-ul');
 const success = async (position) => {
   await loadWeatherData(position.coords.latitude, position.coords.longitude);
   await loadBusStops(position.coords);
+
+  map.setView([position.coords.latitude, position.coords.longitude], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+  addMarker(position.coords);
 };
 
 const error = () => {
@@ -114,3 +137,6 @@ const getMeal = async () => {
 getMeal().then(data => console.log(data));
 
 
+const addMarker = (coords) =>{
+  L.marker([coords.latitude, coords.longitude]).addTo(map);
+};
