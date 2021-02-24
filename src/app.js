@@ -105,20 +105,41 @@ const loadBusStops = async (location) => {
 };
 
 const renderBusStops = (stops) => {
+  let i = 0;
   for (let stop of stops) {
     addMarker(stop.node.stop.lat, stop.node.stop.lon, stop.node.stop.name);
     const stopLi = document.createElement('li');
-    stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
+    stopLi.classList.add('list-group-item');
+    stopLi.dataBsToggle = 'collapse';
+    stopLi.href = `#collapse${i}`;
+    stopLi.role = 'button';
+    stopLi.ariaExpanded = 'false';
+    stopLi.ariaControls = `collapse${i}`;
+    stopLi.innerHTML = `<h1>Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.</h1>`;
+
+    const stopCollapse = document.createElement('div');
+    stopCollapse.classList.add('collapse');
+    stopCollapse.id = `collapse${i}`;
+
+    const stopCollapseUl = document.createElement('ul');
+    stopCollapseUl.classList.add('list-group');
+
     for(let arrival of stop.node.stop.stoptimesWithoutPatterns){
+      const stopCollapseLi = document.createElement('li');
+      stopCollapseLi.classList.add('list-group-item');
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
       if(0<arrivaltime){
       arrivaltime = HSLData.formatTime(arrivaltime);
-      stopLi.textContent += `${arrivaltime} ${arrival.headsign}`;
+      stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign}`;
       }else {
-        stopLi.textContent += `lähtee huomenna`;
+        stopCollapseLi.textContent += `lähtee huomenna`;
       }
+      stopCollapseUl.appendChild(stopCollapseLi);
     }
+    stopCollapse.appendChild(stopCollapseUl);
+    stopLi.appendChild(stopCollapse);
     hslCardUl.append(stopLi);
+    i++;
   }
 };
 
