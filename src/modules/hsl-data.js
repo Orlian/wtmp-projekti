@@ -42,7 +42,7 @@ const getStopsByRadius = async (location, radius) => {
 const secondsFromArrival = (arrivalTime) =>{
   let currentTime = new Date()-new Date().setHours(0,0,0,0);
   console.log(currentTime);
-  let secondsFromArrival = arrivalTime-currentTime;
+  let secondsFromArrival = arrivalTime-(currentTime/1000);
   return secondsFromArrival;
 };
 
