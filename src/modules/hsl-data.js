@@ -47,7 +47,7 @@ const secondsFromArrival = (arrivalTime) =>{
   let seconds = now.getSeconds();
 
   let secSinceMidnight = hours+minutes+seconds;
-  console.log(currentTime);
+  //console.log(currentTime);
   let secondsFromArrival = arrivalTime-(secSinceMidnight);
   return secondsFromArrival;
 };

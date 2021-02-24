@@ -82,7 +82,7 @@ const renderWeatherData = (weatherObject) => {
   listItem.prepend(listItemImg);
   weatherCardUl.appendChild(listItem);
 
-  for (let hourWeather = 1; hourWeather < 13; hourWeather++) {
+  for (let hourWeather = 1; hourWeather < 5; hourWeather++) {
     const listItem = document.createElement('li');
     const listItemImg = document.createElement('img');
     listItemImg.classList.add('hour-weather-icon');
@@ -110,8 +110,13 @@ const renderBusStops = (stops) => {
     const stopLi = document.createElement('li');
     stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
     for(let arrival of stop.node.stop.stoptimesWithoutPatterns){
-      let arrivaltime = HSLData.formatTime(HSLData.secondsFromArrival(arrival.realtimeArrival));
+      let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
+      if(0<arrivaltime){
+      arrivaltime = HSLData.formatTime(arrivaltime);
       stopLi.textContent += `${arrivaltime} ${arrival.headsign}`;
+      }else {
+        stopLi.textContent += `lähtee huomenna`;
+      }
     }
     hslCardUl.append(stopLi);
   }
