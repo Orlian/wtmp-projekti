@@ -39,6 +39,14 @@ const getStopsByRadius = async (location, radius) => {
 
 };
 
+const secondsFromArrival = (arrivalTime) =>{
+  let currentTime = new Date()-new Date().setHours(0,0,0,0);
+  console.log(currentTime);
+  let secondsFromArrival = arrivalTime-currentTime;
+  return secondsFromArrival;
+};
+
+
 /**
  * Converts HSL time to more readable format
  *
@@ -51,5 +59,5 @@ const formatTime = (seconds) => {
   return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
 };
 
-const HSLData = {getStopsByRadius, formatTime};
+const HSLData = {getStopsByRadius, formatTime, secondsFromArrival};
 export default HSLData;

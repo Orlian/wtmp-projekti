@@ -109,6 +109,10 @@ const renderBusStops = (stops) => {
     addMarker(stop.node.stop.lat, stop.node.stop.lon, stop.node.stop.name);
     const stopLi = document.createElement('li');
     stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
+    for(let arrival of stop.node.stop.stoptimesWithoutPatterns){
+      let arrivaltime = HSLData.formatTime(HSLData.secondsFromArrival(arrival.realtimeArrival));
+      stopLi.textContent += `${arrivaltime} ${arrival.headsign}`;
+    }
     hslCardUl.append(stopLi);
   }
 };
