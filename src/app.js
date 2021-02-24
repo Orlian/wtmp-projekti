@@ -48,7 +48,7 @@ const success = async (position) => {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
-  addMarker(position.coords);
+  addMarker(position.coords.latitude, position.coords.longitude);
 };
 
 const error = () => {
@@ -112,6 +112,7 @@ const loadBusStops = async (location) => {
 
 const renderBusStops = (stops) => {
   for(let stop of stops) {
+    addMarker(stop.node.stop.lat, stop.node.stop.lon);
     const stopLi = document.createElement('li');
     stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
     hslCardUl.append(stopLi);
@@ -137,6 +138,6 @@ const getMeal = async () => {
 getMeal().then(data => console.log(data));
 
 
-const addMarker = (coords) =>{
-  L.marker([coords.latitude, coords.longitude]).addTo(map);
+const addMarker = (lat, lon) =>{
+  L.marker([lat, lon]).addTo(map);
 };

@@ -22,6 +22,8 @@ const getStopsByRadius = async (location, radius) => {
               arrivalDelay
               serviceDay
               headsign
+              lat
+              lon
             }
           }
           distance
