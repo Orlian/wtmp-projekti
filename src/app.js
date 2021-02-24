@@ -108,14 +108,14 @@ const renderBusStops = (stops) => {
   for (let stop of stops) {
     addMarker(stop.node.stop.lat, stop.node.stop.lon, stop.node.stop.name);
     const stopLi = document.createElement('li');
-    stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä.`;
+    stopLi.textContent = `Pysäkki: ${stop.node.stop.name} - ${stop.node.distance} metrin päässä. `;
     for(let arrival of stop.node.stop.stoptimesWithoutPatterns){
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
       if(0<arrivaltime){
       arrivaltime = HSLData.formatTime(arrivaltime);
-      stopLi.textContent += `${arrivaltime} ${arrival.headsign}`;
+      stopLi.textContent += `${arrival.trip.route.shortName} ${arrivaltime} ${arrival.headsign} | `;
       }else {
-        stopLi.textContent += `lähtee huomenna`;
+        stopLi.textContent += `${arrival.trip.route.shortName} ${arrival.headsign} lähtee huomenna | `;
       }
     }
     hslCardUl.append(stopLi);
