@@ -12,7 +12,6 @@ const weatherCardBody = document.querySelector('#weather-card-body');
 const weatherCardUl = document.querySelector('#weather-card-ul');
 
 const hslCard = document.querySelector('#hsl-data');
-const hslCardBody = document.querySelector('#hsl-data-body');
 const hslCardUl = document.querySelector('.hsl-data-ul');
 
 const map = L.map('map-card-body');
@@ -21,10 +20,17 @@ const defaultIcon = L.icon({
   iconUrl: icon,
   iconSize: [24, 36],
   iconAnchor: [24, 36],
-  popupAnchor: [-3, -76],
+  popupAnchor: [-13, -40],
   shadowUrl: iconShadow,
   shadowSize: [30, 40],
   shadowAnchor: [24, 36],
+});
+
+const youIcon = L.icon({
+  iconUrl: './assets/pictures/men-silhouette.png',
+  iconSize: [36, 48],
+  iconAnchor: [24, 36],
+  popupAnchor: [-5, -40],
 });
 
 L.Marker.prototype.options.icon = defaultIcon;
@@ -43,11 +49,12 @@ const success = async (position) => {
   await loadWeatherData(position.coords.latitude, position.coords.longitude);
   await loadBusStops(position.coords);
 
-  map.setView([position.coords.latitude, position.coords.longitude], 13);
+  map.setView([position.coords.latitude, position.coords.longitude], 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
-  addMarker(position.coords.latitude, position.coords.longitude, 'Olet tässä');
+  addMarker(position.coords.latitude, position.coords.longitude, 'Olet tässä',
+    {specialMarker: true}, true);
 };
 
 const error = () => {
@@ -105,33 +112,32 @@ const loadBusStops = async (location) => {
 };
 
 const renderBusStops = (stops) => {
-  let i = 0;
   for (let stop of stops) {
-    addMarker(stop.node.stop.lat, stop.node.stop.lon, stop.node.stop.name);
+    const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
     const stopLi = document.createElement('li');
     stopLi.classList.add('list-group-item');
     stopLi.setAttribute('data-bs-toggle', 'collapse');
-    stopLi.setAttribute('href', `#collapse${i}`);
+    stopLi.setAttribute('href', `#${collapseId}`);
     stopLi.setAttribute('role', 'button');
     stopLi.ariaExpanded = 'false';
     stopLi.setAttribute('aria-controls', 'collapse');
-    stopLi.innerHTML = `<h1>${stop.node.stop.name} - ${stop.node.distance}m</h1>`;
+    stopLi.innerHTML = `<h1 class="h5">${stop.node.stop.name} - ${stop.node.distance}m</h1>`;
 
     const stopCollapse = document.createElement('div');
     stopCollapse.classList.add('collapse');
-    stopCollapse.id = `collapse${i}`;
+    stopCollapse.id = `${collapseId}`;
 
     const stopCollapseUl = document.createElement('ul');
     stopCollapseUl.classList.add('list-group');
 
-    for(let arrival of stop.node.stop.stoptimesWithoutPatterns){
+    for (let arrival of stop.node.stop.stoptimesWithoutPatterns) {
       const stopCollapseLi = document.createElement('li');
       stopCollapseLi.classList.add('list-group-item');
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
-      if(0<arrivaltime){
+      if (0 < arrivaltime) {
         arrivaltime = HSLData.formatTime(arrivaltime);
         stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign} - ${arrival.trip.route.shortName}`;
-      }else {
+      } else {
         stopCollapseLi.textContent += `lähtee huomenna`;
       }
       stopCollapseUl.appendChild(stopCollapseLi);
@@ -139,7 +145,17 @@ const renderBusStops = (stops) => {
     stopCollapse.appendChild(stopCollapseUl);
     stopLi.appendChild(stopCollapse);
     hslCardUl.append(stopLi);
-    i++;
+    const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
+      stop.node.stop.name, stopLi);
+    stopLi.addEventListener('click', (evt) => {
+      if (!marker.options.isOpen) {
+        marker.openPopup();
+        console.log('marker isOpen', marker.options.isOpen);
+      } else {
+        marker.closePopup();
+        console.log('marker isOpen', marker.options.isOpen);
+      }
+    });
   }
 };
 
@@ -160,9 +176,31 @@ const getMeal = async () => {
 };
 getMeal().then(data => console.log(data));
 
-const addMarker = (lat, lon, text = '') => {
-  L.marker([lat, lon]).
+const makeId = (lat, lon) => {
+  const listId1 = `a${lat}`.replace('.', '');
+  const listId2 = `${lon}`.replace('.', '');
+  return listId1 + listId2;
+};
+
+const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
+  const popUp = L.popup({autoClose: false, closeOnClick: false}).
+    setContent(text);
+  const marker = L.marker([lat, lon],
+    {myCustomId: makeId(lat, lon), isOpen: isOpen, icon: (elem.specialMarker ? youIcon : defaultIcon)}).
     addTo(map).
-    bindPopup(text).
-    openPopup();
+    bindPopup(popUp).
+    openPopup().on('popupopen', () => {
+      console.log('popupopen event');
+      if (!marker.options.isOpen && !elem.specialMarker) {
+        elem.click();
+        marker.options.isOpen = true;
+      }
+    }).on('popupclose', () => {
+      console.log('popupclose event');
+      if (marker.options.isOpen && !elem.specialMarker) {
+        elem.click();
+        marker.options.isOpen = false;
+      }
+    });
+  return marker;
 };
