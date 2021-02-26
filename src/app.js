@@ -62,7 +62,6 @@ const error = () => {
 const options = {
   enableHighAccuracy: true,
   maximumAge: 5000,
-  timeout: 0,
 };
 
 navigator.geolocation.getCurrentPosition(success, error, options);
