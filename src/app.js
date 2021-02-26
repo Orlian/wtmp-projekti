@@ -134,12 +134,12 @@ const renderBusStops = (stops) => {
       const stopCollapseLi = document.createElement('li');
       stopCollapseLi.classList.add('list-group-item');
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
-
+      if(arrivaltime > 0){
         arrivaltime = HSLData.formatTime(arrivaltime);
         stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign} - ${arrival.trip.route.shortName}`;
-      /*else {
+      } else {
         stopCollapseLi.textContent += `lähtee huomenna`;
-      }*/
+      }
       stopCollapseUl.appendChild(stopCollapseLi);
     }
     stopCollapse.appendChild(stopCollapseUl);
