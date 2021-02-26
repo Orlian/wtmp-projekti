@@ -12,6 +12,9 @@ const weatherCardUl = document.querySelector('#weather-card-ul');
 const campusDropdown = document.querySelector('#campus-selection');
 const hslCardUl = document.querySelector('.hsl-data-ul');
 const menuCardBody = document.querySelector('#restaurant-body');
+const searchButton = document.querySelector('#search-button');
+const searchInput = document.querySelector('#search-input');
+const sections = document.querySelectorAll('section');
 const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
 let languageSetting = 'fi';
@@ -260,5 +263,18 @@ campusDropdown.addEventListener('click', async (evt) => {
   console.log('currentCampus', currentCampus);
   await loadMenuData(currentCampus.restaurant);
 });
+
+searchButton.addEventListener('click', (event)=>{
+  event.preventDefault();
+  for(let section of  sections){
+    console.log(section);
+    if(section.innerHTML.toLowerCase().includes(searchInput.value.toLowerCase())){
+      section.style.display = 'block';
+    }else{
+      section.style.display = 'none';
+    }
+  }
+});
+
 
 init();
