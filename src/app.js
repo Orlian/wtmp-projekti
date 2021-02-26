@@ -152,6 +152,12 @@ const renderBusStops = (stops) => {
       }
       stopCollapseUl.appendChild(stopCollapseLi);
     }
+    if(stop.node.stop.stoptimesWithoutPatterns.length === 0) {
+      const stopCollapseLi = document.createElement('li');
+      stopCollapseLi.classList.add('list-group-item');
+      stopCollapseLi.textContent = 'No upcoming departures';
+      stopCollapseUl.appendChild(stopCollapseLi);
+    }
     stopCollapse.appendChild(stopCollapseUl);
     stopLi.appendChild(stopCollapse);
     hslCardUl.append(stopLi);
