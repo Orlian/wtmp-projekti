@@ -7,11 +7,8 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import WeatherData from './modules/weather-data';
 import HSLData from './modules/hsl-data';
 
-const weatherCard = document.querySelector('#weather-card');
-const weatherCardBody = document.querySelector('#weather-card-body');
 const weatherCardUl = document.querySelector('#weather-card-ul');
 
-const hslCard = document.querySelector('#hsl-data');
 const hslCardUl = document.querySelector('.hsl-data-ul');
 
 const map = L.map('map-card-body');
