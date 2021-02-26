@@ -13,6 +13,9 @@ const campusDropdown = document.querySelector('#campus-selection');
 const hslCardUl = document.querySelector('.hsl-data-ul');
 const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
+let languageSetting = 'fi';
+
+const today = new Date().toISOString().split('T')[0];
 
 const map = L.map('map-card-body');
 
@@ -47,6 +50,9 @@ L.Marker.prototype.options.icon = defaultIcon;
 
 const init = () => {
   CampusData.fetchLocalCampus(campusKey);
+  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
+    campusKey);
+  console.log('active campus object', activeCampus);
 };
 
 init();
@@ -139,7 +145,7 @@ const renderBusStops = (stops) => {
       const stopCollapseLi = document.createElement('li');
       stopCollapseLi.classList.add('list-group-item');
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
-      if(arrivaltime > 0){
+      if (arrivaltime > 0) {
         arrivaltime = HSLData.formatTime(arrivaltime);
         stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign} - ${arrival.trip.route.shortName}`;
       } else {
@@ -191,7 +197,11 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   const popUp = L.popup({autoClose: false, closeOnClick: false}).
     setContent(text);
   const marker = L.marker([lat, lon],
-    {myCustomId: makeId(lat, lon), isOpen: isOpen, icon: (elem.specialMarker ? youIcon : defaultIcon)}).
+    {
+      myCustomId: makeId(lat, lon),
+      isOpen: isOpen,
+      icon: (elem.specialMarker ? youIcon : defaultIcon),
+    }).
     addTo(map).
     bindPopup(popUp).
     openPopup().on('popupopen', () => {
@@ -210,8 +220,33 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   return marker;
 };
 
+const renderMenu = (menuData, restaurant) => {
+  const restaurantDiv = document.querySelector('#' + restaurant);
+  restaurantDiv.innerHTML = '';
+  const ul = document.createElement('ul');
+  for (const item of menuData) {
+    const listItem = document.createElement('li');
+    listItem.textContent = item;
+    ul.appendChild(listItem);
+  }
+  restaurantDiv.appendChild(ul);
+};
+
+const loadAllMenuData = async (restaurant) => {
+  try {
+    const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
+      languageSetting, today);
+    renderMenu(parsedMenu, restaurant.name);
+  } catch (error) {
+    console.error(error);
+    // notify user if errors with data
+    renderNoDataNotification('No data available..', restaurant.name);
+  }
+};
+
 campusDropdown.addEventListener('click', (evt) => {
   console.log('event target', evt.target.getAttribute('data-name'));
-  const currentCampus = CampusData.getCurrentCampus(evt.target.getAttribute('data-name'), campusList, campusKey);
-  console.log('current campus', currentCampus);
+  const currentCampus = CampusData.getCurrentCampus(
+    evt.target.getAttribute('data-name'), campusList, campusKey);
+  CampusData.saveLocalCampus(campusKey, currentCampus.name);
 });

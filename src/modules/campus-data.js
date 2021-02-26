@@ -44,10 +44,11 @@ const campusList = [
   },
 ];
 
-const getCurrentCampus = (input, campusList, key) => {
+const getCurrentCampus = (input = '', campusList, key) => {
   for (let campus of campusList) {
     if (input.toString() === campus.name.toLowerCase()) {
-      saveLocalCampus(key, campus.name);
+      return campus;
+    } else if(input === '' && fetchLocalCampus(key) === campus.name) {
       return campus;
     }
   }
@@ -61,5 +62,5 @@ const fetchLocalCampus = (key) => {
     return (localStorage.getItem(key) ? localStorage.getItem(key) : localStorage.setItem(key, 'Karamalmi'));
 };
 
-const CampusData = {campusList, getCurrentCampus, fetchLocalCampus};
+const CampusData = {campusList, getCurrentCampus, fetchLocalCampus, saveLocalCampus};
 export default CampusData;
