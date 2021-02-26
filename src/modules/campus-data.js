@@ -8,4 +8,5 @@ const campusList = [
   {name: 'Myyrmäki', coords: {latitude: 60.2586191, longitude: 24.8454723}, restaurant: {name: 'sodexo-myyrmaki', displayname: 'Sodexo Myyrmäki', id: 152, type: SodexoData}}
 ];
 
-export default campusList;
+const CampusData = {campusList};
+export default CampusData;

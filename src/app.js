@@ -6,6 +6,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import WeatherData from './modules/weather-data';
 import HSLData from './modules/hsl-data';
+import CampusData from './modules/campus-data';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
 
