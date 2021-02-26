@@ -11,10 +11,10 @@ import CampusData from './modules/campus-data';
 const weatherCardUl = document.querySelector('#weather-card-ul');
 const campusDropdown = document.querySelector('#campus-selection');
 const hslCardUl = document.querySelector('.hsl-data-ul');
+const menuCardBody = document.querySelector('#restaurant-body');
 const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
 let languageSetting = 'fi';
-
 const today = new Date().toISOString().split('T')[0];
 
 const map = L.map('map-card-body');
@@ -48,14 +48,13 @@ L.Marker.prototype.options.icon = defaultIcon;
   });
 }*/
 
-const init = () => {
+const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
+  await loadMenuData(activeCampus.restaurant);
   console.log('active campus object', activeCampus);
 };
-
-init();
 
 const success = async (position) => {
   await loadWeatherData(position.coords.latitude, position.coords.longitude);
@@ -220,33 +219,40 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   return marker;
 };
 
-const renderMenu = (menuData, restaurant) => {
-  const restaurantDiv = document.querySelector('#' + restaurant);
-  restaurantDiv.innerHTML = '';
+const renderMenu = (menuData) => {
+  menuCardBody.innerHTML = '';
   const ul = document.createElement('ul');
   for (const item of menuData) {
     const listItem = document.createElement('li');
     listItem.textContent = item;
     ul.appendChild(listItem);
   }
-  restaurantDiv.appendChild(ul);
+  menuCardBody.appendChild(ul);
 };
 
-const loadAllMenuData = async (restaurant) => {
+const renderNoDataNotification = (message) => {
+  menuCardBody.innerHTML = `<p>${message}</p>`;
+};
+
+const loadMenuData = async (restaurant) => {
   try {
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
       languageSetting, today);
-    renderMenu(parsedMenu, restaurant.name);
+    renderMenu(parsedMenu);
   } catch (error) {
     console.error(error);
     // notify user if errors with data
-    renderNoDataNotification('No data available..', restaurant.name);
+    renderNoDataNotification('No data available..');
   }
 };
 
-campusDropdown.addEventListener('click', (evt) => {
+campusDropdown.addEventListener('click', async (evt) => {
   console.log('event target', evt.target.getAttribute('data-name'));
   const currentCampus = CampusData.getCurrentCampus(
     evt.target.getAttribute('data-name'), campusList, campusKey);
   CampusData.saveLocalCampus(campusKey, currentCampus.name);
+  console.log('currentCampus', currentCampus);
+  await loadMenuData(currentCampus.restaurant);
 });
+
+init();
