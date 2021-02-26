@@ -9,8 +9,10 @@ import HSLData from './modules/hsl-data';
 import CampusData from './modules/campus-data';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
-
+const campusDropdown = document.querySelector('#campus-selection');
 const hslCardUl = document.querySelector('.hsl-data-ul');
+const campusKey = 'activeCampus';
+const campusList = CampusData.campusList;
 
 const map = L.map('map-card-body');
 
@@ -42,6 +44,12 @@ L.Marker.prototype.options.icon = defaultIcon;
     });
   });
 }*/
+
+const init = () => {
+  CampusData.fetchLocalCampus(campusKey);
+};
+
+init();
 
 const success = async (position) => {
   await loadWeatherData(position.coords.latitude, position.coords.longitude);
@@ -201,3 +209,9 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
     });
   return marker;
 };
+
+campusDropdown.addEventListener('click', (evt) => {
+  console.log('event target', evt.target.getAttribute('data-name'));
+  const currentCampus = CampusData.getCurrentCampus(evt.target.getAttribute('data-name'), campusList, campusKey);
+  console.log('current campus', currentCampus);
+});
