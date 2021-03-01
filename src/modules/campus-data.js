@@ -4,7 +4,7 @@ import FazerData from './fazer-data';
 const campusList = [
   {
     name: 'Arabia',
-    coords: {latitude: 60.2099184, longitude: 24.9067259},
+    coords: {latitude: 60.21015476867742, longitude: 24.976743641873423},
     restaurant: {
       name: 'compas-arabia',
       displayname: 'Compas Arabia',

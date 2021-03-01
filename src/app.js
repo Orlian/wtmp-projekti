@@ -2,15 +2,16 @@
 import './styles/styles.scss';
 import 'bootstrap';
 import 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import WeatherData from './modules/weather-data';
 import HSLData from './modules/hsl-data';
 import CampusData from './modules/campus-data';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
+const weatherCardBody = document.querySelector('#weather-card-body');
 const campusDropdown = document.querySelector('#campus-selection');
 const hslCardUl = document.querySelector('.hsl-data-ul');
+const hslCard = document.querySelector('#hsl-data');
 const menuCardBody = document.querySelector('#restaurant-body');
 const searchButton = document.querySelector('#search-button');
 const searchInput = document.querySelector('#search-input');
@@ -31,21 +32,22 @@ const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
 let languageSetting = 'fi';
 const today = new Date().toISOString().split('T')[0];
+const noDataMessage = 'No data available';
 
 const map = L.map('map-card-body');
 
 const defaultIcon = L.icon({
-  iconUrl: icon,
-  iconSize: [24, 36],
-  iconAnchor: [24, 36],
-  popupAnchor: [-13, -40],
+  iconUrl: './assets/pictures/pin.png',
+  iconSize: [32, 36],
+  iconAnchor: [14, 36],
+  popupAnchor: [2, -40],
   shadowUrl: iconShadow,
   shadowSize: [30, 40],
-  shadowAnchor: [24, 36],
+  shadowAnchor: [10, 36],
 });
 
 const youIcon = L.icon({
-  iconUrl: './assets/pictures/men-silhouette.png',
+  iconUrl: './assets/pictures/mortarboard.png',
   iconSize: [36, 48],
   iconAnchor: [24, 36],
   popupAnchor: [-5, -40],
@@ -67,34 +69,21 @@ const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
-  await loadMenuData(activeCampus.restaurant);
+  await loadApiData(activeCampus);
   console.log('active campus object', activeCampus);
 };
 
-const success = async (position) => {
-  localStorage.setItem('lat', position.coords.latitude);
-  localStorage.setItem('lon', position.coords.longitude);
-  await loadWeatherData(position.coords.latitude, position.coords.longitude);
-  await loadBusStops(position.coords.latitude, position.coords.longitude);
-
-  map.setView([position.coords.latitude, position.coords.longitude], 15);
+const loadApiData = async (campus) => {
+  await loadWeatherData(campus.coords.latitude, campus.coords.longitude);
+  await loadBusStops(campus.coords.latitude, campus.coords.longitude);
+  await loadMenuData(campus.restaurant);
+  map.setView([campus.coords.latitude, campus.coords.longitude], 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
-  addMarker(position.coords.latitude, position.coords.longitude, 'Olet tässä',
+  addMarker(campus.coords.latitude, campus.coords.longitude, `${campus.name}`,
     {specialMarker: true}, true);
 };
-
-const error = () => {
-  alert('Sorry, no position available.');
-};
-
-const options = {
-  enableHighAccuracy: true,
-  maximumAge: 5000,
-};
-
-navigator.geolocation.getCurrentPosition(success, error, options);
 
 const loadWeatherData = async (lat, lon) => {
   try {
@@ -104,6 +93,7 @@ const loadWeatherData = async (lat, lon) => {
     renderWeatherData(weather);
   } catch (error) {
     console.log(error.message);
+    renderNoDataNotification(weatherCardBody, noDataMessage);
   }
 };
 
@@ -113,7 +103,7 @@ const renderWeatherData = (weatherObject) => {
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
   listItemImg.src = (`${weatherObject.currentWeather.icon}`);
-  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(0)}\u00B0C ${weatherObject.currentWeather.feels_like.toFixed(0)}\u00B0C`;
+  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(0)}\u00B0C Feels like: ${weatherObject.currentWeather.feels_like.toFixed(0)}\u00B0C`;
   listItem.prepend(listItemImg);
   weatherCardUl.appendChild(listItem);
 
@@ -136,6 +126,7 @@ const loadBusStops = async (lat, lon) => {
     renderBusStops(stops.data.stopsByRadius.edges);
   } catch (err) {
     console.error('loadBusStops error', err.message);
+    renderNoDataNotification(hslCard, noDataMessage);
   }
 };
 
@@ -194,30 +185,6 @@ const renderBusStops = (stops) => {
   }
 };
 
-const updateHslData = async (lat, lon) => {
-  const stops = await HSLData.getStopsByRadius(lat, lon, 700);
-  for(let stop of stops) {
-
-  }
-};
-
-// Async function with error handling
-const getMeal = async () => {
-  let response;
-  try {
-    response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://users.metropolia.fi/~oskarpi/media-alustat/compass.json`);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status} ${response.statusText}`);
-    }
-  } catch (error) {
-    console.error('getMeal error', error.message);
-  }
-  let meals = await response.json();
-  return meals;
-};
-getMeal().then(data => console.log(data));
-
 const makeId = (lat, lon) => {
   const listId1 = `a${lat}`.replace('.', '');
   const listId2 = `${lon}`.replace('.', '');
@@ -234,8 +201,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
       icon: (elem.specialMarker ? youIcon : defaultIcon),
     }).
     addTo(map).
-    bindPopup(popUp).
-    openPopup().on('popupopen', () => {
+    bindPopup(popUp).on('popupopen', () => {
       console.log('popupopen event');
       if (!marker.options.isOpen && !elem.specialMarker) {
         elem.click();
@@ -251,30 +217,34 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   return marker;
 };
 
-const renderMenu = (menuData) => {
+const renderMenu = (menuData, restaurant) => {
   menuCardBody.innerHTML = '';
+  const restaurantHeader = document.createElement('h4');
+  restaurantHeader.textContent = restaurant.displayname;
+  restaurantHeader.classList.add('text-center');
   const ul = document.createElement('ul');
   for (const item of menuData) {
     const listItem = document.createElement('li');
     listItem.textContent = item;
     ul.appendChild(listItem);
   }
+  menuCardBody.appendChild(restaurantHeader);
   menuCardBody.appendChild(ul);
 };
 
-const renderNoDataNotification = (message) => {
-  menuCardBody.innerHTML = `<p>${message}</p>`;
+const renderNoDataNotification = (element ,message) => {
+  element.innerHTML = `<p>${message}</p>`;
 };
 
 const loadMenuData = async (restaurant) => {
   try {
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
       languageSetting, today);
-    renderMenu(parsedMenu);
+    renderMenu(parsedMenu, restaurant);
   } catch (error) {
     console.error(error);
     // notify user if errors with data
-    renderNoDataNotification('No data available..');
+    renderNoDataNotification(menuCardBody, noDataMessage);
   }
 };
 
@@ -284,7 +254,10 @@ campusDropdown.addEventListener('click', async (evt) => {
     evt.target.getAttribute('data-name'), campusList, campusKey);
   CampusData.saveLocalCampus(campusKey, currentCampus.name);
   console.log('currentCampus', currentCampus);
-  await loadMenuData(currentCampus.restaurant);
+  map.eachLayer((layer) => {
+    layer.remove();
+  });
+  await loadApiData(currentCampus);
 });
 
 searchButton.addEventListener('click', (event) => {
@@ -384,7 +357,10 @@ weatherLink.addEventListener('click', (event) => {
   weatherLink.classList.add('active');
   weatherLink.setAttribute('aria-current', 'page');
 });
-
+/*
 setInterval(async () => {
-
-}, 60000);
+  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
+    campusKey);
+  await loadBusStops(activeCampus.coords.latitude, activeCampus.coords.longitude);
+  await loadWeatherData(activeCampus.coords.latitude, activeCampus.coords.longitude);
+}, 60000);*/
