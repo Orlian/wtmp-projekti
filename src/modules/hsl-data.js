@@ -9,9 +9,9 @@ const apiUrl = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql'
  * @param {number} radius - Search radius in meters
  * @returns {Promise<*>}
  */
-const getStopsByRadius = async (location, radius) => {
+const getStopsByRadius = async (lat, lon, radius) => {
   const query = `{
-    stopsByRadius(lat:${location.latitude}, lon:${location.longitude}, radius:${radius}, first: 5) {
+    stopsByRadius(lat:${lat}, lon:${lon}, radius:${radius}, first: 5) {
       edges {
         node {
           stop {

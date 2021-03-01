@@ -19,7 +19,7 @@ const homeButton = document.querySelector('#navbar-brand-img');
 const homeLink = document.querySelector('#nav-item-home');
 const briefingLink = document.querySelector('#nav-item-briefing');
 const menuLink = document.querySelector('#nav-item-menu');
-const hslLink= document.querySelector('#nav-item-hsl');
+const hslLink = document.querySelector('#nav-item-hsl');
 const weatherLink = document.querySelector('#nav-item-weather');
 const coronaCarousel = document.querySelector('#corona-carousel');
 const briefingSection = document.querySelector('#briefing-section');
@@ -72,8 +72,10 @@ const init = async () => {
 };
 
 const success = async (position) => {
+  localStorage.setItem('lat', position.coords.latitude);
+  localStorage.setItem('lon', position.coords.longitude);
   await loadWeatherData(position.coords.latitude, position.coords.longitude);
-  await loadBusStops(position.coords);
+  await loadBusStops(position.coords.latitude, position.coords.longitude);
 
   map.setView([position.coords.latitude, position.coords.longitude], 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -106,6 +108,7 @@ const loadWeatherData = async (lat, lon) => {
 };
 
 const renderWeatherData = (weatherObject) => {
+  weatherCardUl.innerHTML = '';
   const listItem = document.createElement('li');
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
@@ -126,17 +129,18 @@ const renderWeatherData = (weatherObject) => {
 
 };
 
-const loadBusStops = async (location) => {
+const loadBusStops = async (lat, lon) => {
   try {
-    const stops = await HSLData.getStopsByRadius(location, 700);
+    const stops = await HSLData.getStopsByRadius(lat, lon, 700);
     console.log('stops data:', stops.data.stopsByRadius.edges);
     renderBusStops(stops.data.stopsByRadius.edges);
   } catch (err) {
-
+    console.error('loadBusStops error', err.message);
   }
 };
 
 const renderBusStops = (stops) => {
+  hslCardUl.innerHTML = '';
   for (let stop of stops) {
     const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
     const stopLi = document.createElement('li');
@@ -167,7 +171,7 @@ const renderBusStops = (stops) => {
       }
       stopCollapseUl.appendChild(stopCollapseLi);
     }
-    if(stop.node.stop.stoptimesWithoutPatterns.length === 0) {
+    if (stop.node.stop.stoptimesWithoutPatterns.length === 0) {
       const stopCollapseLi = document.createElement('li');
       stopCollapseLi.classList.add('list-group-item');
       stopCollapseLi.textContent = 'No upcoming departures';
@@ -190,6 +194,10 @@ const renderBusStops = (stops) => {
   }
 };
 
+const updateHslData = async (lat, lon) => {
+  const stops = await HSLData.getStopsByRadius(lat, lon, 700);
+};
+
 // Async function with error handling
 const getMeal = async () => {
   let response;
@@ -200,10 +208,10 @@ const getMeal = async () => {
       throw new Error(`HTTP ${response.status} ${response.statusText}`);
     }
   } catch (error) {
-    console.error('getGithubReposOfUser error', error.message);
+    console.error('getMeal error', error.message);
   }
-  let repos = await response.json();
-  return repos;
+  let meals = await response.json();
+  return meals;
 };
 getMeal().then(data => console.log(data));
 
@@ -276,19 +284,20 @@ campusDropdown.addEventListener('click', async (evt) => {
   await loadMenuData(currentCampus.restaurant);
 });
 
-searchButton.addEventListener('click', (event)=>{
+searchButton.addEventListener('click', (event) => {
   event.preventDefault();
-  for(let section of  sections){
+  for (let section of sections) {
     console.log(section);
-    if(section.innerHTML.toLowerCase().includes(searchInput.value.toLowerCase())){
+    if (section.innerHTML.toLowerCase().
+      includes(searchInput.value.toLowerCase())) {
       section.style.display = 'block';
-    }else{
+    } else {
       section.style.display = 'none';
     }
   }
 });
 
-const removePageAttributes = () =>{
+const removePageAttributes = () => {
   homeLink.classList.remove('active');
   homeLink.removeAttribute('aria-current');
   briefingLink.classList.remove('active');
@@ -303,29 +312,29 @@ const removePageAttributes = () =>{
 
 init();
 
-homeButton.addEventListener('click', (event)=>{
+homeButton.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'block';
-  for (const section of sections){
+  for (const section of sections) {
     section.style.display = 'block';
   }
   removePageAttributes();
   homeLink.classList.add('active');
-  homeLink.setAttribute('aria-current','page');
+  homeLink.setAttribute('aria-current', 'page');
 });
 
-homeLink.addEventListener('click', (event)=>{
+homeLink.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'block';
-  for (const section of sections){
+  for (const section of sections) {
     section.style.display = 'block';
   }
   removePageAttributes();
   homeLink.classList.add('active');
-  homeLink.setAttribute('aria-current','page');
+  homeLink.setAttribute('aria-current', 'page');
 });
 
-briefingLink.addEventListener('click', (event) =>{
+briefingLink.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'none';
   briefingSection.style.display = 'block';
@@ -334,10 +343,10 @@ briefingLink.addEventListener('click', (event) =>{
   weatherSection.style.display = 'none';
   removePageAttributes();
   briefingLink.classList.add('active');
-  briefingLink.setAttribute('aria-current','page');
+  briefingLink.setAttribute('aria-current', 'page');
 });
 
-menuLink.addEventListener('click', (event)=>{
+menuLink.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'none';
   briefingSection.style.display = 'none';
@@ -346,10 +355,10 @@ menuLink.addEventListener('click', (event)=>{
   weatherSection.style.display = 'none';
   removePageAttributes();
   menuLink.classList.add('active');
-  menuLink.setAttribute('aria-current','page');
+  menuLink.setAttribute('aria-current', 'page');
 });
 
-hslLink.addEventListener('click', (event) =>{
+hslLink.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'none';
   briefingSection.style.display = 'none';
@@ -358,10 +367,10 @@ hslLink.addEventListener('click', (event) =>{
   weatherSection.style.display = 'none';
   removePageAttributes();
   hslLink.classList.add('active');
-  hslLink.setAttribute('aria-current','page');
+  hslLink.setAttribute('aria-current', 'page');
 });
 
-weatherLink.addEventListener('click', (event)=>{
+weatherLink.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'none';
   briefingSection.style.display = 'none';
@@ -370,6 +379,9 @@ weatherLink.addEventListener('click', (event)=>{
   weatherSection.style.display = 'block';
   removePageAttributes();
   weatherLink.classList.add('active');
-  weatherLink.setAttribute('aria-current','page');
+  weatherLink.setAttribute('aria-current', 'page');
 });
 
+setInterval(async () => {
+
+}, 60000);
