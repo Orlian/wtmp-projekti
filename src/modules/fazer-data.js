@@ -22,8 +22,9 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
   let dailyMenu = menuData.LunchMenus[dayOfWeek].SetMenus.map(setMenu => {
     // console.log(setMenu);
     let mealName = setMenu.Name;
+    let mealPrice = setMenu.Price;
     let dishes = setMenu.Meals.map(dish => {
-      return `${dish.Name} (${dish.Diets.join(', ')})`;
+      return `${dish.Name} (${dish.Diets.join(', ')}) ${mealPrice}`;
     });
     return mealName ? `${mealName}: ${dishes.join(', ')}` : dishes.join(', ');
   });
