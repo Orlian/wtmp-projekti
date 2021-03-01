@@ -30,7 +30,7 @@ const parseHourlyForecastData = (hourlyForecastData) => {
   for (const hourlyWeather of hourlyForecastData.hourly) {
     let hourlyWeatherObject = {
       'time': formatHourMins(hourlyWeather.dt),
-      'temp': hourlyWeather.temp.toNumber.toFixed(0),
+      'temp': hourlyWeather.temp,
       'feels_like': hourlyWeather.feels_like,
       'desc': hourlyWeather.weather[0].description,
       'icon': `http://openweathermap.org/img/wn/${hourlyWeather.weather[0].icon}.png`,

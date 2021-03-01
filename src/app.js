@@ -113,7 +113,7 @@ const renderWeatherData = (weatherObject) => {
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
   listItemImg.src = (`${weatherObject.currentWeather.icon}`);
-  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp}C ${weatherObject.currentWeather.feels_like}C`;
+  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(0)}\u00B0C ${weatherObject.currentWeather.feels_like.toFixed(0)}\u00B0C`;
   listItem.prepend(listItemImg);
   weatherCardUl.appendChild(listItem);
 
@@ -122,7 +122,7 @@ const renderWeatherData = (weatherObject) => {
     const listItemImg = document.createElement('img');
     listItemImg.classList.add('hour-weather-icon');
     listItemImg.src = (`${weatherObject.weatherForecast[hourWeather].icon}`);
-    listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp}C ${weatherObject.weatherForecast[hourWeather].feels_like}C`;
+    listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(0)}\u00B0C ${weatherObject.weatherForecast[hourWeather].feels_like.toFixed(0)}\u00B0C`;
     listItem.prepend(listItemImg);
     weatherCardUl.appendChild(listItem);
   }
