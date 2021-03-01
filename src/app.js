@@ -15,6 +15,18 @@ const menuCardBody = document.querySelector('#restaurant-body');
 const searchButton = document.querySelector('#search-button');
 const searchInput = document.querySelector('#search-input');
 const sections = document.querySelectorAll('section');
+const homeButton = document.querySelector('#navbar-brand-img');
+const homeLink = document.querySelector('#nav-item-home');
+const briefingLink = document.querySelector('#nav-item-briefing');
+const menuLink = document.querySelector('#nav-item-menu');
+const hslLink= document.querySelector('#nav-item-hsl');
+const weatherLink = document.querySelector('#nav-item-weather');
+const coronaCarousel = document.querySelector('#corona-carousel');
+const briefingSection = document.querySelector('#briefing-section');
+const menuSection = document.querySelector('#menu-section');
+const hslSection = document.querySelector('#hsl-section');
+const weatherSection = document.querySelector('#weather-section');
+
 const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
 let languageSetting = 'fi';
@@ -276,5 +288,88 @@ searchButton.addEventListener('click', (event)=>{
   }
 });
 
+const removePageAttributes = () =>{
+  homeLink.classList.remove('active');
+  homeLink.removeAttribute('aria-current');
+  briefingLink.classList.remove('active');
+  briefingLink.removeAttribute('aria-current');
+  menuLink.classList.remove('active');
+  menuLink.removeAttribute('aria-current');
+  hslLink.classList.remove('active');
+  hslLink.removeAttribute('aria-current');
+  weatherLink.classList.remove('active');
+  weatherLink.removeAttribute('aria-current');
+};
 
 init();
+
+homeButton.addEventListener('click', (event)=>{
+  event.preventDefault();
+  coronaCarousel.style.display = 'block';
+  for (const section of sections){
+    section.style.display = 'block';
+  }
+  removePageAttributes();
+  homeLink.classList.add('active');
+  homeLink.setAttribute('aria-current','page');
+});
+
+homeLink.addEventListener('click', (event)=>{
+  event.preventDefault();
+  coronaCarousel.style.display = 'block';
+  for (const section of sections){
+    section.style.display = 'block';
+  }
+  removePageAttributes();
+  homeLink.classList.add('active');
+  homeLink.setAttribute('aria-current','page');
+});
+
+briefingLink.addEventListener('click', (event) =>{
+  event.preventDefault();
+  coronaCarousel.style.display = 'none';
+  briefingSection.style.display = 'block';
+  menuSection.style.display = 'none';
+  hslSection.style.display = 'none';
+  weatherSection.style.display = 'none';
+  removePageAttributes();
+  briefingLink.classList.add('active');
+  briefingLink.setAttribute('aria-current','page');
+});
+
+menuLink.addEventListener('click', (event)=>{
+  event.preventDefault();
+  coronaCarousel.style.display = 'none';
+  briefingSection.style.display = 'none';
+  menuSection.style.display = 'block';
+  hslSection.style.display = 'none';
+  weatherSection.style.display = 'none';
+  removePageAttributes();
+  menuLink.classList.add('active');
+  menuLink.setAttribute('aria-current','page');
+});
+
+hslLink.addEventListener('click', (event) =>{
+  event.preventDefault();
+  coronaCarousel.style.display = 'none';
+  briefingSection.style.display = 'none';
+  menuSection.style.display = 'none';
+  hslSection.style.display = 'block';
+  weatherSection.style.display = 'none';
+  removePageAttributes();
+  hslLink.classList.add('active');
+  hslLink.setAttribute('aria-current','page');
+});
+
+weatherLink.addEventListener('click', (event)=>{
+  event.preventDefault();
+  coronaCarousel.style.display = 'none';
+  briefingSection.style.display = 'none';
+  menuSection.style.display = 'none';
+  hslSection.style.display = 'none';
+  weatherSection.style.display = 'block';
+  removePageAttributes();
+  weatherLink.classList.add('active');
+  weatherLink.setAttribute('aria-current','page');
+});
+
