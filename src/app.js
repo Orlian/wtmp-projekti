@@ -196,6 +196,7 @@ const renderBusStops = (stops) => {
 
 const updateHslData = async (lat, lon) => {
   const stops = await HSLData.getStopsByRadius(lat, lon, 700);
+
 };
 
 // Async function with error handling

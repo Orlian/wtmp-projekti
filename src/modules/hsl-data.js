@@ -5,7 +5,8 @@ const apiUrl = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql'
 /**
  * Fetches nearby stops based on user coordinates and their upcoming buses
  *
- * @param {object} location - User's geolocation object
+ * @param {number} lat - User's latitude
+ * @param {number} lon - User's longitude
  * @param {number} radius - Search radius in meters
  * @returns {Promise<*>}
  */
