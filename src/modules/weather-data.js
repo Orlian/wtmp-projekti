@@ -22,15 +22,15 @@ const parseHourlyForecastData = (hourlyForecastData) => {
   const hourlyForecastArray = [];
   let currentWeatherObject = {
     'time': formatHourMins(hourlyForecastData.current.dt),
-    'temp': hourlyForecastData.current.temp.toNumber.toFixed(0),
-    'feels_like': hourlyForecastData.current.feels_like.toNumber.toFixed(0),
+    'temp': hourlyForecastData.current.temp,
+    'feels_like': hourlyForecastData.current.feels_like,
     'desc': hourlyForecastData.current.weather[0].description,
     'icon': `http://openweathermap.org/img/wn/${hourlyForecastData.current.weather[0].icon}.png`,
   };
   for (const hourlyWeather of hourlyForecastData.hourly) {
     let hourlyWeatherObject = {
       'time': formatHourMins(hourlyWeather.dt),
-      'temp': hourlyWeather.temp,
+      'temp': hourlyWeather.temp.toNumber.toFixed(0),
       'feels_like': hourlyWeather.feels_like,
       'desc': hourlyWeather.weather[0].description,
       'icon': `http://openweathermap.org/img/wn/${hourlyWeather.weather[0].icon}.png`,
