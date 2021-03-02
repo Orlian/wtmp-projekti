@@ -55,6 +55,13 @@ const campusList = [
   },
 ];
 
+/**
+ * Compares and finds the campus that matches the corresponding link clicked
+ * @param {string} input - link target campus
+ * @param {array} campusList - Array of campus objects
+ * @param {string} key - key string for localStorage
+ * @returns {Object}
+ */
 const getCurrentCampus = (input = '', campusList, key) => {
   for (let campus of campusList) {
     if (input.toString() === campus.name.toLowerCase()) {
@@ -65,10 +72,20 @@ const getCurrentCampus = (input = '', campusList, key) => {
   }
 };
 
+/**
+ * Saves the new choice as active campus in localStorage
+ * @param {string} key - key string for localStorage
+ * @param {string} value - current campus name
+ */
 const saveLocalCampus = (key, value) => {
   localStorage.setItem(key, value);
 };
 
+/**
+ * Retrieves the active campus from localStorage if it exists, or sets a default
+ * @param {string} key - key string for localStorage
+ * @returns {string|void}
+ */
 const fetchLocalCampus = (key) => {
     return (localStorage.getItem(key) ? localStorage.getItem(key) : localStorage.setItem(key, 'Karamalmi'));
 };
