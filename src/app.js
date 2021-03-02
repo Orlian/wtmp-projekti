@@ -18,7 +18,8 @@ const searchInput = document.querySelector('#search-input');
 const sections = document.querySelectorAll('section');
 const homeButton = document.querySelector('#navbar-brand-img');
 const homeLink = document.querySelector('#nav-item-home');
-const briefingLink = document.querySelector('#nav-item-briefing');
+const briefingNavLink = document.querySelector('#briefing-nav-link');
+const briefingLinks = document.querySelectorAll('.briefing-link');
 const menuLink = document.querySelector('#nav-item-menu');
 const hslLink = document.querySelector('#nav-item-hsl');
 const weatherLink = document.querySelector('#nav-item-weather');
@@ -284,8 +285,8 @@ searchButton.addEventListener('click', (event) => {
 const removePageAttributes = () => {
   homeLink.classList.remove('active');
   homeLink.removeAttribute('aria-current');
-  briefingLink.classList.remove('active');
-  briefingLink.removeAttribute('aria-current');
+  briefingNavLink.classList.remove('active');
+  briefingNavLink.removeAttribute('aria-current');
   menuLink.classList.remove('active');
   menuLink.removeAttribute('aria-current');
   hslLink.classList.remove('active');
@@ -318,16 +319,18 @@ homeLink.addEventListener('click', (event) => {
   homeLink.setAttribute('aria-current', 'page');
 });
 
-briefingLink.addEventListener('click', (event) => {
-  event.preventDefault();
-  coronaCarousel.style.display = 'none';
-  briefingSection.style.display = 'block';
-  menuSection.style.display = 'none';
-  hslSection.style.display = 'none';
-  weatherSection.style.display = 'none';
-  removePageAttributes();
-  briefingLink.classList.add('active');
-  briefingLink.setAttribute('aria-current', 'page');
+briefingLinks.forEach((link)=>{
+  link.addEventListener('click', (event)=>{
+    event.preventDefault();
+    coronaCarousel.style.display = 'none';
+    briefingSection.style.display = 'block';
+    menuSection.style.display = 'none';
+    hslSection.style.display = 'none';
+    weatherSection.style.display = 'none';
+    removePageAttributes();
+    briefingNavLink.classList.add('active');
+    briefingNavLink.setAttribute('aria-current', 'page');
+  });
 });
 
 menuLink.addEventListener('click', (event) => {

@@ -53,3 +53,12 @@ p {
   padding: 0 1em;
   color: black;
 }
+.carousel-caption{
+  top: 50%;
+  bottom: initial;
+  transform: translateY(-50%);
+  p{
+    margin-bottom: 0;
+  }
+}
+
