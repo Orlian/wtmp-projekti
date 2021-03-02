@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Functions for managing Weather data from OpenWeather API data
+ * Functions for managing Weather data from OpenWeather API
  * @module modules/weather-data
  * @author oskarpi <oskarpi@metropolia.fi>
  *
@@ -66,6 +66,11 @@ const getHourlyForecast = async (lat, lon, lang) => {
   return parsedForecast;
 };
 
+/**
+ * Formats the time in the weather data into a readable state
+ * @param {number} unixtime - timestamp in unix seconds
+ * @returns {string}
+ */
 const formatHourMins = (unixtime) =>{
   let currentDate = new Date(unixtime*1000);
   let hours = currentDate.getHours();

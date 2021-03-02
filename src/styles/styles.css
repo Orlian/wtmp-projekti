@@ -10677,4 +10677,13 @@ p {
   color: black;
 }
 
+.carousel-caption {
+  top: 50%;
+  bottom: initial;
+  transform: translateY(-50%);
+}
+.carousel-caption p {
+  margin-bottom: 0;
+}
+
 /*# sourceMappingURL=styles.css.map */

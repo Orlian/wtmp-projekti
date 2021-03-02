@@ -1,3 +1,10 @@
+'use strict';
+/**
+ * Functions and Objects for all campus related data
+ * @module modules/campus-data
+ * @author joonasdl <joonasdl@metropolia.fi>
+ */
+
 import SodexoData from './sodexo-data';
 import FazerData from './fazer-data';
 

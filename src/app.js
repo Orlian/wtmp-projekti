@@ -1,4 +1,5 @@
 'use strict';
+
 import './styles/styles.scss';
 import 'bootstrap';
 import 'leaflet';
@@ -68,15 +69,25 @@ L.Marker.prototype.options.icon = defaultIcon;
   });
 }*/
 
+/**
+ * Initialization function that calls all relevant functions at page load
+ * fetches active campus from localStorage or sets a default one
+ * @returns {Promise<void>}
+ */
 const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
   loadBanner(activeCampus);
   await loadApiData(activeCampus);
-  console.log('active campus object', activeCampus);
 };
 
+/**
+ * Bundled function that calls all functions requiring active campus data and
+ * sets up the leaflet map with relevant position and markers
+ * @param {Object} campus - Active campus data
+ * @returns {Promise<void>}
+ */
 const loadApiData = async (campus) => {
   await loadWeatherData(campus.coords.latitude, campus.coords.longitude);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude);
@@ -89,6 +100,12 @@ const loadApiData = async (campus) => {
     {specialMarker: true}, true);
 };
 
+/**
+ * Fetches weather data for active campus from weather module
+ * @param {number} lat - Campus latitude
+ * @param {number} lon - Campus longitude
+ * @returns {Promise<void>}
+ */
 const loadWeatherData = async (lat, lon) => {
   try {
     const weather = await WeatherData.getHourlyForecast(lat, lon,
@@ -101,6 +118,10 @@ const loadWeatherData = async (lat, lon) => {
   }
 };
 
+/**
+ * Renders campus weather data into relevant objects
+ * @param {Object} weatherObject - Contains formatted weather data
+ */
 const renderWeatherData = (weatherObject) => {
   weatherCardUl.innerHTML = '';
   const listItem = document.createElement('li');
@@ -123,6 +144,12 @@ const renderWeatherData = (weatherObject) => {
 
 };
 
+/**
+ * Fetches HSL-data about nearby public transport stops and timetables
+ * @param {number} lat - Campus latitude
+ * @param {number} lon - Campus longitude
+ * @returns {Promise<void>}
+ */
 const loadBusStops = async (lat, lon) => {
   try {
     const stops = await HSLData.getStopsByRadius(lat, lon, 700);
@@ -134,6 +161,10 @@ const loadBusStops = async (lat, lon) => {
   }
 };
 
+/**
+ * Renders HSL-data into relevant elements
+ * @param {Object} stops - GraphQl object containing data of stops and departures
+ */
 const renderBusStops = (stops) => {
   hslCardUl.innerHTML = '';
   for (let stop of stops) {
@@ -189,12 +220,27 @@ const renderBusStops = (stops) => {
   }
 };
 
+/**
+ * Combines coordinates into a unique id
+ * @param {number} lat - Latitude
+ * @param {number} lon - Longitude
+ * @returns {string}
+ */
 const makeId = (lat, lon) => {
   const listId1 = `a${lat}`.replace('.', '');
   const listId2 = `${lon}`.replace('.', '');
   return listId1 + listId2;
 };
 
+/**
+ *
+ * @param {number} lat - Marker latitude
+ * @param {number} lon - Marker longitude
+ * @param {string} text - Marker popup text
+ * @param {Object} elem - Represents the linked collapsible li-element that shares the same stop-data as the marker
+ * @param {boolean} isOpen - Represents whether marker's bound popup is open or not
+ * @returns {*}
+ */
 const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   const popUp = L.popup({autoClose: false, closeOnClick: false}).
     setContent(text);
@@ -221,6 +267,11 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   return marker;
 };
 
+/**
+ *
+ * @param {Object} menuData - Parsed JSON-data from restaurant API
+ * @param {Object} restaurant - Restaurant of the active campus
+ */
 const renderMenu = (menuData, restaurant) => {
   menuCardBody.innerHTML = '';
   const restaurantHeader = document.createElement('h4');
@@ -236,10 +287,20 @@ const renderMenu = (menuData, restaurant) => {
   menuCardBody.appendChild(ul);
 };
 
+/**
+ * Replaces restaurant menu with no data message if no data is found
+ * @param {Object} element - Targeted element for message
+ * @param {string} message - Message for targeted element
+ */
 const renderNoDataNotification = (element ,message) => {
   element.innerHTML = `<p>${message}</p>`;
 };
 
+/**
+ * Calls relevant restaurant fetch function based on active campus restaurant
+ * @param {Object} restaurant - Restaurant from the active campus object
+ * @returns {Promise<void>}
+ */
 const loadMenuData = async (restaurant) => {
   try {
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
@@ -252,6 +313,10 @@ const loadMenuData = async (restaurant) => {
   }
 };
 
+/**
+ * Loads the correct banner image and text based on campus choice
+ * @param {Object} campus - Active campus object
+ */
 const loadBanner = (campus) => {
   bannerImage.style.backgroundImage = `url(${campus.image.url})`;
   bannerImage.style.backgroundPosition = `center ${campus.image.offset}em`;
@@ -282,6 +347,9 @@ searchButton.addEventListener('click', (event) => {
   }
 });
 
+/**
+ * Removes the 'active' class and attribute from all links
+ */
 const removePageAttributes = () => {
   homeLink.classList.remove('active');
   homeLink.removeAttribute('aria-current');

@@ -1,3 +1,8 @@
+/**
+ * Functions for dealing with HSL traffic data
+ * @module modules/hsl-data
+ * @author joonasdl <joonasdl@metropolia.fi>
+ */
 import {fetchPostJson} from './network';
 
 const apiUrl = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
@@ -45,6 +50,11 @@ const getStopsByRadius = async (lat, lon, radius) => {
 
 };
 
+/**
+ * Calculates how many seconds from midnight a unix timestamp represents
+ * @param {number} arrivalTime - Unix timestamp of arrival time
+ * @returns {number}
+ */
 const secondsFromArrival = (arrivalTime) =>{
   //let currentTime = new Date()-new Date().setHours(0,0,0,0);
   let now = new Date();
