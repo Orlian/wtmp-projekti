@@ -10662,4 +10662,19 @@ p {
   width: 100%;
 }
 
+#banner {
+  background-image: url("../assets/pictures/karamalmi.jpg");
+  height: 15em;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#banner-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+
 /*# sourceMappingURL=styles.css.map */

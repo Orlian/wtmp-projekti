@@ -7,7 +7,6 @@
 import {fazerProxyUrl} from "../settings";
 import {fetchGetJson} from "./network";
 
-// TODO: Fix hard coded date, note that Karaportti is closed for now
 const weeklyUrlEn = `${fazerProxyUrl}/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=`;
 const weeklyUrlFi = `${fazerProxyUrl}/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=`;
 
@@ -22,7 +21,7 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
   let dailyMenu = menuData.LunchMenus[dayOfWeek].SetMenus.map(setMenu => {
     // console.log(setMenu);
     let mealName = setMenu.Name;
-    let mealPrice = setMenu.Price;
+    let mealPrice = setMenu.Price ? setMenu.Price : '-';
     let dishes = setMenu.Meals.map(dish => {
       return `${dish.Name} (${dish.Diets.join(', ')}) ${mealPrice}`;
     });
@@ -35,6 +34,7 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
  * Get daily menu from Fazer API
  *
  * @async
+ * @param {number} restaurantId - Id of the restaurant
  * @param {string} lang
  * @param {string} date in ISO format (YYYY-MM-DD)
  * @return {Promise<string>} Daily menu data
