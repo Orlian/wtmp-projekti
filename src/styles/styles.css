@@ -10663,9 +10663,8 @@ p {
 }
 
 #banner {
-  background-image: url("../assets/pictures/karamalmi.jpg");
   height: 15em;
-  background-position: center;
+  background-position: center bottom;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10673,7 +10672,8 @@ p {
 }
 
 #banner-card {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0 1em;
   color: black;
 }
 

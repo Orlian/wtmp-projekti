@@ -27,6 +27,8 @@ const briefingSection = document.querySelector('#briefing-section');
 const menuSection = document.querySelector('#menu-section');
 const hslSection = document.querySelector('#hsl-section');
 const weatherSection = document.querySelector('#weather-section');
+const bannerImage = document.querySelector('#banner');
+const bannerHeading = document.querySelector('#banner-heading');
 
 const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
@@ -69,6 +71,7 @@ const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
+  loadBanner(activeCampus);
   await loadApiData(activeCampus);
   console.log('active campus object', activeCampus);
 };
@@ -248,12 +251,17 @@ const loadMenuData = async (restaurant) => {
   }
 };
 
+const loadBanner = (campus) => {
+  bannerImage.style.backgroundImage = `url(${campus.image.url})`;
+  bannerImage.style.backgroundPosition = `center ${campus.image.offset}em`;
+  bannerHeading.textContent = campus.name;
+};
+
 campusDropdown.addEventListener('click', async (evt) => {
-  console.log('event target', evt.target.getAttribute('data-name'));
   const currentCampus = CampusData.getCurrentCampus(
     evt.target.getAttribute('data-name'), campusList, campusKey);
   CampusData.saveLocalCampus(campusKey, currentCampus.name);
-  console.log('currentCampus', currentCampus);
+  loadBanner(currentCampus);
   map.eachLayer((layer) => {
     layer.remove();
   });
