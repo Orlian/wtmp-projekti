@@ -7,6 +7,7 @@
 
 import SodexoData from './sodexo-data';
 import FazerData from './fazer-data';
+import CompassData from './compass-data';
 
 const campusList = [
   {
@@ -17,7 +18,7 @@ const campusList = [
       name: 'compas-arabia',
       displayname: 'Compas Arabia',
       id: 0,
-      type: '',
+      type: CompassData,
     },
   },
   {
