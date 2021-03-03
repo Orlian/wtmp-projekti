@@ -1,11 +1,16 @@
 import translationJson from '../assets/jsons/app-text-data.json';
 
-const getTranslation = () => {
-
+const getTranslation = (lang) => {
+  return lang === 'fi' ? translationJson.fi : translationJson.en;
 };
 
-const getCurrentLanguage = () => {
-  return localStorage.getItem('language') ? localStorage.getItem('language') : localStorage.setItem('language', 'fi');
+const getCurrentLanguage = (key) => {
+  if(localStorage.getItem(key)){
+    return localStorage.getItem(key);
+  } else {
+    localStorage.setItem(key, 'fi');
+    return localStorage.getItem(key);
+  }
 };
 
 const saveLanguage = (key, value) => {

@@ -35,8 +35,9 @@ const bannerImage = document.querySelector('#banner');
 const bannerHeading = document.querySelector('#banner-heading');
 
 const campusKey = 'activeCampus';
+const languageKey = 'language';
 const campusList = CampusData.campusList;
-let languageSetting = 'fi';
+
 const today = new Date().toISOString().split('T')[0];
 
 const map = L.map('map-card-body');
@@ -77,22 +78,26 @@ L.Marker.prototype.options.icon = defaultIcon;
  */
 const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
+  const languageSetting = TranslationData.getCurrentLanguage(languageKey);
+  console.log('init lang', languageSetting);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
   loadBanner(activeCampus);
-  await loadApiData(activeCampus);
+  await loadApiData(activeCampus, languageSetting);
 };
 
 /**
  * Bundled function that calls all functions requiring active campus data and
  * sets up the leaflet map with relevant position and markers
  * @param {Object} campus - Active campus data
+ * @param {string} language - Active language
  * @returns {Promise<void>}
  */
-const loadApiData = async (campus) => {
-  await loadWeatherData(campus.coords.latitude, campus.coords.longitude);
+const loadApiData = async (campus, language) => {
+  console.log('loadApiData lang', language);
+  await loadWeatherData(campus.coords.latitude, campus.coords.longitude, language);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude);
-  await loadMenuData(campus.restaurant);
+  await loadMenuData(campus.restaurant, language);
   map.setView([campus.coords.latitude, campus.coords.longitude], 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -105,14 +110,16 @@ const loadApiData = async (campus) => {
  * Fetches weather data for active campus from weather module
  * @param {number} lat - Campus latitude
  * @param {number} lon - Campus longitude
+ * @param {string} lang - Active language
  * @returns {Promise<void>}
  */
-const loadWeatherData = async (lat, lon) => {
+const loadWeatherData = async (lat, lon, lang) => {
   try {
+    console.log('loadWeatherData lang', lang);
     const weather = await WeatherData.getHourlyForecast(lat, lon,
-      'fi');
+      lang);
     console.log(weather);
-    renderWeatherData(weather);
+    renderWeatherData(weather, lang);
   } catch (error) {
     console.log(error.message);
     renderNoDataNotification(weatherCardBody, noDataMessage);
@@ -122,14 +129,15 @@ const loadWeatherData = async (lat, lon) => {
 /**
  * Renders campus weather data into relevant objects
  * @param {Object} weatherObject - Contains formatted weather data
+ * @param {string} lang - Active language
  */
-const renderWeatherData = (weatherObject) => {
+const renderWeatherData = (weatherObject, lang) => {
   weatherCardUl.innerHTML = '';
   const listItem = document.createElement('li');
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
   listItemImg.src = (`${weatherObject.currentWeather.icon}`);
-  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(0)}\u00B0C Feels like: ${weatherObject.currentWeather.feels_like.toFixed(0)}\u00B0C`;
+  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(0)}\u00B0C ${lang === 'fi' ? 'Tuntuu kuin: ' : 'Feels like: '} ${weatherObject.currentWeather.feels_like.toFixed(0)}\u00B0C`;
   listItem.prepend(listItemImg);
   weatherCardUl.appendChild(listItem);
 
@@ -138,7 +146,7 @@ const renderWeatherData = (weatherObject) => {
     const listItemImg = document.createElement('img');
     listItemImg.classList.add('hour-weather-icon');
     listItemImg.src = (`${weatherObject.weatherForecast[hourWeather].icon}`);
-    listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(0)}\u00B0C ${weatherObject.weatherForecast[hourWeather].feels_like.toFixed(0)}\u00B0C`;
+    listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(0)}\u00B0C ${lang === 'fi' ? 'Tuntuu kuin: ' : 'Feels like: '} ${weatherObject.weatherForecast[hourWeather].feels_like.toFixed(0)}\u00B0C`;
     listItem.prepend(listItemImg);
     weatherCardUl.appendChild(listItem);
   }
@@ -300,10 +308,12 @@ const renderNoDataNotification = (element ,message) => {
 /**
  * Calls relevant restaurant fetch function based on active campus restaurant
  * @param {Object} restaurant - Restaurant from the active campus object
+ * @param {string} languageSetting - Active language
  * @returns {Promise<void>}
  */
-const loadMenuData = async (restaurant) => {
+const loadMenuData = async (restaurant, languageSetting) => {
   try {
+    console.log('loadMenuData lang', languageSetting);
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
       languageSetting, today);
     renderMenu(parsedMenu, restaurant);
@@ -332,7 +342,7 @@ campusDropdown.addEventListener('click', async (evt) => {
   map.eachLayer((layer) => {
     layer.remove();
   });
-  await loadApiData(currentCampus);
+  await loadApiData(currentCampus, TranslationData.getCurrentLanguage(languageKey));
 });
 
 searchButton.addEventListener('click', (event) => {
