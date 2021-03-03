@@ -78,7 +78,7 @@ const secondsFromArrival = (arrivalTime) =>{
 const formatTime = (seconds) => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor(seconds / 60) - (hours * 60);
-  return `${hours}h ${minutes < 10 ? '0' + minutes : minutes}min`;
+  return `${hours === 0 ? '' : hours + 'h'} ${minutes}min`;
 };
 
 const HSLData = {getStopsByRadius, formatTime, secondsFromArrival};

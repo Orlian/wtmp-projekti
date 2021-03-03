@@ -38,7 +38,6 @@ const campusKey = 'activeCampus';
 const campusList = CampusData.campusList;
 let languageSetting = 'fi';
 const today = new Date().toISOString().split('T')[0];
-const noDataMessage = 'No data available';
 
 const map = L.map('map-card-body');
 
@@ -193,7 +192,7 @@ const renderBusStops = (stops) => {
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
       if (arrivaltime > 0) {
         arrivaltime = HSLData.formatTime(arrivaltime);
-        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign} - ${arrival.trip.route.shortName}`;
+        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ? arrival.headsign : ''} - ${arrival.trip.route.shortName}`;
       } else {
         stopCollapseLi.textContent += `lähtee huomenna`;
       }
@@ -311,7 +310,7 @@ const loadMenuData = async (restaurant) => {
   } catch (error) {
     console.error(error);
     // notify user if errors with data
-    renderNoDataNotification(menuCardBody, noDataMessage);
+    renderNoDataNotification(menuCardBody, 'asd');
   }
 };
 
