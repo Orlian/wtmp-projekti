@@ -62,3 +62,30 @@ p {
   }
 }
 
+@include media-breakpoint-down(lg) {
+  #banner{
+    background-position: center -7em !important;
+    background-attachment: unset;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  #banner{
+    background-position: center -4em !important;
+    background-attachment: unset;
+  }
+  .carousel-item{
+    background: colors.$primary-orange;
+    height: 5em;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  #banner{
+    background-position: center 0 !important;
+    background-attachment: fixed;
+  }
+  .container{
+    padding: 0 3px;
+  }
+}

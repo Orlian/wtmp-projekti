@@ -8,6 +8,7 @@ import WeatherData from './modules/weather-data';
 import HSLData from './modules/hsl-data';
 import CampusData from './modules/campus-data';
 import CompassData from './modules/compass-data';
+import TranslationData from './modules/translation-data';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
 const weatherCardBody = document.querySelector('#weather-card-body');

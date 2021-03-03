@@ -10686,4 +10686,32 @@ p {
   margin-bottom: 0;
 }
 
+@media (max-width: 991.98px) {
+  #banner {
+    background-position: center -7em !important;
+    background-attachment: unset;
+  }
+}
+@media (max-width: 767.98px) {
+  #banner {
+    background-position: center -4em !important;
+    background-attachment: unset;
+  }
+
+  .carousel-item {
+    background: #ff5000;
+    height: 5em;
+  }
+}
+@media (max-width: 575.98px) {
+  #banner {
+    background-position: center 0 !important;
+    background-attachment: fixed;
+  }
+
+  .container {
+    padding: 0 3px;
+  }
+}
+
 /*# sourceMappingURL=styles.css.map */

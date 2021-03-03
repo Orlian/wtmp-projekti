@@ -13,7 +13,7 @@ const campusList = [
   {
     name: 'Arabia',
     coords: {latitude: 60.21015476867742, longitude: 24.976743641873423},
-    image: {url: '../assets/pictures/arabia.jpg', offset: -20},
+    image: {url: '../assets/pictures/arabia.jpg', offset: -15},
     restaurant: {
       name: 'compas-arabia',
       displayname: 'Compas Arabia',
@@ -35,7 +35,7 @@ const campusList = [
   {
     name: 'Myllypuro',
     coords: {latitude: 60.2236145, longitude: 25.0783509},
-    image: {url: '../assets/pictures/myllypuro.jpg', offset: -15},
+    image: {url: '../assets/pictures/myllypuro.jpg', offset: -18},
     restaurant: {
       name: 'sodexo-myllypuro',
       displayname: 'Sodexo Myllypuro',
