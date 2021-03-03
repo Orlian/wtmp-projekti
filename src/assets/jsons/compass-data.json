@@ -1,0 +1,246 @@
+{
+  "WeekNumber": 9,
+  "LunchMenus": [
+    {
+      "DayOfWeek": "Maanantai",
+      "Date": "2021-03-01",
+      "SetMenus": [
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Kasvislasagnette",
+              "Diets": [
+                "PÄ",
+                "VS"
+              ]
+            }
+          ]
+        },
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Vegaaninen kasvislasagnette",
+              "Diets": [
+                "M",
+                "V",
+                "VS"
+              ]
+            }
+          ]
+        },
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Smetanasei",
+              "Diets": [
+                "L",
+                "G"
+              ]
+            },
+            {
+              "Name": "Keitetyt perunat",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "DayOfWeek": "Tiistai",
+      "Date": "2021-03-02",
+      "SetMenus": [
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Kasvispihvit",
+              "Diets": [
+              ]
+            },
+            {
+              "Name": "Jogurttikastike",
+              "Diets": [
+                "L",
+                "G"
+              ]
+            },
+            {
+              "Name": "Paahdettu peruna",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            }
+          ]
+        },
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Currymaustettu broilerinkoipi",
+              "Diets": [
+                "M",
+                "G"
+              ]
+            },
+            {
+              "Name": "Chilimajo",
+              "Diets": [
+                "M",
+                "G"
+              ]
+            },
+            {
+              "Name": "Riisi",
+              "Diets": [
+                "M",
+                "G"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "DayOfWeek": "Keskiviikko",
+      "Date": "2021-03-03",
+      "SetMenus": [
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Tofua ja kasviksia hapanimeläkastikkeessa",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            },
+            {
+              "Name": "Riisi",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            }
+          ]
+        },
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Jauheliha-pastavuoka",
+              "Diets": [
+                "L"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "DayOfWeek": "Torstai",
+      "Date": "2021-03-04",
+      "SetMenus": [
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Kikherne-kasviscurry",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            },
+            {
+              "Name": "Riisi",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            }
+          ]
+        },
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Tortilla",
+              "Diets": [
+                "M",
+                "V"
+              ]
+            },
+            {
+              "Name": "Kebab-paprikatäyte",
+              "Diets": [
+                "L",
+                "G"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "DayOfWeek": "Perjantai",
+      "Date": "2021-03-05",
+      "SetMenus": [
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Pinaatti- ja porkkanalettuja",
+              "Diets": [
+              ]
+            },
+            {
+              "Name": "Persiljaperunat",
+              "Diets": [
+                "M",
+                "G",
+                "V"
+              ]
+            },
+            {
+              "Name": "Kurkku-jogurttikastike",
+              "Diets": [
+                "L",
+                "G"
+              ]
+            }
+          ]
+        },
+        {
+          "Price": 2.80,
+          "Meals": [
+            {
+              "Name": "Lohi-seiwok",
+              "Diets": [
+                "M",
+                "V"
+              ]
+            },
+            {
+              "Name": "Nuudeli",
+              "Diets": [
+                "M"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
