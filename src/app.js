@@ -432,9 +432,24 @@ const renderLanguage = (language) => {
   });
 
   coronaCarouselAllP.forEach((link) => {
-    link.prepend(languageJson.carousel[`carousel-slide-${i}`]);
+    link.append(languageJson.carousel[`carousel-slide-${i}`]);
+    link.innerHTML += `<a href="#" class="link-info briefing-link">Info</a>`;
+
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      coronaCarousel.style.display = 'none';
+      briefingSection.style.display = 'block';
+      menuSection.style.display = 'none';
+      hslSection.style.display = 'none';
+      weatherSection.style.display = 'none';
+      removePageAttributes();
+      briefingNavLink.classList.add('active');
+      briefingNavLink.setAttribute('aria-current', 'page');
+    });
+
     i++;
   });
+
   i = 1;
 
   languageJson.info.forEach((article) => {
@@ -495,19 +510,6 @@ homeLink.addEventListener('click', (event) => {
   homeLink.setAttribute('aria-current', 'page');
 });
 
-briefingLinks.forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-    coronaCarousel.style.display = 'none';
-    briefingSection.style.display = 'block';
-    menuSection.style.display = 'none';
-    hslSection.style.display = 'none';
-    weatherSection.style.display = 'none';
-    removePageAttributes();
-    briefingNavLink.classList.add('active');
-    briefingNavLink.setAttribute('aria-current', 'page');
-  });
-});
 
 menuLink.addEventListener('click', (event) => {
   event.preventDefault();
