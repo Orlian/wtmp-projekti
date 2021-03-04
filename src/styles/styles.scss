@@ -66,6 +66,20 @@ p {
   display: none;
 }
 
+
+#flag-img{
+  background-image: url("../assets/pictures/united-kingdom.png");
+  background-size: cover;
+  display: inline-block;
+  width: 2em;
+  height: 1.70em;
+}
+
+#change-language-btn{
+  padding: 0;
+  margin: 0.25em 0.5em;
+}
+
 @include media-breakpoint-down(lg) {
   #banner{
     background-position: center -7em !important;

@@ -10,6 +10,7 @@ import CampusData from './modules/campus-data';
 import CompassData from './modules/compass-data';
 import TranslationData from './modules/translation-data';
 import {isArray} from 'leaflet/src/core/Util';
+import {preventDefault} from 'leaflet/src/dom/DomEvent';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
 const weatherCardBody = document.querySelector('#weather-card-body');
@@ -37,6 +38,8 @@ const hslSection = document.querySelector('#hsl-section');
 const weatherSection = document.querySelector('#weather-section');
 const bannerImage = document.querySelector('#banner');
 const bannerHeading = document.querySelector('#banner-heading');
+const languageButton = document.querySelector('#change-language-btn');
+const flagImg = document.querySelector('#flag-img');
 
 const campusKey = 'activeCampus';
 const languageKey = 'language';
@@ -101,7 +104,7 @@ const init = async () => {
 const loadApiData = async (campus, language) => {
   console.log('loadApiData lang', language);
   await loadWeatherData(campus.coords.latitude, campus.coords.longitude, language);
-  await loadBusStops(campus.coords.latitude, campus.coords.longitude);
+  await loadBusStops(campus.coords.latitude, campus.coords.longitude, language);
   await loadMenuData(campus.restaurant, language);
   map.setView([campus.coords.latitude, campus.coords.longitude], 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -127,7 +130,7 @@ const loadWeatherData = async (lat, lon, lang) => {
     renderWeatherData(weather, lang);
   } catch (error) {
     console.log(error.message);
-    renderNoDataNotification(weatherCardBody, noDataMessage);
+    renderNoDataNotification(weatherCardBody,  (lang=== 'fi' ? 'Ei säätietoja saatavilla' : 'No weather data available'));
   }
 };
 
@@ -162,16 +165,17 @@ const renderWeatherData = (weatherObject, lang) => {
  * Fetches HSL-data about nearby public transport stops and timetables
  * @param {number} lat - Campus latitude
  * @param {number} lon - Campus longitude
+ * @param {string} language - Active language
  * @returns {Promise<void>}
  */
-const loadBusStops = async (lat, lon) => {
+const loadBusStops = async (lat, lon, language) => {
   try {
     const stops = await HSLData.getStopsByRadius(lat, lon, 700);
     console.log('stops data:', stops.data.stopsByRadius.edges);
     renderBusStops(stops.data.stopsByRadius.edges);
   } catch (err) {
     console.error('loadBusStops error', err.message);
-    renderNoDataNotification(hslCard, noDataMessage);
+    renderNoDataNotification(hslCard, (language === 'fi' ? 'Ei HSL-tietoja saatavilla' : 'No HSL-data available'));
   }
 };
 
@@ -335,7 +339,7 @@ const loadMenuData = async (restaurant, languageSetting) => {
   } catch (error) {
     console.error(error);
     // notify user if errors with data
-    renderNoDataNotification(menuCardBody, 'asd');
+    renderNoDataNotification(menuCardBody, (languageSetting === 'fi' ? 'Ei ravintolatietoja saatavilla' : 'No restaurant data available'));
   }
 };
 
@@ -390,6 +394,7 @@ const removePageAttributes = () => {
 };
 
 const renderLanguage = (language) => {
+  coronaInfo.textContent = '';
   let i =1;
   const languageJson = TranslationData.getTranslation(language);
   homeLink.textContent = languageJson.navigation['nav-item-home'];
@@ -398,6 +403,10 @@ const renderLanguage = (language) => {
   hslLink.textContent = languageJson.navigation['nav-item-hsl'];
   weatherLink.textContent = languageJson.navigation['nav-item-weather'];
   campusLink.textContent = languageJson.navigation['nav-item-campus'];
+
+  coronaCarouselAllP.forEach((link)=>{
+    link.textContent = '';
+  });
 
   coronaCarouselAllP.forEach((link)=>{
     link.prepend(languageJson.carousel[`carousel-slide-${i}`]);
@@ -519,6 +528,20 @@ weatherLink.addEventListener('click', (event) => {
   weatherLink.classList.add('active');
   weatherLink.setAttribute('aria-current', 'page');
 });
+
+languageButton.addEventListener('click', (event)=>{
+  event.preventDefault();
+  let activeLanguage = TranslationData.getCurrentLanguage(languageKey);
+  if(activeLanguage === 'fi'){
+    flagImg.style.backgroundImage = 'url("../assets/pictures/united-kingdom.png")';
+    TranslationData.saveLanguage(languageKey, 'en');
+  }else{
+    flagImg.style.backgroundImage = 'url("../assets/pictures/finland.png")';
+    TranslationData.saveLanguage(languageKey, 'fi');
+  }
+  init();
+});
+
 /*
 setInterval(async () => {
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
