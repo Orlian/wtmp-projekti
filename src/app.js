@@ -103,7 +103,8 @@ const init = async () => {
  */
 const loadApiData = async (campus, language) => {
   console.log('loadApiData lang', language);
-  await loadWeatherData(campus.coords.latitude, campus.coords.longitude, language);
+  await loadWeatherData(campus.coords.latitude, campus.coords.longitude,
+    language);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude, language);
   await loadMenuData(campus.restaurant, language);
   map.setView([campus.coords.latitude, campus.coords.longitude], 15);
@@ -130,7 +131,9 @@ const loadWeatherData = async (lat, lon, lang) => {
     renderWeatherData(weather, lang);
   } catch (error) {
     console.log(error.message);
-    renderNoDataNotification(weatherCardBody,  (lang=== 'fi' ? 'Ei säätietoja saatavilla' : 'No weather data available'));
+    renderNoDataNotification(weatherCardBody, (lang === 'fi' ?
+      'Ei säätietoja saatavilla' :
+      'No weather data available'));
   }
 };
 
@@ -145,7 +148,11 @@ const renderWeatherData = (weatherObject, lang) => {
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
   listItemImg.src = (`${weatherObject.currentWeather.icon}`);
-  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(0)}\u00B0C ${lang === 'fi' ? 'Tuntuu kuin: ' : 'Feels like: '} ${weatherObject.currentWeather.feels_like.toFixed(0)}\u00B0C`;
+  listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(
+    0)}\u00B0C ${lang === 'fi' ?
+    'Tuntuu kuin: ' :
+    'Feels like: '} ${weatherObject.currentWeather.feels_like.toFixed(
+    0)}\u00B0C`;
   listItem.prepend(listItemImg);
   weatherCardUl.appendChild(listItem);
 
@@ -154,11 +161,14 @@ const renderWeatherData = (weatherObject, lang) => {
     const listItemImg = document.createElement('img');
     listItemImg.classList.add('hour-weather-icon');
     listItemImg.src = (`${weatherObject.weatherForecast[hourWeather].icon}`);
-    listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(0)}\u00B0C ${lang === 'fi' ? 'Tuntuu kuin: ' : 'Feels like: '} ${weatherObject.weatherForecast[hourWeather].feels_like.toFixed(0)}\u00B0C`;
+    listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(
+      0)}\u00B0C ${lang === 'fi' ?
+      'Tuntuu kuin: ' :
+      'Feels like: '} ${weatherObject.weatherForecast[hourWeather].feels_like.toFixed(
+      0)}\u00B0C`;
     listItem.prepend(listItemImg);
     weatherCardUl.appendChild(listItem);
   }
-
 };
 
 /**
@@ -175,7 +185,9 @@ const loadBusStops = async (lat, lon, language) => {
     renderBusStops(stops.data.stopsByRadius.edges);
   } catch (err) {
     console.error('loadBusStops error', err.message);
-    renderNoDataNotification(hslCard, (language === 'fi' ? 'Ei HSL-tietoja saatavilla' : 'No HSL-data available'));
+    renderNoDataNotification(hslCard, (language === 'fi' ?
+      'Ei HSL-tietoja saatavilla' :
+      'No HSL-data available'));
   }
 };
 
@@ -209,7 +221,9 @@ const renderBusStops = (stops) => {
       let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
       if (arrivaltime > 0) {
         arrivaltime = HSLData.formatTime(arrivaltime);
-        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ? arrival.headsign : ''} - ${arrival.trip.route.shortName}`;
+        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ?
+          arrival.headsign :
+          ''} - ${arrival.trip.route.shortName}`;
       } else {
         stopCollapseLi.textContent += `lähtee huomenna`;
       }
@@ -305,11 +319,10 @@ const renderMenu = (menuData, restaurant, language) => {
   }
   const dietInfoP = document.createElement('p');
   let dietInfoText = '';
-  languageJson.dietInfo.forEach((diet)=>{
+  languageJson.dietInfo.forEach((diet) => {
     dietInfoText += `${diet}`;
   });
   dietInfoP.textContent = dietInfoText;
-
   menuCardBody.appendChild(restaurantHeader);
   menuCardBody.appendChild(ul);
   menuCardBody.appendChild(dietInfoP);
@@ -320,7 +333,7 @@ const renderMenu = (menuData, restaurant, language) => {
  * @param {Object} element - Targeted element for message
  * @param {string} message - Message for targeted element
  */
-const renderNoDataNotification = (element ,message) => {
+const renderNoDataNotification = (element, message) => {
   element.innerHTML = `<p>${message}</p>`;
 };
 
@@ -339,7 +352,9 @@ const loadMenuData = async (restaurant, languageSetting) => {
   } catch (error) {
     console.error(error);
     // notify user if errors with data
-    renderNoDataNotification(menuCardBody, (languageSetting === 'fi' ? 'Ei ravintolatietoja saatavilla' : 'No restaurant data available'));
+    renderNoDataNotification(menuCardBody, (languageSetting === 'fi' ?
+      'Ei ravintolatietoja saatavilla' :
+      'No restaurant data available'));
   }
 };
 
@@ -361,7 +376,8 @@ campusDropdown.addEventListener('click', async (evt) => {
   map.eachLayer((layer) => {
     layer.remove();
   });
-  await loadApiData(currentCampus, TranslationData.getCurrentLanguage(languageKey));
+  await loadApiData(currentCampus,
+    TranslationData.getCurrentLanguage(languageKey));
 });
 
 searchButton.addEventListener('click', (event) => {
@@ -395,12 +411,12 @@ const removePageAttributes = () => {
 
 const renderLanguage = (language) => {
   coronaInfo.textContent = '';
-  let i =1;
+  let i = 1;
   const languageJson = TranslationData.getTranslation(language);
 
-  if(language === 'fi'){
+  if (language === 'fi') {
     flagImg.style.backgroundImage = 'url("../assets/pictures/united-kingdom.png")';
-  }else{
+  } else {
     flagImg.style.backgroundImage = 'url("../assets/pictures/finland.png")';
   }
 
@@ -411,54 +427,47 @@ const renderLanguage = (language) => {
   weatherLink.textContent = languageJson.navigation['nav-item-weather'];
   campusLink.textContent = languageJson.navigation['nav-item-campus'];
 
-  coronaCarouselAllP.forEach((link)=>{
+  coronaCarouselAllP.forEach((link) => {
     link.textContent = '';
   });
 
-  coronaCarouselAllP.forEach((link)=>{
+  coronaCarouselAllP.forEach((link) => {
     link.prepend(languageJson.carousel[`carousel-slide-${i}`]);
     i++;
   });
-  i=1;
+  i = 1;
 
-  languageJson.info.forEach((article)=>{
-  const infoChapter = document.createElement('article');
-  const chapterHeader = document.createElement('h1');
-  const chapterParag = document.createElement('p');
+  languageJson.info.forEach((article) => {
+    const infoChapter = document.createElement('article');
+    const chapterHeader = document.createElement('h1');
+    const chapterParag = document.createElement('p');
 
-  chapterHeader.textContent = article.header;
-  infoChapter.appendChild(chapterHeader);
+    chapterHeader.textContent = article.header;
+    infoChapter.appendChild(chapterHeader);
 
-  if(isArray(article.text)){
-    let textUl = document.createElement('ul');
-    article.text.forEach((text)=>{
-      let textLi = document.createElement('li');
-      textLi.textContent = text;
-      textUl.appendChild(textLi);
-    });
-    chapterParag.appendChild(textUl);
-  }else{
-    chapterParag.textContent = article.text;
-  }
+    if (isArray(article.text)) {
+      let textUl = document.createElement('ul');
+      article.text.forEach((text) => {
+        let textLi = document.createElement('li');
+        textLi.textContent = text;
+        textUl.appendChild(textLi);
+      });
+      chapterParag.appendChild(textUl);
+    } else {
+      chapterParag.textContent = article.text;
+    }
 
-  infoChapter.appendChild(chapterParag);
+    infoChapter.appendChild(chapterParag);
 
-  if(article.link){
-    const chapterLink = document.createElement('a');
-    chapterLink.textContent = article.link;
-    chapterLink.href = article.link;
-    infoChapter.appendChild(chapterLink);
-  }
-
-  coronaInfo.appendChild(infoChapter);
-
+    if (article.link) {
+      const chapterLink = document.createElement('a');
+      chapterLink.textContent = article.link;
+      chapterLink.href = article.link;
+      infoChapter.appendChild(chapterLink);
+    }
+    coronaInfo.appendChild(infoChapter);
   });
-
-
 };
-
-
-
 
 init();
 
@@ -486,8 +495,8 @@ homeLink.addEventListener('click', (event) => {
   homeLink.setAttribute('aria-current', 'page');
 });
 
-briefingLinks.forEach((link)=>{
-  link.addEventListener('click', (event)=>{
+briefingLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
     event.preventDefault();
     coronaCarousel.style.display = 'none';
     briefingSection.style.display = 'block';
@@ -536,12 +545,12 @@ weatherLink.addEventListener('click', (event) => {
   weatherLink.setAttribute('aria-current', 'page');
 });
 
-languageButton.addEventListener('click', (event)=>{
+languageButton.addEventListener('click', (event) => {
   event.preventDefault();
   let activeLanguage = TranslationData.getCurrentLanguage(languageKey);
-  if(activeLanguage === 'fi'){
+  if (activeLanguage === 'fi') {
     TranslationData.saveLanguage(languageKey, 'en');
-  }else{
+  } else {
     TranslationData.saveLanguage(languageKey, 'fi');
   }
   init();
