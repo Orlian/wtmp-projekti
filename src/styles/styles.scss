@@ -62,6 +62,10 @@ p {
   }
 }
 
+#briefing-section{
+  display: none;
+}
+
 @include media-breakpoint-down(lg) {
   #banner{
     background-position: center -7em !important;

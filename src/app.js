@@ -9,6 +9,7 @@ import HSLData from './modules/hsl-data';
 import CampusData from './modules/campus-data';
 import CompassData from './modules/compass-data';
 import TranslationData from './modules/translation-data';
+import {isArray} from 'leaflet/src/core/Util';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
 const weatherCardBody = document.querySelector('#weather-card-body');
@@ -26,8 +27,11 @@ const briefingLinks = document.querySelectorAll('.briefing-link');
 const menuLink = document.querySelector('#nav-item-menu');
 const hslLink = document.querySelector('#nav-item-hsl');
 const weatherLink = document.querySelector('#nav-item-weather');
+const campusLink = document.querySelector('#navbarDropdown');
 const coronaCarousel = document.querySelector('#corona-carousel');
+const coronaCarouselAllP = document.querySelectorAll('.carousel-slide-p');
 const briefingSection = document.querySelector('#briefing-section');
+const coronaInfo = document.querySelector('#corona-info');
 const menuSection = document.querySelector('#menu-section');
 const hslSection = document.querySelector('#hsl-section');
 const weatherSection = document.querySelector('#weather-section');
@@ -83,6 +87,7 @@ const init = async () => {
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
   loadBanner(activeCampus);
+  renderLanguage(languageSetting);
   await loadApiData(activeCampus, languageSetting);
 };
 
@@ -280,9 +285,11 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
  *
  * @param {Object} menuData - Parsed JSON-data from restaurant API
  * @param {Object} restaurant - Restaurant of the active campus
+ * @param {string} language - Active language
  */
-const renderMenu = (menuData, restaurant) => {
+const renderMenu = (menuData, restaurant, language) => {
   menuCardBody.innerHTML = '';
+  const languageJson = TranslationData.getTranslation(language);
   const restaurantHeader = document.createElement('h4');
   restaurantHeader.textContent = restaurant.displayname;
   restaurantHeader.classList.add('text-center');
@@ -292,8 +299,16 @@ const renderMenu = (menuData, restaurant) => {
     listItem.textContent = item;
     ul.appendChild(listItem);
   }
+  const dietInfoP = document.createElement('p');
+  let dietInfoText = '';
+  languageJson.dietInfo.forEach((diet)=>{
+    dietInfoText += `${diet}`;
+  });
+  dietInfoP.textContent = dietInfoText;
+
   menuCardBody.appendChild(restaurantHeader);
   menuCardBody.appendChild(ul);
+  menuCardBody.appendChild(dietInfoP);
 };
 
 /**
@@ -316,7 +331,7 @@ const loadMenuData = async (restaurant, languageSetting) => {
     console.log('loadMenuData lang', languageSetting);
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
       languageSetting, today);
-    renderMenu(parsedMenu, restaurant);
+    renderMenu(parsedMenu, restaurant, languageSetting);
   } catch (error) {
     console.error(error);
     // notify user if errors with data
@@ -374,6 +389,61 @@ const removePageAttributes = () => {
   weatherLink.removeAttribute('aria-current');
 };
 
+const renderLanguage = (language) => {
+  let i =1;
+  const languageJson = TranslationData.getTranslation(language);
+  homeLink.textContent = languageJson.navigation['nav-item-home'];
+  briefingNavLink.textContent = languageJson.navigation['nav-item-briefing'];
+  menuLink.textContent = languageJson.navigation['nav-item-menu'];
+  hslLink.textContent = languageJson.navigation['nav-item-hsl'];
+  weatherLink.textContent = languageJson.navigation['nav-item-weather'];
+  campusLink.textContent = languageJson.navigation['nav-item-campus'];
+
+  coronaCarouselAllP.forEach((link)=>{
+    link.prepend(languageJson.carousel[`carousel-slide-${i}`]);
+    i++;
+  });
+  i=1;
+
+  languageJson.info.forEach((article)=>{
+  const infoChapter = document.createElement('article');
+  const chapterHeader = document.createElement('h1');
+  const chapterParag = document.createElement('p');
+
+  chapterHeader.textContent = article.header;
+  infoChapter.appendChild(chapterHeader);
+
+  if(isArray(article.text)){
+    let textUl = document.createElement('ul');
+    article.text.forEach((text)=>{
+      let textLi = document.createElement('li');
+      textLi.textContent = text;
+      textUl.appendChild(textLi);
+    });
+    chapterParag.appendChild(textUl);
+  }else{
+    chapterParag.textContent = article.text;
+  }
+
+  infoChapter.appendChild(chapterParag);
+
+  if(article.link){
+    const chapterLink = document.createElement('a');
+    chapterLink.textContent = article.link;
+    chapterLink.href = article.link;
+    infoChapter.appendChild(chapterLink);
+  }
+
+  coronaInfo.appendChild(infoChapter);
+
+  });
+
+
+};
+
+
+
+
 init();
 
 homeButton.addEventListener('click', (event) => {
@@ -383,6 +453,7 @@ homeButton.addEventListener('click', (event) => {
     section.style.display = 'block';
   }
   removePageAttributes();
+  briefingSection.style.display = 'none';
   homeLink.classList.add('active');
   homeLink.setAttribute('aria-current', 'page');
 });
@@ -394,6 +465,7 @@ homeLink.addEventListener('click', (event) => {
     section.style.display = 'block';
   }
   removePageAttributes();
+  briefingSection.style.display = 'none';
   homeLink.classList.add('active');
   homeLink.setAttribute('aria-current', 'page');
 });
@@ -454,3 +526,4 @@ setInterval(async () => {
   await loadBusStops(activeCampus.coords.latitude, activeCampus.coords.longitude);
   await loadWeatherData(activeCampus.coords.latitude, activeCampus.coords.longitude);
 }, 60000);*/
+

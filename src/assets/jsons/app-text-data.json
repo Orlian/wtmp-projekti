@@ -9,66 +9,66 @@
       "nav-item-campus": "Kampus"
     },
     "carousel": {
-      "carousel-slide-1": "Koronatiedote: kun asioit kampuksella, noudata seuraavia ohjeita.",
-      "carousel-slide-2": "Käytä kasvomaskia kaikissa oppimis- ja työtilanteissa Metropolian kampuksella",
-      "carousel-slide-3": "Käytä käsidesiä ja pese kätesi huolellisesti",
-      "carousel-slide-4": "Muista säilyttää turvaväli ja pyri välttämään lähikontaktia",
-      "carousel-slide-5": "Yski ja aivasta hihaasi tai nenäliinaan"
+      "carousel-slide-1": "Koronatiedote: kun asioit kampuksella, noudata seuraavia ohjeita. ",
+      "carousel-slide-2": "Käytä kasvomaskia kaikissa oppimis- ja työtilanteissa Metropolian kampuksella. ",
+      "carousel-slide-3": "Käytä käsidesiä ja pese kätesi huolellisesti. ",
+      "carousel-slide-4": "Muista säilyttää turvaväli ja pyri välttämään lähikontaktia. ",
+      "carousel-slide-5": "Yski ja aivasta hihaasi tai nenäliinaan. "
     },
-    "info": {
-      "chapter1": {
+    "info": [
+      {
         "header": "Koronavirus",
-        "text": "Jokainen voi henkilökohtaisella toiminnallaan vaikuttaa viruksen leviämisen estämiseen mm. huolehtimalla käsihygieniasta, noudattamalla yskimiseen ja aivastamiseen liittyviä ohjeita ja sairastamalla kotona. \u000B\nNäin toimimalla suojaamme paitsi itseämme myös muita.\u000B\nKun asioit kampuksella noudata seuraavia ohjeita.\n"
+        "text": "Jokainen voi henkilökohtaisella toiminnallaan vaikuttaa viruksen leviämisen estämiseen mm. huolehtimalla käsihygieniasta, noudattamalla yskimiseen ja aivastamiseen liittyviä ohjeita ja sairastamalla kotona. Näin toimimalla suojaamme paitsi itseämme myös muita. Kun asioit kampuksella noudata seuraavia ohjeita."
       },
-      "chapter2": {
+      {
         "header": "Hengityssuojainten käyttö",
-        "text": "Metropoliassa on vahva suositus kasvomaskien käyttöön kaikissa oppimis- ja työtilanteissa Metropolian kampuksilla. \n"
+        "text": "Metropoliassa on vahva suositus kasvomaskien käyttöön kaikissa oppimis- ja työtilanteissa Metropolian kampuksilla."
       },
-      "chapter3": {
+      {
         "header": "Käsien peseminen",
         "text": ["Kastele kädet runsaalla vedellä", "Ota saippuaa ja hiero kämmeniä vastakkain", "Hiero kämmenselät, peukalot ja sormien välit", "Hiero sormia lomittain vastatusten", "Huuhdo kädet runsaalla vedellä", "Kuivaa kätesi huolellisesti käsipyyhepaperilla", "Sulje hana käsipyyhepaperilla ja laita stoppi tartunnoille"],
         "link": "www.thl.fi/kasienpesuohje"
       },
-      "chapter4": {
+      {
         "header": "Yski ja aivasta oikein",
         "text": ["Yski ja aivasta hihaasi, niin laitat stopin tartunnoille.", "Jos mahdollista, käytä kertakäyttöistä nenäliinaa.", "Laita käytetty liina roskiin ja pese kädet saippualla."],
         "link": "www.thl.fi/yskimisohje"
       },
-      "chapter5": {
+      {
         "header": "Turvavälit ja lähikontaktien vähentäminen",
         "text": ["Lähikontaktien vähentäminen on tärkeää, koska siten hidastetaan epidemian leviämistä.", "Kun liikut kampuksella tai ulkona, pidä vähintään 1–2 metrin etäisyys muihin ihmisiin.", "Älä kättele."],
         "link": "www.thl.fi"
       },
-      "chapter6": {
+      {
         "header": "Hissien käyttäminen",
-        "text": "Hissien käyttöä pyydetään mahdollisuuksien mukaan välttämään. Jos kuitenkin on tarve kulkea hissillä, on suositeltava kulkea yksin tai muutoin turvaväleistä huolehtien. \n\nPuhumista toisille tai puhelimeen tulee hississä välttää, jotta riski mahdolliseen pisaratartuntaan vähenee. \nNyökkäys tai hymy työ- tai opiskelukaverille riittää.\n"
+        "text": "Hissien käyttöä pyydetään mahdollisuuksien mukaan välttämään. Jos kuitenkin on tarve kulkea hissillä, on suositeltava kulkea yksin tai muutoin turvaväleistä huolehtien. Puhumista toisille tai puhelimeen tulee hississä välttää, jotta riski mahdolliseen pisaratartuntaan vähenee. Nyökkäys tai hymy työ- tai opiskelukaverille riittää."
       },
-      "chapter7": {
+      {
         "header": "Käsidesien käyttäminen",
-        "text": "Käsidesiä löytyy pääovien yhteydestä, mutta Metropolia suosittelee myös oman henkilökohtaisen mukana kannettavan käsidesin hankkimista. \n\nKampusten siivouksessa keskitytään tartuntariskien minimoimiseen ja tilojen siisteyttä seurataan aktiivisesti."
+        "text": "Käsidesiä löytyy pääovien yhteydestä, mutta Metropolia suosittelee myös oman henkilökohtaisen mukana kannettavan käsidesin hankkimista. Kampusten siivouksessa keskitytään tartuntariskien minimoimiseen ja tilojen siisteyttä seurataan aktiivisesti."
       },
-      "chapter8": {
+      {
         "header": "Lataa Koronavilkku-sovellus",
-        "text": "Lataa puhelimeesi Koronavilkku-sovellus, jonka avulla saat tiedon, jos olet altistunut. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.\n\nVoit ladata sovelluksen Google Play -kaupassa ja App Storessa."
+        "text": "Lataa puhelimeesi Koronavilkku-sovellus, jonka avulla saat tiedon, jos olet altistunut. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu. Voit ladata sovelluksen Google Play -kaupassa ja App Storessa."
       },
-      "chapter9": {
+      {
         "header": "Tarkempia ohjeita",
         "link": "https://oma.metropolia.fi/tietoa-koronaviruksesta"
       }
-    },
-    "dietInfo": {
-      "L": "Laktoositon",
-      "VL": "Vähälaktoosinen",
-      "G": "Gluteeniton",
-      "A": "Sis. allergeeneja",
-      "M": "Maidoton",
-      "Veg": "Vegetarian",
-      "V": "Vegaani",
-      "VS": "Valkosipulia",
-      "*": "Terveellinen",
-      "PÄ": "Pähkinää",
-      "S": "Korkeakouluopiskelijoiden suositusten mukainen ateria"
-    }
+    ],
+    "dietInfo": [
+      "L: Laktoositon, ",
+      "VL: Vähälaktoosinen, ",
+      "G: Gluteeniton, ",
+      "A: Sis. allergeeneja, ",
+      "M: Maidoton, ",
+      "Veg: Vegetarian, ",
+      "V: Vegaani, ",
+      "VS: Valkosipulia, ",
+      "*: Terveellinen, ",
+      "PÄ: Pähkinää, ",
+      "S: Korkeakouluopiskelijoiden suositusten mukainen ateria."
+    ]
   },
   "en": {
     "navigation": {
@@ -80,65 +80,65 @@
       "nav-item-campus": "Campus"
     },
     "carousel": {
-      "carousel-slide-1": "Corona information: when on campus obey the following instructions.",
-      "carousel-slide-2": "Use a face mask in all learning and work situations on Metropolia's campuses",
-      "carousel-slide-3": "Use hand disinfectant and wash your hands carefully",
-      "carousel-slide-4": "Remember to maintain a safe distance from others and try to avoid close contact",
-      "carousel-slide-5": "Cough and sneeze safely into your sleeve or paper tissue"
+      "carousel-slide-1": "Corona information: when on campus obey the following instructions. ",
+      "carousel-slide-2": "Use a face mask in all learning and work situations on Metropolia's campuses. ",
+      "carousel-slide-3": "Use hand disinfectant and wash your hands carefully. ",
+      "carousel-slide-4": "Remember to maintain a safe distance from others and try to avoid close contact. ",
+      "carousel-slide-5": "Cough and sneeze safely into your sleeve or paper tissue. "
     },
-    "info": {
-      "chapter1": {
+    "info": [
+      {
         "header": "Coronavirus",
-        "text": "Everyone can slow down the spread of coronavirus with their own actions. Reducing social contact is now also important, as this slows down the spread of the epidemic. \n\nWhen you are on campus, follow the instructions below."
+        "text": "Everyone can slow down the spread of coronavirus with their own actions. Reducing social contact is now also important, as this slows down the spread of the epidemic. When you are on campus, follow the instructions below."
       },
-      "chapter2": {
+      {
         "header": "Use of protective masks",
         "text": "Metropolia has a strong recommendation for the use of face masks in all learning and work situations on Metropolia's campuses."
       },
-      "chapter3": {
+      {
         "header": "Washing hands",
         "text": ["Wet your hands with a lot of water", "Apply some soap and rub your hands palm to palm", "Rub the backs of your hands, your thumbs and between your fingers", "Rub your hands together with your fingers interlaced", "Rinse your hands with a lot of water", "Dry your hands carefully with a paper towel", "Use a paper towel to turn off the tap"],
         "link": "www.thl.fi/handwash"
       },
-      "chapter4": {
+      {
         "header": "Cough and sneeze correctly",
         "text": ["Cough and sneeze into your sleeve to stop infections from spreading.", "If possible, use a paper tissue.", "Put the used tissue into a bin and wash your hands with soap."],
         "link": "www.thl.fi/coughcorrectly"
       },
-      "chapter5": {
+      {
         "header": "Reducing close contacts",
-        "text": ["Reducing close contact is now also important, as this slows down the spread of the  epidemic.", "When you are in the campus or outdoors, stay at least one - two meter away from others.", "Avoid shaking hands."],
+        "text": ["Reducing close contact is now also important, as this slows down the spread of the epidemic.", "When you are in the campus or outdoors, stay at least one - two meter away from others.", "Avoid shaking hands."],
         "link": "www.thl.fi"
       },
-      "chapter6": {
+      {
         "header": "Using the lift",
-        "text": "Avoid using the lift whenever possible. However, if you have to use one, we recommend that you are only person to enter a lift, or at least ensure social distancing. \nYou should not talk to anyone in the lift or on the phone to minimise the risk of droplet transmission. \n\nA friendly nod or a smile is enough."
+        "text": "Avoid using the lift whenever possible. However, if you have to use one, we recommend that you are only person to enter a lift, or at least ensure social distancing. You should not talk to anyone in the lift or on the phone to minimise the risk of droplet transmission. A friendly nod or a smile is enough."
       },
-      "chapter7": {
+      {
         "header": "Use of hand disinfectant",
-        "text": "Hand disinfectant is available near the main entrances, but Metropolia also suggests that you have your own bottle of disinfectant with you. \n\nCampus cleaning focuses on minimising infection risk, and the cleanliness of the premises is followed actively."
+        "text": "Hand disinfectant is available near the main entrances, but Metropolia also suggests that you have your own bottle of disinfectant with you. Campus cleaning focuses on minimising infection risk, and the cleanliness of the premises is followed actively."
       },
-      "chapter8": {
+      {
         "header": "Download Koronavilkku app",
-        "text": "Download Koronavilkku app, which is a contact tracing app. It help's you find out whether you may have been exposed to coronavirus. If you have a coronavirus test and are diagnosed as infected, you can use the app to share this anonymously with those you have been in close contact with. Your privacy is strongly protected.\n\nDownload on Google Play or App Store."
+        "text": "Download Koronavilkku app, which is a contact tracing app. It help's you find out whether you may have been exposed to coronavirus. If you have a coronavirus test and are diagnosed as infected, you can use the app to share this anonymously with those you have been in close contact with. Your privacy is strongly protected. Download on Google Play or App Store."
       },
-      "chapter9": {
+      {
         "header": "More information",
         "link": "https://oma.metropolia.fi/tietoa-koronaviruksesta"
       }
-    },
-    "dietInfo": {
-      "L": "Lactose-free",
-      "VL": "Low-lactose",
-      "G": "Gluten-free",
-      "A": "Allergens",
-      "M": "No milk",
-      "Veg": "Vegetarian",
-      "V": "Vegan",
-      "VS": "Garlic",
-      "*": "Healthy",
-      "PÄ": "Contains nuts",
-      "S": "Meal according to the recommendations of university students"
-    }
+    ],
+    "dietInfo": [
+      "L: Lactose-free, ",
+      "VL: Low-lactose, ",
+      "G: Gluten-free, ",
+      "A: Allergens, ",
+      "M: No milk, ",
+      "Veg: Vegetarian, ",
+      "V: Vegan, ",
+      "VS: Garlic, ",
+      "*: Healthy, ",
+      "PÄ: Contains nuts, ",
+      "S: Meal according to the recommendations of university students."
+    ]
   }
 }
