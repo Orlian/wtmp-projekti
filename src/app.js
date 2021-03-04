@@ -397,6 +397,13 @@ const renderLanguage = (language) => {
   coronaInfo.textContent = '';
   let i =1;
   const languageJson = TranslationData.getTranslation(language);
+
+  if(language === 'fi'){
+    flagImg.style.backgroundImage = 'url("../assets/pictures/united-kingdom.png")';
+  }else{
+    flagImg.style.backgroundImage = 'url("../assets/pictures/finland.png")';
+  }
+
   homeLink.textContent = languageJson.navigation['nav-item-home'];
   briefingNavLink.textContent = languageJson.navigation['nav-item-briefing'];
   menuLink.textContent = languageJson.navigation['nav-item-menu'];
@@ -533,10 +540,8 @@ languageButton.addEventListener('click', (event)=>{
   event.preventDefault();
   let activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   if(activeLanguage === 'fi'){
-    flagImg.style.backgroundImage = 'url("../assets/pictures/united-kingdom.png")';
     TranslationData.saveLanguage(languageKey, 'en');
   }else{
-    flagImg.style.backgroundImage = 'url("../assets/pictures/finland.png")';
     TranslationData.saveLanguage(languageKey, 'fi');
   }
   init();
