@@ -10686,6 +10686,23 @@ p {
   margin-bottom: 0;
 }
 
+#briefing-section {
+  display: none;
+}
+
+#flag-img {
+  background-image: url("../assets/pictures/united-kingdom.png");
+  background-size: cover;
+  display: inline-block;
+  width: 2em;
+  height: 1.7em;
+}
+
+#change-language-btn {
+  padding: 0;
+  margin: 0.25em 0.5em;
+}
+
 @media (max-width: 991.98px) {
   #banner {
     background-position: center -7em !important;
