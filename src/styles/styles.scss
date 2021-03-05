@@ -12,6 +12,10 @@ body {
 
 }
 
+.container {
+  padding: 0;
+}
+
 p {
   font-family: fonts.$robotoslab;
   font-weight: fonts.$m;
@@ -19,27 +23,37 @@ p {
 
 #navbar-brand-img {
   height: auto;
-  width: 10em;
+  width: 8em;
 }
-.carousel-control-prev, .carousel-control-next{
+
+#search-input {
+  padding: 0.2rem 0.5rem;
+}
+
+#search-button {
+  padding: 0.2rem 0.5rem;
+}
+
+.carousel-control-prev, .carousel-control-next {
   filter: invert(1);
 }
 
-.carousel-item img{
+.carousel-item img {
   position: relative;
 }
 
-.carousel-caption{
+.carousel-caption {
   color: black;
   font-size: 1em;
 }
 
-#map-card-body{
+#map-card-body {
   position: relative;
   height: 400px;
   width: 100%;
 }
-#banner{
+
+#banner {
   height: 15em;
   background-position: center bottom;
   background-attachment: fixed;
@@ -47,25 +61,55 @@ p {
   background-size: cover;
   position: relative;
 }
-#banner-card{
+
+#banner-card {
   background-color: rgba(255, 255, 255, 0.7);
   padding: 0 1em;
   color: black;
 }
-.carousel-caption{
+
+.carousel-caption {
   top: 50%;
   bottom: initial;
   transform: translateY(-50%);
-  p{
+
+  p {
     margin-bottom: 0;
   }
 }
 
-#briefing-section{
+#briefing-section {
   display: none;
+
+  article {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 1.5em;
+    border-bottom: 1px solid;
+
+    .article-text-wrapper {
+      width: 50%;
+      margin-bottom: 0.5rem;
+    }
+
+    img {
+      width: 20%;
+      height: inherit;
+      margin-right: auto;
+    }
+  }
+
+  article:last-child {
+    border-bottom: none;
+  }
+
+  article:first-child {
+    margin-top: 1.5rem;
+  }
 }
 
-#flag-img{
+
+#flag-img {
   background-image: url("../assets/pictures/united-kingdom.png");
   background-size: cover;
   display: inline-block;
@@ -73,16 +117,16 @@ p {
   height: 1.70em;
 }
 
-#change-language-btn{
+#change-language-btn {
   padding: 0;
-  margin: 0.25em 0.5em;
+  margin: 0.25rem 0 0.25rem 0.5rem;
 }
 
 section {
   margin-bottom: 0.5em;
 }
 
-#menu-section{
+#menu-section {
   height: auto;
   background-image: url("../assets/pictures/menu-bg.jpg");
   background-position: center;
@@ -91,20 +135,22 @@ section {
   position: relative;
 }
 
-#restaurant-card{
-  background: rgba(255,255,255,0.7);
+#restaurant-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
-#restaurant-body{
+#restaurant-body {
   width: fit-content;
   height: auto;
-  p{
+
+  p {
     margin: auto;
     text-align: center;
   }
 }
 
-#weather-section{
+#weather-section {
   height: auto;
   background-image: url("../assets/pictures/weather-bg.jpg");
   background-position: center;
@@ -113,40 +159,68 @@ section {
   position: relative;
 }
 
-#weather-card{
-  background: rgba(255,255,255,0.7);
+#weather-card {
+  background: rgba(230, 230, 230, 0.7);
+  border-radius: 0.25rem 0 0 0.25rem;
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+#hsl-section-header {
+  background: colors.$accent-turquoise;
+  height: 3rem;
+  align-items: center;
+}
+
+.hsl-logo {
+  background-image: url("../assets/pictures/hsl-logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  width: 5rem;
+  height: inherit;
 }
 
 @include media-breakpoint-down(lg) {
-  #banner{
+  #banner {
     background-position: center -7em !important;
     background-attachment: unset;
+  }
+  #change-language-btn {
+    padding: 0;
+    margin: 0.25rem 0 0.25rem 0.1rem;
+  }
+  .article-image{
+    width: 30%;
   }
 }
 
 @include media-breakpoint-down(md) {
-  #banner{
+  #banner {
     background-position: center -4em !important;
     background-attachment: unset;
   }
-  .carousel-item{
+  .carousel-item {
     background: colors.$primary-orange;
     height: 5em;
   }
 }
 
 @include media-breakpoint-down(sm) {
-  #banner{
+  #banner {
     background-position: center 0 !important;
     background-attachment: fixed;
   }
-  .container{
+  .container {
     padding: 0 3px;
   }
-  #restaurant-card{
-    background: rgba(255,255,255,0.8);
+  #restaurant-card {
+    background: rgba(255, 255, 255, 0.8);
   }
-  #weather-card{
-    background: rgba(255,255,255,0.8);
+  #weather-card {
+    background: rgba(255, 255, 255, 0.8);
   }
 }

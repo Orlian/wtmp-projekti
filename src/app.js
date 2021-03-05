@@ -40,6 +40,7 @@ const bannerImage = document.querySelector('#banner');
 const bannerHeading = document.querySelector('#banner-heading');
 const languageButton = document.querySelector('#change-language-btn');
 const flagImg = document.querySelector('#flag-img');
+const hslSectionHeader = document.querySelector('#hsl-section-header p');
 
 const campusKey = 'activeCampus';
 const languageKey = 'language';
@@ -434,6 +435,7 @@ const renderLanguage = (language) => {
   hslLink.textContent = languageJson.navigation['nav-item-hsl'];
   weatherLink.textContent = languageJson.navigation['nav-item-weather'];
   campusLink.textContent = languageJson.navigation['nav-item-campus'];
+  hslSectionHeader.textContent = languageJson['section-header']['hsl'];
 
 
   coronaCarouselAllP.forEach((link) => {
@@ -463,11 +465,13 @@ const renderLanguage = (language) => {
 
   languageJson.info.forEach((article) => {
     const infoChapter = document.createElement('article');
-    const chapterHeader = document.createElement('h1');
+    const textWrapper = document.createElement('div');
+    textWrapper.classList.add('article-text-wrapper');
+    const chapterHeader = document.createElement('h3');
     const chapterParag = document.createElement('p');
 
     chapterHeader.textContent = article.header;
-    infoChapter.appendChild(chapterHeader);
+    textWrapper.appendChild(chapterHeader);
 
     if (isArray(article.text)) {
       let textUl = document.createElement('ul');
@@ -481,14 +485,23 @@ const renderLanguage = (language) => {
       chapterParag.textContent = article.text;
     }
 
-    infoChapter.appendChild(chapterParag);
+    textWrapper.appendChild(chapterParag);
 
     if (article.link) {
       const chapterLink = document.createElement('a');
       chapterLink.textContent = article.link;
       chapterLink.href = article.link;
-      infoChapter.appendChild(chapterLink);
+      textWrapper.appendChild(chapterLink);
     }
+
+    if(article.image) {
+      const chapterImage = document.createElement('img');
+      chapterImage.classList.add('article-image');
+      chapterImage.setAttribute('loading', 'lazy');
+      chapterImage.src= article.image;
+      infoChapter.appendChild(chapterImage);
+    }
+    infoChapter.appendChild(textWrapper);
     coronaInfo.appendChild(infoChapter);
   });
 };
