@@ -424,11 +424,11 @@ const renderLanguage = (language) => {
   const languageJson = TranslationData.getTranslation(language);
 
   if (language === 'fi') {
-    flagImg.style.backgroundImage = 'url("../assets/pictures/united-kingdom.png")';
+    flagImg.style.backgroundImage = 'url("./assets/pictures/united-kingdom.png")';
     searchInput.setAttribute('placeholder', 'Etsi hakusanalla');
     searchButton.textContent = 'Hae';
   } else {
-    flagImg.style.backgroundImage = 'url("../assets/pictures/finland.png")';
+    flagImg.style.backgroundImage = 'url("./assets/pictures/finland.png")';
     searchInput.setAttribute('placeholder', 'Search');
     searchButton.textContent = 'Search';
   }
