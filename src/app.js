@@ -70,7 +70,7 @@ const youIcon = L.icon({
 
 L.Marker.prototype.options.icon = defaultIcon;
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').then(registration => {
       console.log('SW registered: ', registration);
@@ -78,7 +78,7 @@ L.Marker.prototype.options.icon = defaultIcon;
       console.log('SW registration failed: ', registrationError);
     });
   });
-}*/
+}
 
 /**
  * Initialization function that calls all relevant functions at page load
@@ -594,7 +594,7 @@ languageButton.addEventListener('click', (event) => {
   init();
 });
 
-/*
+
 setInterval(async () => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
@@ -602,4 +602,4 @@ setInterval(async () => {
   await loadBusStops(activeCampus.coords.latitude, activeCampus.coords.longitude, activeLanguage);
   await loadWeatherData(activeCampus.coords.latitude, activeCampus.coords.longitude, activeLanguage);
 }, 60000);
-*/
+

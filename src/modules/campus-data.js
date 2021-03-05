@@ -13,7 +13,7 @@ const campusList = [
   {
     name: 'Arabia',
     coords: {latitude: 60.21015476867742, longitude: 24.976743641873423},
-    image: {url: '../assets/pictures/arabia.jpg', offset: -15},
+    image: {url: './assets/pictures/arabia.jpg', offset: -15},
     restaurant: {
       name: 'compas-arabia',
       displayname: 'Compas Arabia',
@@ -24,7 +24,7 @@ const campusList = [
   {
     name: 'Karamalmi',
     coords: {latitude: 60.2238794, longitude: 24.758149},
-    image: {url: '../assets/pictures/karamalmi.jpg', offset: -12},
+    image: {url: './assets/pictures/karamalmi.jpg', offset: -12},
     restaurant: {
       name: 'fazer-karamalmi',
       displayname: 'Fazer Karamalmi',
@@ -35,7 +35,7 @@ const campusList = [
   {
     name: 'Myllypuro',
     coords: {latitude: 60.2236145, longitude: 25.0783509},
-    image: {url: '../assets/pictures/myllypuro.jpg', offset: -18},
+    image: {url: './assets/pictures/myllypuro.jpg', offset: -18},
     restaurant: {
       name: 'sodexo-myllypuro',
       displayname: 'Sodexo Myllypuro',
@@ -46,7 +46,7 @@ const campusList = [
   {
     name: 'Myyrmäki',
     coords: {latitude: 60.2586191, longitude: 24.8454723},
-    image: {url: '../assets/pictures/myyrmaki.jpg', offset: -14},
+    image: {url: './assets/pictures/myyrmaki.jpg', offset: -14},
     restaurant: {
       name: 'sodexo-myyrmaki',
       displayname: 'Sodexo Myyrmäki',
