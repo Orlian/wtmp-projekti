@@ -420,8 +420,12 @@ const renderLanguage = (language) => {
 
   if (language === 'fi') {
     flagImg.style.backgroundImage = 'url("../assets/pictures/united-kingdom.png")';
+    searchInput.setAttribute('placeholder', 'Etsi hakusanalla');
+    searchButton.textContent = 'Hae';
   } else {
     flagImg.style.backgroundImage = 'url("../assets/pictures/finland.png")';
+    searchInput.setAttribute('placeholder', 'Search');
+    searchButton.textContent = 'Search';
   }
 
   homeLink.textContent = languageJson.navigation['nav-item-home'];
@@ -430,6 +434,7 @@ const renderLanguage = (language) => {
   hslLink.textContent = languageJson.navigation['nav-item-hsl'];
   weatherLink.textContent = languageJson.navigation['nav-item-weather'];
   campusLink.textContent = languageJson.navigation['nav-item-campus'];
+
 
   coronaCarouselAllP.forEach((link) => {
     link.textContent = '';
@@ -512,6 +517,18 @@ homeLink.addEventListener('click', (event) => {
   briefingSection.style.display = 'none';
   homeLink.classList.add('active');
   homeLink.setAttribute('aria-current', 'page');
+});
+
+briefingNavLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  coronaCarousel.style.display = 'none';
+  briefingSection.style.display = 'block';
+  menuSection.style.display = 'none';
+  hslSection.style.display = 'none';
+  weatherSection.style.display = 'none';
+  removePageAttributes();
+  briefingNavLink.classList.add('active');
+  briefingNavLink.setAttribute('aria-current', 'page');
 });
 
 
