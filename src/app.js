@@ -72,11 +72,13 @@ L.Marker.prototype.options.icon = defaultIcon;
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
+    navigator.serviceWorker.register('./service-worker.js').
+      then(registration => {
+        console.log('SW registered: ', registration);
+      }).
+      catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
   });
 }
 
@@ -105,8 +107,7 @@ const init = async () => {
  */
 const loadApiData = async (campus, language) => {
   console.log('loadApiData lang', language);
-  await loadWeatherData(campus,
-    language);
+  await loadWeatherData(campus, language);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude, language);
   await loadMenuData(campus.restaurant, language);
   map.setView([campus.coords.latitude, campus.coords.longitude], 15);
@@ -123,10 +124,11 @@ const loadApiData = async (campus, language) => {
  * @param {string} lang - Active language
  * @returns {Promise<void>}
  */
-const loadWeatherData = async(campus, lang) => {
+const loadWeatherData = async (campus, lang) => {
   try {
     console.log('loadWeatherData lang', lang);
-    const weather = await WeatherData.getHourlyForecast(campus.coords.latitude, campus.coords.longitude,
+    const weather = await WeatherData.getHourlyForecast(campus.coords.latitude,
+      campus.coords.longitude,
       lang);
     console.log(weather);
     renderWeatherData(weather, lang, campus);
@@ -413,9 +415,9 @@ const removePageAttributes = () => {
 };
 
 /**
-* Renders language into relevant html elements.
+ * Renders language into relevant html elements.
  * @param {string} language = Active language
-*/
+ */
 const renderLanguage = (language) => {
   coronaInfo.textContent = '';
   let i = 1;
@@ -438,7 +440,6 @@ const renderLanguage = (language) => {
   weatherLink.textContent = languageJson.navigation['nav-item-weather'];
   campusLink.textContent = languageJson.navigation['nav-item-campus'];
   hslSectionHeader.textContent = languageJson['section-header']['hsl'];
-
 
   coronaCarouselAllP.forEach((link) => {
     link.textContent = '';
@@ -496,11 +497,11 @@ const renderLanguage = (language) => {
       textWrapper.appendChild(chapterLink);
     }
 
-    if(article.image) {
+    if (article.image) {
       const chapterImage = document.createElement('img');
       chapterImage.classList.add('article-image');
       chapterImage.setAttribute('loading', 'lazy');
-      chapterImage.src= article.image;
+      chapterImage.src = article.image;
       infoChapter.appendChild(chapterImage);
     }
     infoChapter.appendChild(textWrapper);
@@ -545,7 +546,6 @@ briefingNavLink.addEventListener('click', (event) => {
   briefingNavLink.classList.add('active');
   briefingNavLink.setAttribute('aria-current', 'page');
 });
-
 
 menuLink.addEventListener('click', (event) => {
   event.preventDefault();
@@ -594,12 +594,12 @@ languageButton.addEventListener('click', (event) => {
   init();
 });
 
-
 setInterval(async () => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
-  await loadBusStops(activeCampus.coords.latitude, activeCampus.coords.longitude, activeLanguage);
-  await loadWeatherData(activeCampus.coords.latitude, activeCampus.coords.longitude, activeLanguage);
+  await loadBusStops(activeCampus.coords.latitude,
+    activeCampus.coords.longitude, activeLanguage);
+  await loadWeatherData(activeCampus, activeLanguage);
 }, 60000);
 
