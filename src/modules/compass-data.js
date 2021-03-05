@@ -1,6 +1,11 @@
 import compassWeekMenu from '../assets/jsons/compass-data.json';
 
-
+/**
+ * Returns a daily menu array from compass json data
+ * @param {Object} menuData
+ * @param {number} dayOfWeek = Number of weekday, monday 0 - sunday 6
+ * @returns {Array} daily menu
+ */
 const parseDailyMenu = (menuData, dayOfWeek) => {
 
   let dailyMenu = menuData.LunchMenus[dayOfWeek].SetMenus.map(setMenu => {
@@ -15,7 +20,13 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
   return dailyMenu;
 };
 
-
+/**
+ * Get daily menu from static compass-data.json file
+ * @param {number} restaurant - Id of the restaurant
+ * @param {string} lang - active language
+ * @param {string} date in ISO format (YYYY-MM-DD)
+ * @returns {Array} parsed daily menu
+ */
 const getDailyMenu = (restaurant, lang, date) => {
   // Get number of the weekday (0: Sun, 1: Mon, etc.)
   let dayOfWeek = new Date().getDay();

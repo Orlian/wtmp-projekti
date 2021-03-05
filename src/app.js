@@ -138,7 +138,7 @@ const loadWeatherData = async (lat, lon, lang) => {
 };
 
 /**
- * Renders campus weather data into relevant objects
+ * Renders campus weather data into relevant html elements
  * @param {Object} weatherObject - Contains formatted weather data
  * @param {string} lang - Active language
  */
@@ -192,7 +192,7 @@ const loadBusStops = async (lat, lon, language) => {
 };
 
 /**
- * Renders HSL-data into relevant elements
+ * Renders HSL-data into relevant html elements
  * @param {Object} stops - GraphQl object containing data of stops and departures
  */
 const renderBusStops = (stops) => {
@@ -265,13 +265,13 @@ const makeId = (lat, lon) => {
 };
 
 /**
- *
+ * Add marker to leaflet map. Adds popup and eventlisteners to markers.
  * @param {number} lat - Marker latitude
  * @param {number} lon - Marker longitude
  * @param {string} text - Marker popup text
  * @param {Object} elem - Represents the linked collapsible li-element that shares the same stop-data as the marker
  * @param {boolean} isOpen - Represents whether marker's bound popup is open or not
- * @returns {*}
+ * @returns {Object} marker - marker object
  */
 const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
   const popUp = L.popup({autoClose: false, closeOnClick: false}).
@@ -300,7 +300,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
 };
 
 /**
- *
+ * Displays lunch menu items as html list. Displays diet info under the menu list in active language.
  * @param {Object} menuData - Parsed JSON-data from restaurant API
  * @param {Object} restaurant - Restaurant of the active campus
  * @param {string} language - Active language
@@ -409,6 +409,10 @@ const removePageAttributes = () => {
   weatherLink.removeAttribute('aria-current');
 };
 
+/**
+* Renders language into relevant html elements.
+ * @param {string} language = Active language
+*/
 const renderLanguage = (language) => {
   coronaInfo.textContent = '';
   let i = 1;
@@ -560,9 +564,10 @@ languageButton.addEventListener('click', (event) => {
 
 /*
 setInterval(async () => {
+  const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
-  await loadBusStops(activeCampus.coords.latitude, activeCampus.coords.longitude);
-  await loadWeatherData(activeCampus.coords.latitude, activeCampus.coords.longitude);
-}, 60000);*/
-
+  await loadBusStops(activeCampus.coords.latitude, activeCampus.coords.longitude, activeLanguage);
+  await loadWeatherData(activeCampus.coords.latitude, activeCampus.coords.longitude, activeLanguage);
+}, 60000);
+*/
