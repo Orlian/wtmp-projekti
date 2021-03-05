@@ -78,6 +78,10 @@ p {
   margin: 0.25em 0.5em;
 }
 
+section {
+  margin-bottom: 0.5em;
+}
+
 #menu-section{
   height: auto;
   background-image: url("../assets/pictures/menu-bg.jpg");
@@ -94,6 +98,10 @@ p {
 #restaurant-body{
   width: fit-content;
   height: auto;
+  p{
+    margin: auto;
+    text-align: center;
+  }
 }
 
 #weather-section{
@@ -103,15 +111,6 @@ p {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  .container-fluid{
-    padding: 0;
-    .row{
-      margin: 0;
-      .col-sm-8{
-        padding: 0;
-      }
-    }
-  }
 }
 
 #weather-card{
