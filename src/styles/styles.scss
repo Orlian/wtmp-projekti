@@ -78,6 +78,46 @@ p {
   margin: 0.25em 0.5em;
 }
 
+#menu-section{
+  height: auto;
+  background-image: url("../assets/pictures/menu-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#restaurant-card{
+  background: rgba(255,255,255,0.7);
+}
+
+#restaurant-body{
+  width: fit-content;
+  height: auto;
+}
+
+#weather-section{
+  height: auto;
+  background-image: url("../assets/pictures/weather-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  .container-fluid{
+    padding: 0;
+    .row{
+      margin: 0;
+      .col-sm-8{
+        padding: 0;
+      }
+    }
+  }
+}
+
+#weather-card{
+  background: rgba(255,255,255,0.7);
+}
+
 @include media-breakpoint-down(lg) {
   #banner{
     background-position: center -7em !important;
@@ -103,5 +143,11 @@ p {
   }
   .container{
     padding: 0 3px;
+  }
+  #restaurant-card{
+    background: rgba(255,255,255,0.8);
+  }
+  #weather-card{
+    background: rgba(255,255,255,0.8);
   }
 }
