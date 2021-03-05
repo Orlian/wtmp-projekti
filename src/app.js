@@ -41,6 +41,7 @@ const bannerHeading = document.querySelector('#banner-heading');
 const languageButton = document.querySelector('#change-language-btn');
 const flagImg = document.querySelector('#flag-img');
 const hslSectionHeader = document.querySelector('#hsl-section-header p');
+const weatherCardHeader = document.querySelector('#weather-card-header');
 
 const campusKey = 'activeCampus';
 const languageKey = 'language';
@@ -104,7 +105,7 @@ const init = async () => {
  */
 const loadApiData = async (campus, language) => {
   console.log('loadApiData lang', language);
-  await loadWeatherData(campus.coords.latitude, campus.coords.longitude,
+  await loadWeatherData(campus,
     language);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude, language);
   await loadMenuData(campus.restaurant, language);
@@ -118,18 +119,17 @@ const loadApiData = async (campus, language) => {
 
 /**
  * Fetches weather data for active campus from weather module
- * @param {number} lat - Campus latitude
- * @param {number} lon - Campus longitude
+ * @param {Object} campus - Active campus object
  * @param {string} lang - Active language
  * @returns {Promise<void>}
  */
-const loadWeatherData = async (lat, lon, lang) => {
+const loadWeatherData = async(campus, lang) => {
   try {
     console.log('loadWeatherData lang', lang);
-    const weather = await WeatherData.getHourlyForecast(lat, lon,
+    const weather = await WeatherData.getHourlyForecast(campus.coords.latitude, campus.coords.longitude,
       lang);
     console.log(weather);
-    renderWeatherData(weather, lang);
+    renderWeatherData(weather, lang, campus);
   } catch (error) {
     console.log(error.message);
     renderNoDataNotification(weatherCardBody, (lang === 'fi' ?
@@ -142,9 +142,11 @@ const loadWeatherData = async (lat, lon, lang) => {
  * Renders campus weather data into relevant html elements
  * @param {Object} weatherObject - Contains formatted weather data
  * @param {string} lang - Active language
+ * @param {Object} campus - Active campus object
  */
-const renderWeatherData = (weatherObject, lang) => {
+const renderWeatherData = (weatherObject, lang, campus) => {
   weatherCardUl.innerHTML = '';
+  weatherCardHeader.textContent = campus.name;
   const listItem = document.createElement('li');
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';

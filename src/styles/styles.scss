@@ -166,6 +166,9 @@ section {
   ul {
     list-style-type: none;
   }
+  #weather-card-header{
+    text-align: center;
+  }
 }
 
 #hsl-section-header {
@@ -194,7 +197,7 @@ section {
     margin: 0.25rem 0 0.25rem 0.1rem;
   }
   .article-image{
-    width: 30%;
+    width: 40% !important;
   }
 }
 
@@ -206,6 +209,12 @@ section {
   .carousel-item {
     background: colors.$primary-orange;
     height: 5em;
+  }
+  .article-image{
+    display: none;
+  }
+  .article-text-wrapper{
+    width: 100% !important;
   }
 }
 
