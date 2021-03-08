@@ -284,10 +284,9 @@ const makeId = (lat, lon) => {
  * @param {Object} elem - Represents the linked collapsible li-element that shares the same stop-data as the marker
  * @param {boolean} isOpen - Represents whether marker's bound popup is open or not
  * @param {string} alt - Marker icon alt text
- * @param {boolean} isCampus - Tells the function to add campus marker directly to map
  * @returns {Object} marker - marker object
  */
-const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt, isCampus = false) => {
+const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
   const popUp = L.popup({autoClose: false, closeOnClick: false}).
     setContent(text);
   const marker = L.marker([lat, lon],
@@ -297,7 +296,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt, isCampus
       icon: (elem.specialMarker ? youIcon : defaultIcon),
       alt: alt
     }).
-    addTo(isCampus === false ? markerLayer : map).
+    addTo(map).
     bindPopup(popUp).on('popupopen', () => {
       //console.log('popupopen event');
       if (!marker.options.isOpen && !elem.specialMarker) {
@@ -615,8 +614,9 @@ languageButton.addEventListener('click', (event) => {
 setInterval(async () => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList, campusKey);
+  markerLayer.clearLayers();
   await loadBusStops(activeCampus.coords.latitude,
     activeCampus.coords.longitude, activeLanguage);
   await loadWeatherData(activeCampus, activeLanguage);
-}, 60000);
+}, 6000);
 
