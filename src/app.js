@@ -486,7 +486,7 @@ const renderLanguage = (language) => {
     const infoChapter = document.createElement('article');
     const textWrapper = document.createElement('div');
     textWrapper.classList.add('article-text-wrapper');
-    const chapterHeader = document.createElement('h3');
+    const chapterHeader = document.createElement('h1');
     const chapterParag = document.createElement('p');
 
     chapterHeader.textContent = article.header;
