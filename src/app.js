@@ -320,6 +320,7 @@ const renderMenu = (menuData, restaurant, language) => {
   menuCardBody.innerHTML = '';
   const languageJson = TranslationData.getTranslation(language);
   const restaurantHeader = document.createElement('h1');
+  restaurantHeader.classList.add('header-h1');
   restaurantHeader.textContent = restaurant.displayname;
   restaurantHeader.classList.add('text-center');
   const ul = document.createElement('ul');
