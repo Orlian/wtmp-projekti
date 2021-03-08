@@ -51,6 +51,7 @@ const campusList = CampusData.campusList;
 const today = new Date().toISOString().split('T')[0];
 
 const map = L.map('map-card-body');
+const markerLayer = L.layerGroup().addTo(map);
 
 const defaultIcon = L.icon({
   iconUrl: './assets/pictures/pin.png',
@@ -70,7 +71,7 @@ const youIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = defaultIcon;
-
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').
@@ -82,6 +83,8 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+ */
 
 /**
  * Initialization function that calls all relevant functions at page load
@@ -116,7 +119,7 @@ const loadApiData = async (campus, language) => {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
   addMarker(campus.coords.latitude, campus.coords.longitude, `${campus.name}`,
-    {specialMarker: true}, true, (language === 'fi' ? 'kampus ikoni' : 'campus icon'));
+    {specialMarker: true}, true, (language === 'fi' ? 'kampus ikoni' : 'campus icon'), true);
 };
 
 /**
@@ -281,9 +284,10 @@ const makeId = (lat, lon) => {
  * @param {Object} elem - Represents the linked collapsible li-element that shares the same stop-data as the marker
  * @param {boolean} isOpen - Represents whether marker's bound popup is open or not
  * @param {string} alt - Marker icon alt text
+ * @param {boolean} isCampus - Tells the function to add campus marker directly to map
  * @returns {Object} marker - marker object
  */
-const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
+const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt, isCampus = false) => {
   const popUp = L.popup({autoClose: false, closeOnClick: false}).
     setContent(text);
   const marker = L.marker([lat, lon],
@@ -293,7 +297,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
       icon: (elem.specialMarker ? youIcon : defaultIcon),
       alt: alt
     }).
-    addTo(map).
+    addTo(isCampus === false ? markerLayer : map).
     bindPopup(popUp).on('popupopen', () => {
       //console.log('popupopen event');
       if (!marker.options.isOpen && !elem.specialMarker) {
@@ -610,8 +614,7 @@ languageButton.addEventListener('click', (event) => {
 
 setInterval(async () => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
-  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
-    campusKey);
+  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList, campusKey);
   await loadBusStops(activeCampus.coords.latitude,
     activeCampus.coords.longitude, activeLanguage);
   await loadWeatherData(activeCampus, activeLanguage);

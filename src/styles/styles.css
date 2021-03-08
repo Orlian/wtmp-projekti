@@ -10718,6 +10718,8 @@ p {
 }
 #briefing-section article:last-child {
   border-bottom: none;
+  justify-content: center;
+  text-align: center;
 }
 #briefing-section article:first-child {
   margin-top: 1.5rem;
@@ -10737,7 +10739,28 @@ p {
 }
 
 section {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#hsl-section-header {
   margin-bottom: 0.5em;
+}
+
+#search-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(194, 213, 0, 0.25);
+  border-color: #228B22;
+}
+
+#search-button:hover {
+  background-color: #c2d500;
+  box-shadow: 0 0 0 0.25rem rgba(194, 213, 0, 0.25);
+  border-color: #228B22;
+}
+
+#change-language-btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(194, 213, 0, 0.25);
+  border-color: #228B22;
 }
 
 #menu-section {
@@ -10754,10 +10777,6 @@ section {
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
-#restaurant-body {
-  width: fit-content;
-  height: auto;
-}
 #restaurant-body p {
   margin: auto;
   text-align: center;
@@ -10773,7 +10792,7 @@ section {
 }
 
 #weather-card {
-  background: rgba(230, 230, 230, 0.7);
+  background: rgba(215, 215, 215, 0.7);
   border-radius: 0.25rem 0 0 0.25rem;
 }
 #weather-card ul {
@@ -10797,6 +10816,22 @@ section {
   position: relative;
   width: 5rem;
   height: inherit;
+}
+
+.header-h1 {
+  font-size: 1.5em;
+}
+
+#dietInfo-p {
+  font-size: 0.8em;
+}
+
+.briefing-link {
+  color: white;
+}
+
+.briefing-link:hover {
+  color: #228B22;
 }
 
 @media (max-width: 991.98px) {

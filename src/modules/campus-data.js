@@ -65,9 +65,9 @@ const campusList = [
  */
 const getCurrentCampus = (input = '', campusList, key) => {
   for (let campus of campusList) {
-    if (input.toString() === campus.name.toLowerCase()) {
+    if (input === '' && fetchLocalCampus(key) === campus.name) {
       return campus;
-    } else if(input === '' && fetchLocalCampus(key) === campus.name) {
+    } else if(input.toString() === campus.name.toLowerCase()) {
       return campus;
     }
   }
