@@ -16,11 +16,18 @@ module.exports = {
       short_name: 'MetropoliaCampusPWA',
       description: 'App shows data from Metropolia Campuses',
       background_color: '#ffffff',
+      theme_color: "#ff5000",
       crossorigin: 'use-credentials',
       icons: [
         {
           src: path.resolve('src/assets/pictures/metropolia_s_orange_eng.png'),
           sizes: [96, 128, 192, 256, 384, 512]
+        },
+        {
+          src: "src/assets/pictures/maskable_icon.png",
+          sizes: "196x196",
+          type: "image/png",
+          purpose: "maskable"
         },
       ]
     }),

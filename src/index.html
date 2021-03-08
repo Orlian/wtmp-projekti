@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="description" content="App shows information from all Metropolia Campuses. Choose campus and you get todays lunch list, 5 hours weather forecast and closest public transport stops departures."/>
+  <meta name="theme-color" content="#ff5000"/>
   <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="apple-touch-icon" href="src/assets/pictures/metropolia_s_orange_eng.png">
 </head>
 <body>
 <div class="container">
@@ -147,7 +149,7 @@
         <div class="col-sm-8">
           <div class="card" id="weather-card">
             <div class="card-body d-flex flex-column align-items-center" id="weather-card-body">
-              <h4 id="weather-card-header"></h4>
+              <h1 id="weather-card-header"></h1>
               <ul id="weather-card-ul" class="p-0 m-0">
               </ul>
             </div>
@@ -159,7 +161,7 @@
   <section id="hsl-section">
     <div class="container">
       <div class="row-cols-1 d-flex" id="hsl-section-header">
-        <i class="hsl-logo ms-1"></i><p class="mb-0 ms-2"></p>
+        <i class="hsl-logo ms-1"></i><h1 class="mb-0 ms-2"></h1>
       </div>
       <!-- Joku bg-kuva -->
       <div class="row justify-content-end">

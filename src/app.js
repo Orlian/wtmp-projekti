@@ -41,7 +41,7 @@ const bannerImage = document.querySelector('#banner');
 const bannerHeading = document.querySelector('#banner-heading');
 const languageButton = document.querySelector('#change-language-btn');
 const flagImg = document.querySelector('#flag-img');
-const hslSectionHeader = document.querySelector('#hsl-section-header p');
+const hslSectionHeader = document.querySelector('#hsl-section-header h1');
 const weatherCardHeader = document.querySelector('#weather-card-header');
 
 const campusKey = 'activeCampus';
@@ -319,7 +319,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
 const renderMenu = (menuData, restaurant, language) => {
   menuCardBody.innerHTML = '';
   const languageJson = TranslationData.getTranslation(language);
-  const restaurantHeader = document.createElement('h4');
+  const restaurantHeader = document.createElement('h1');
   restaurantHeader.textContent = restaurant.displayname;
   restaurantHeader.classList.add('text-center');
   const ul = document.createElement('ul');
