@@ -330,6 +330,7 @@ const renderMenu = (menuData, restaurant, language) => {
     ul.appendChild(listItem);
   }
   const dietInfoP = document.createElement('p');
+  dietInfoP.id = 'dietInfo-p';
   let dietInfoText = '';
   languageJson.dietInfo.forEach((diet) => {
     dietInfoText += `${diet}`;
