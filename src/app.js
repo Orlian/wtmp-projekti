@@ -214,63 +214,58 @@ const loadBusStops = async (lat, lon, language, firstLoad = true) => {
  * @param {boolean} firstLoad - Tells the function whether to create markers or just update timetables
  */
 const renderBusStops = (stops, language, firstLoad) => {
-  if (!firstLoad) {
-    const stopList = document.querySelectorAll('.list-group .list-group-item');
-    stopList.forEach((stop) => {
+  hslCardUl.innerHTML = '';
+  for (let stop of stops) {
+    const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
+    const stopLi = document.createElement('li');
+    stopLi.classList.add('list-group-item');
+    stopLi.setAttribute('data-bs-toggle', 'collapse');
+    stopLi.setAttribute('href', `#${collapseId}`);
+    stopLi.setAttribute('role', 'button');
+    stopLi.ariaExpanded = 'false';
+    stopLi.setAttribute('aria-controls', 'collapse');
+    stopLi.innerHTML = `<h2>${stop.node.stop.name} - ${stop.node.distance}m</h2>`;
 
-    });
-  } else {
-    hslCardUl.innerHTML = '';
-    for (let stop of stops) {
-      const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
-      const stopLi = document.createElement('li');
-      stopLi.classList.add('list-group-item');
-      stopLi.setAttribute('data-bs-toggle', 'collapse');
-      stopLi.setAttribute('href', `#${collapseId}`);
-      stopLi.setAttribute('role', 'button');
-      stopLi.ariaExpanded = 'false';
-      stopLi.setAttribute('aria-controls', 'collapse');
-      stopLi.innerHTML = `<h2>${stop.node.stop.name} - ${stop.node.distance}m</h2>`;
+    const stopCollapse = document.createElement('div');
+    stopCollapse.classList.add('collapse');
+    stopCollapse.id = `${collapseId}`;
 
-      const stopCollapse = document.createElement('div');
-      stopCollapse.classList.add('collapse');
-      stopCollapse.id = `${collapseId}`;
-
-      const stopCollapseUl = document.createElement('ul');
-      stopCollapseUl.classList.add('list-group');
-      let stopIterator = 0;
-      for (let arrival of stop.node.stop.stoptimesWithoutPatterns) {
-        const stopCollapseLi = document.createElement('li');
-        stopCollapseLi.classList.add('list-group-item');
-        let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
-        if (arrivaltime > 0) {
-          arrivaltime = HSLData.formatTime(arrivaltime);
-          stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ?
-            arrival.headsign :
-            ''} - ${arrival.trip.route.shortName}`;
-        } else if (arrivaltime <= 0 && stopIterator !== 0) {
-          stopCollapseLi.textContent += `${language === 'fi' ?
-            'lähtee huomenna' :
-            'leaves tomorrow'}`;
-        } else {
-          stopCollapseLi.textContent += `${language === 'fi' ?
-            'NYT' :
-            'NOW'} ${arrival.headsign ?
-            arrival.headsign :
-            ''} - ${arrival.trip.route.shortName}`;
-        }
-        stopCollapseUl.appendChild(stopCollapseLi);
-        stopIterator++;
+    const stopCollapseUl = document.createElement('ul');
+    stopCollapseUl.classList.add('list-group');
+    let stopIterator = 0;
+    for (let arrival of stop.node.stop.stoptimesWithoutPatterns) {
+      const stopCollapseLi = document.createElement('li');
+      stopCollapseLi.classList.add('list-group-item');
+      let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
+      if (arrivaltime > 0) {
+        arrivaltime = HSLData.formatTime(arrivaltime);
+        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ?
+          arrival.headsign :
+          ''} - ${arrival.trip.route.shortName}`;
+      } else if (arrivaltime <= 0 && stopIterator !== 0) {
+        stopCollapseLi.textContent += `${language === 'fi' ?
+          'lähtee huomenna' :
+          'leaves tomorrow'}`;
+      } else {
+        stopCollapseLi.textContent += `${language === 'fi' ?
+          'NYT' :
+          'NOW'} ${arrival.headsign ?
+          arrival.headsign :
+          ''} - ${arrival.trip.route.shortName}`;
       }
-      if (stop.node.stop.stoptimesWithoutPatterns.length === 0) {
-        const stopCollapseLi = document.createElement('li');
-        stopCollapseLi.classList.add('list-group-item');
-        stopCollapseLi.textContent = 'No upcoming departures';
-        stopCollapseUl.appendChild(stopCollapseLi);
-      }
-      stopCollapse.appendChild(stopCollapseUl);
-      stopLi.appendChild(stopCollapse);
-      hslCardUl.append(stopLi);
+      stopCollapseUl.appendChild(stopCollapseLi);
+      stopIterator++;
+    }
+    if (stop.node.stop.stoptimesWithoutPatterns.length === 0) {
+      const stopCollapseLi = document.createElement('li');
+      stopCollapseLi.classList.add('list-group-item');
+      stopCollapseLi.textContent = 'No upcoming departures';
+      stopCollapseUl.appendChild(stopCollapseLi);
+    }
+    stopCollapse.appendChild(stopCollapseUl);
+    stopLi.appendChild(stopCollapse);
+    hslCardUl.append(stopLi);
+    if (firstLoad) {
       const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
         stop.node.stop.name, stopLi, false,
         (language === 'fi' ? 'pysäkki ikoni' : 'public transport stop icon'));
