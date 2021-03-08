@@ -234,7 +234,7 @@ const renderBusStops = (stops, language) => {
           arrival.headsign :
           ''} - ${arrival.trip.route.shortName}`;
       } else {
-        stopCollapseLi.textContent += `lähtee huomenna`;
+        stopCollapseLi.textContent += `${language === 'fi' ? 'lähtee huomenna' : 'leaves tomorrow'}`;
       }
       stopCollapseUl.appendChild(stopCollapseLi);
     }
@@ -252,10 +252,10 @@ const renderBusStops = (stops, language) => {
     stopLi.addEventListener('click', (evt) => {
       if (!marker.options.isOpen) {
         marker.openPopup();
-        console.log('marker isOpen', marker.options.isOpen);
+        //console.log('marker isOpen', marker.options.isOpen);
       } else {
         marker.closePopup();
-        console.log('marker isOpen', marker.options.isOpen);
+        //console.log('marker isOpen', marker.options.isOpen);
       }
     });
   }
@@ -397,7 +397,9 @@ searchButton.addEventListener('click', (event) => {
   event.preventDefault();
   for (let section of sections) {
     //console.log(section);
-    if (section.innerHTML.toLowerCase().
+  if(searchInput.value === ''){
+    section.style.display = 'none';
+  }else if(section.innerHTML.toLowerCase().
       includes(searchInput.value.toLowerCase())) {
       section.style.display = 'block';
     } else {

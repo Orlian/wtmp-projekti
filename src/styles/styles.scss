@@ -101,6 +101,8 @@ p {
 
   article:last-child {
     border-bottom: none;
+    justify-content: center;
+    text-align: center;
   }
 
   article:first-child {
@@ -123,9 +125,27 @@ p {
 }
 
 section {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#hsl-section-header{
   margin-bottom: 0.5em;
 }
 
+#search-input:focus{
+  box-shadow: 0 0 0 0.25rem rgb(194 213 0 / 25%);
+  border-color: colors.$accent-green;
+}
+#search-button:hover{
+  background-color: colors.$accent-lime;
+  box-shadow: 0 0 0 0.25rem rgb(194 213 0 / 25%);
+  border-color: colors.$accent-green;
+}
+#change-language-btn:focus{
+  box-shadow: 0 0 0 0.25rem rgb(194 213 0 / 25%);
+  border-color: colors.$accent-green;
+}
 #menu-section {
   height: auto;
   background-image: url("../assets/pictures/menu-bg.jpg");
@@ -141,9 +161,6 @@ section {
 }
 
 #restaurant-body {
-  width: fit-content;
-  height: auto;
-
   p {
     margin: auto;
     text-align: center;
@@ -160,7 +177,7 @@ section {
 }
 
 #weather-card {
-  background: rgba(230, 230, 230, 0.7);
+  background: rgba(215, 215, 215, 0.7);
   border-radius: 0.25rem 0 0 0.25rem;
 
   ul {
@@ -189,6 +206,17 @@ section {
 
 .header-h1{
   font-size: 1.5em;
+}
+
+#dietInfo-p{
+  font-size: 0.8em;
+}
+
+.briefing-link{
+  color: colors.$accent-white;
+}
+.briefing-link:hover{
+  color: colors.$accent-green;
 }
 
 @include media-breakpoint-down(lg) {
