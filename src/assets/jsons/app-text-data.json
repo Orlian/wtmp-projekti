@@ -13,51 +13,76 @@
       "carousel-slide-2": "Käytä kasvomaskia kaikissa oppimis- ja työtilanteissa Metropolian kampuksella. ",
       "carousel-slide-3": "Käytä käsidesiä ja pese kätesi huolellisesti. ",
       "carousel-slide-4": "Muista säilyttää turvaväli ja pyri välttämään lähikontaktia. ",
-      "carousel-slide-5": "Yski ja aivasta hihaasi tai nenäliinaan. "
+      "carousel-slide-5": "Yski ja aivasta hihaasi tai nenäliinaan. ",
+      "carousel-alt": "oranssi taustaväri"
     },
     "info": [
       {
         "header": "Koronavirus",
         "text": "Jokainen voi henkilökohtaisella toiminnallaan vaikuttaa viruksen leviämisen estämiseen mm. huolehtimalla käsihygieniasta, noudattamalla yskimiseen ja aivastamiseen liittyviä ohjeita ja sairastamalla kotona. Näin toimimalla suojaamme paitsi itseämme myös muita. Kun asioit kampuksella noudata seuraavia ohjeita.",
-        "image": "./assets/pictures/corona-p1.jpg"
+        "image":{
+        "src": "./assets/pictures/corona-p1.jpg",
+        "alt": "kyltti, jossa lukee \"Ei tänään\" #Covid19 "
+        }
       },
       {
         "header": "Hengityssuojainten käyttö",
         "text": "Metropoliassa on vahva suositus kasvomaskien käyttöön kaikissa oppimis- ja työtilanteissa Metropolian kampuksilla.",
-        "image": "./assets/pictures/corona-p2.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p2.jpg",
+          "alt": "Nuori miesopiskelija maski kasvoilla pitää käsissään maski kylttiä"
+        }
       },
       {
         "header": "Käsien peseminen",
         "text": ["Kastele kädet runsaalla vedellä", "Ota saippuaa ja hiero kämmeniä vastakkain", "Hiero kämmenselät, peukalot ja sormien välit", "Hiero sormia lomittain vastatusten", "Huuhdo kädet runsaalla vedellä", "Kuivaa kätesi huolellisesti käsipyyhepaperilla", "Sulje hana käsipyyhepaperilla ja laita stoppi tartunnoille"],
         "link": "www.thl.fi/kasienpesuohje",
-        "image": "./assets/pictures/corona-p3.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p3.jpg",
+          "alt": "Etualalla nuori naisopiskelija pitää käsissään käsienpesukylttiä. Taustalla nuori miesopiskelija pesee käsiään."
+        }
       },
       {
         "header": "Yski ja aivasta oikein",
         "text": ["Yski ja aivasta hihaasi, niin laitat stopin tartunnoille.", "Jos mahdollista, käytä kertakäyttöistä nenäliinaa.", "Laita käytetty liina roskiin ja pese kädet saippualla."],
         "link": "www.thl.fi/yskimisohje",
-        "image": "./assets/pictures/corona-p4.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p4.jpg",
+          "alt": "Nuori miesopiskelija yskii kyynärtaipeeseen"
+        }
       },
       {
         "header": "Turvavälit ja lähikontaktien vähentäminen",
         "text": ["Lähikontaktien vähentäminen on tärkeää, koska siten hidastetaan epidemian leviämistä.", "Kun liikut kampuksella tai ulkona, pidä vähintään 1–2 metrin etäisyys muihin ihmisiin.", "Älä kättele."],
         "link": "www.thl.fi",
-        "image": "./assets/pictures/corona-p5.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p5.jpg",
+          "alt": "Nuori miesopiskelija pitää käsissään kylttiä, jossa lukee \"Vältä ihmiskontakteja!\" #Covid19"
+        }
       },
       {
         "header": "Hissien käyttäminen",
         "text": "Hissien käyttöä pyydetään mahdollisuuksien mukaan välttämään. Jos kuitenkin on tarve kulkea hissillä, on suositeltava kulkea yksin tai muutoin turvaväleistä huolehtien. Puhumista toisille tai puhelimeen tulee hississä välttää, jotta riski mahdolliseen pisaratartuntaan vähenee. Nyökkäys tai hymy työ- tai opiskelukaverille riittää.",
-        "image": "./assets/pictures/corona-p8.jpg"
+        "image": {
+          "src": "./assets/pictures/corona-p8.jpg",
+          "alt": "Nuori miesopiskelija pitää käsissään kylttiä, jossa lukee \"Pysy kotona ollessasi sairas!\" #Covid19"
+        }
       },
       {
         "header": "Käsidesien käyttäminen",
         "text": "Käsidesiä löytyy pääovien yhteydestä, mutta Metropolia suosittelee myös oman henkilökohtaisen mukana kannettavan käsidesin hankkimista. Kampusten siivouksessa keskitytään tartuntariskien minimoimiseen ja tilojen siisteyttä seurataan aktiivisesti.",
-        "image": "./assets/pictures/corona-p6.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p6.jpg",
+          "alt": "Kädet käyttämässä käsidesiä"
+        }
       },
       {
         "header": "Lataa Koronavilkku-sovellus",
         "text": "Lataa puhelimeesi Koronavilkku-sovellus, jonka avulla saat tiedon, jos olet altistunut. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu. Voit ladata sovelluksen Google Play -kaupassa ja App Storessa.",
-        "image": "./assets/pictures/corona-p7.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p7.jpg",
+          "alt": "Nuori mies- ja naisopiskelija maskikasvoillaan käytämässä puhelinta"
+        }
       },
       {
         "header": "Tarkempia ohjeita",
@@ -95,51 +120,76 @@
       "carousel-slide-2": "Use a face mask in all learning and work situations on Metropolia's campuses. ",
       "carousel-slide-3": "Use hand disinfectant and wash your hands carefully. ",
       "carousel-slide-4": "Remember to maintain a safe distance from others and try to avoid close contact. ",
-      "carousel-slide-5": "Cough and sneeze safely into your sleeve or paper tissue. "
+      "carousel-slide-5": "Cough and sneeze safely into your sleeve or paper tissue. ",
+      "carousel-alt": "orange background color"
     },
     "info": [
       {
         "header": "Coronavirus",
         "text": "Everyone can slow down the spread of coronavirus with their own actions. Reducing social contact is now also important, as this slows down the spread of the epidemic. When you are on campus, follow the instructions below.",
-        "image": "./assets/pictures/corona-p1.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p1.jpg",
+          "alt": "Sign with text \"Not today\" #Covid19"
+        }
       },
       {
         "header": "Use of protective masks",
         "text": "Metropolia has a strong recommendation for the use of face masks in all learning and work situations on Metropolia's campuses.",
-        "image": "./assets/pictures/corona-p2.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p2.jpg",
+          "alt": "Young male student wearing facemask, holding facemask sign"
+        }
       },
       {
         "header": "Washing hands",
         "text": ["Wet your hands with a lot of water", "Apply some soap and rub your hands palm to palm", "Rub the backs of your hands, your thumbs and between your fingers", "Rub your hands together with your fingers interlaced", "Rinse your hands with a lot of water", "Dry your hands carefully with a paper towel", "Use a paper towel to turn off the tap"],
         "link": "www.thl.fi/handwash",
-        "image": "./assets/pictures/corona-p3.jpg"
+        "image":{
+         "src": "./assets/pictures/corona-p3.jpg",
+          "alt": "On front Young female student holding handwash sign. On background young male student washing hands"
+        }
       },
       {
         "header": "Cough and sneeze correctly",
         "text": ["Cough and sneeze into your sleeve to stop infections from spreading.", "If possible, use a paper tissue.", "Put the used tissue into a bin and wash your hands with soap."],
         "link": "www.thl.fi/coughcorrectly",
-        "image": "./assets/pictures/corona-p4.jpg"
+        "image":{
+         "src":"./assets/pictures/corona-p4.jpg",
+          "alt": "Young male student coughing into sleeve"
+        }
       },
       {
         "header": "Reducing close contacts",
         "text": ["Reducing close contact is now also important, as this slows down the spread of the epidemic.", "When you are in the campus or outdoors, stay at least one - two meter away from others.", "Avoid shaking hands."],
         "link": "www.thl.fi",
-        "image": "./assets/pictures/corona-p5.jpg"
+        "image":{
+         "src": "./assets/pictures/corona-p5.jpg",
+         "alt": "Young male student holding with text \"Avoid contact with people!\" #Covid19"
+        }
       },
       {
         "header": "Using the lift",
         "text": "Avoid using the lift whenever possible. However, if you have to use one, we recommend that you are only person to enter a lift, or at least ensure social distancing. You should not talk to anyone in the lift or on the phone to minimise the risk of droplet transmission. A friendly nod or a smile is enough.",
-        "image": "./assets/pictures/corona-p8.jpg"
+        "image":{
+         "src": "./assets/pictures/corona-p8.jpg",
+         "alt": "Young male student holding with text \"Stay home if you are sick!\" #Covid19"
+        }
       },
       {
         "header": "Use of hand disinfectant",
         "text": "Hand disinfectant is available near the main entrances, but Metropolia also suggests that you have your own bottle of disinfectant with you. Campus cleaning focuses on minimising infection risk, and the cleanliness of the premises is followed actively.",
-        "image": "./assets/pictures/corona-p6.jpg"
+        "image":{
+         "src": "./assets/pictures/corona-p6.jpg",
+         "alt": "Hands using disinfectant"
+        }
       },
       {
         "header": "Download Koronavilkku app",
         "text": "Download Koronavilkku app, which is a contact tracing app. It help's you find out whether you may have been exposed to coronavirus. If you have a coronavirus test and are diagnosed as infected, you can use the app to share this anonymously with those you have been in close contact with. Your privacy is strongly protected. Download on Google Play or App Store.",
-        "image": "./assets/pictures/corona-p7.jpg"
+        "image":{
+          "src": "./assets/pictures/corona-p7.jpg",
+          "alt": "Young male ja female student wearing facemasks and using phone"
+        }
       },
       {
         "header": "More information",

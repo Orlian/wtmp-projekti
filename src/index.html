@@ -2,15 +2,15 @@
 <html lang="fi">
 <head>
   <meta charset="utf-8"/>
+  <meta name="description" content="App shows information from all Metropolia Campuses. Choose campus and you get todays lunch list, 5 hours weather forecast and closest public transport stops departures."/>
   <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
-<!-- Metropolian fontteja/kuvia/värejä -->
 <body>
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
     <div class="container">
       <a class="navbar-brand" href="#"><img id="navbar-brand-img" src="./assets/pictures/metropolia_s_orange_eng.png"
-                                            alt="metropolia logo"></a>
+                                            loading="lazy" alt="metropolia logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarcontent"
               aria-controls="navbarcontent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -68,32 +68,32 @@
     <div id="corona-carousel" class="carousel slide mb-1" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100 position-relative" alt="">
+          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100 position-relative" loading="lazy" alt="">
           <div class="carousel-caption d-sm-block">
             <p id="carousel-slide-p1" class="carousel-slide-p"></p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" alt="">
+          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" loading="lazy" alt="">
           <div class="carousel-caption d-s-block">
             <p id="carousel-slide-p2" class="carousel-slide-p"></p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" alt="">
+          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" loading="lazy" alt="">
           <div class="carousel-caption d-s-block">
             <p class="carousel-slide-p" id="carousel-slide-p3"></p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" alt="">
+          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" loading="lazy" alt="">
           <div class="carousel-caption d-s-block">
             <p id="carousel-slide-p4" class="carousel-slide-p">
             </p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" alt="">
+          <img src="assets/pictures/carousel-bg.jpg" class="d-block w-100" loading="lazy" alt="">
           <div class="carousel-caption d-s-block">
             <p id="carousel-slide-p5" class="carousel-slide-p">
             </p>
@@ -159,7 +159,7 @@
   <section id="hsl-section">
     <div class="container">
       <div class="row-cols-1 d-flex" id="hsl-section-header">
-        <i class="hsl-logo ms-1"></i><p class="mb-0 ms-2">Public transit data plöö plää</p>
+        <i class="hsl-logo ms-1"></i><p class="mb-0 ms-2"></p>
       </div>
       <!-- Joku bg-kuva -->
       <div class="row justify-content-end">

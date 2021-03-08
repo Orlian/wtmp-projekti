@@ -55,7 +55,6 @@ const parseHourlyForecastData = (hourlyForecastData) => {
  */
 const getHourlyForecast = async (lat, lon, lang) => {
   let hourlyForecastData;
-  console.log('getHourlyForecast lang', lang);
   try {
     hourlyForecastData = await fetchGetJson(
       `${hourlyForecastUrl}?lat=${lat}&lon=${lon}&exclude=minutely,daily,alerts&units=metric&lang=${lang}&appid=${appid}`);

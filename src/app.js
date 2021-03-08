@@ -31,6 +31,7 @@ const weatherLink = document.querySelector('#nav-item-weather');
 const campusLink = document.querySelector('#navbarDropdown');
 const coronaCarousel = document.querySelector('#corona-carousel');
 const coronaCarouselAllP = document.querySelectorAll('.carousel-slide-p');
+const coronaCarouselAllImg = document.querySelectorAll('.carousel-item img');
 const briefingSection = document.querySelector('#briefing-section');
 const coronaInfo = document.querySelector('#corona-info');
 const menuSection = document.querySelector('#menu-section');
@@ -90,7 +91,7 @@ if ('serviceWorker' in navigator) {
 const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
   const languageSetting = TranslationData.getCurrentLanguage(languageKey);
-  console.log('init lang', languageSetting);
+  //console.log('init lang', languageSetting);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
   loadBanner(activeCampus);
@@ -106,7 +107,7 @@ const init = async () => {
  * @returns {Promise<void>}
  */
 const loadApiData = async (campus, language) => {
-  console.log('loadApiData lang', language);
+  //console.log('loadApiData lang', language);
   await loadWeatherData(campus, language);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude, language);
   await loadMenuData(campus.restaurant, language);
@@ -115,7 +116,7 @@ const loadApiData = async (campus, language) => {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
   addMarker(campus.coords.latitude, campus.coords.longitude, `${campus.name}`,
-    {specialMarker: true}, true);
+    {specialMarker: true}, true, (language === 'fi' ? 'kampus ikoni' : 'campus icon'));
 };
 
 /**
@@ -126,14 +127,14 @@ const loadApiData = async (campus, language) => {
  */
 const loadWeatherData = async (campus, lang) => {
   try {
-    console.log('loadWeatherData lang', lang);
+    //console.log('loadWeatherData lang', lang);
     const weather = await WeatherData.getHourlyForecast(campus.coords.latitude,
       campus.coords.longitude,
       lang);
-    console.log(weather);
+    //console.log(weather);
     renderWeatherData(weather, lang, campus);
   } catch (error) {
-    console.log(error.message);
+    //console.log(error.message);
     renderNoDataNotification(weatherCardBody, (lang === 'fi' ?
       'Ei säätietoja saatavilla' :
       'No weather data available'));
@@ -153,6 +154,7 @@ const renderWeatherData = (weatherObject, lang, campus) => {
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
   listItemImg.src = (`${weatherObject.currentWeather.icon}`);
+  listItemImg.alt = `${lang === 'fi' ? weatherObject.currentWeather.desc + ' ikoni' : weatherObject.currentWeather.desc + ' icon'}`;
   listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(
     0)}\u00B0C ${lang === 'fi' ?
     'Tuntuu kuin: ' :
@@ -166,6 +168,7 @@ const renderWeatherData = (weatherObject, lang, campus) => {
     const listItemImg = document.createElement('img');
     listItemImg.classList.add('hour-weather-icon');
     listItemImg.src = (`${weatherObject.weatherForecast[hourWeather].icon}`);
+    listItemImg.alt = `${lang === 'fi' ? weatherObject.weatherForecast[hourWeather].desc + ' ikoni' : weatherObject.weatherForecast[hourWeather].desc + ' icon'}`;
     listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(
       0)}\u00B0C ${lang === 'fi' ?
       'Tuntuu kuin: ' :
@@ -186,10 +189,10 @@ const renderWeatherData = (weatherObject, lang, campus) => {
 const loadBusStops = async (lat, lon, language) => {
   try {
     const stops = await HSLData.getStopsByRadius(lat, lon, 700);
-    console.log('stops data:', stops.data.stopsByRadius.edges);
-    renderBusStops(stops.data.stopsByRadius.edges);
+    //console.log('stops data:', stops.data.stopsByRadius.edges);
+    renderBusStops(stops.data.stopsByRadius.edges , language);
   } catch (err) {
-    console.error('loadBusStops error', err.message);
+    //console.error('loadBusStops error', err.message);
     renderNoDataNotification(hslCard, (language === 'fi' ?
       'Ei HSL-tietoja saatavilla' :
       'No HSL-data available'));
@@ -199,8 +202,9 @@ const loadBusStops = async (lat, lon, language) => {
 /**
  * Renders HSL-data into relevant html elements
  * @param {Object} stops - GraphQl object containing data of stops and departures
+ * @param {string} language - Active language
  */
-const renderBusStops = (stops) => {
+const renderBusStops = (stops, language) => {
   hslCardUl.innerHTML = '';
   for (let stop of stops) {
     const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
@@ -244,7 +248,7 @@ const renderBusStops = (stops) => {
     stopLi.appendChild(stopCollapse);
     hslCardUl.append(stopLi);
     const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
-      stop.node.stop.name, stopLi);
+      stop.node.stop.name, stopLi, false, (language === 'fi' ? 'pysäkki ikoni' : 'public transport stop icon'));
     stopLi.addEventListener('click', (evt) => {
       if (!marker.options.isOpen) {
         marker.openPopup();
@@ -276,9 +280,10 @@ const makeId = (lat, lon) => {
  * @param {string} text - Marker popup text
  * @param {Object} elem - Represents the linked collapsible li-element that shares the same stop-data as the marker
  * @param {boolean} isOpen - Represents whether marker's bound popup is open or not
+ * @param {string} alt - Marker icon alt text
  * @returns {Object} marker - marker object
  */
-const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
+const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
   const popUp = L.popup({autoClose: false, closeOnClick: false}).
     setContent(text);
   const marker = L.marker([lat, lon],
@@ -286,16 +291,17 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false) => {
       myCustomId: makeId(lat, lon),
       isOpen: isOpen,
       icon: (elem.specialMarker ? youIcon : defaultIcon),
+      alt: alt
     }).
     addTo(map).
     bindPopup(popUp).on('popupopen', () => {
-      console.log('popupopen event');
+      //console.log('popupopen event');
       if (!marker.options.isOpen && !elem.specialMarker) {
         elem.click();
         marker.options.isOpen = true;
       }
     }).on('popupclose', () => {
-      console.log('popupclose event');
+      //console.log('popupclose event');
       if (marker.options.isOpen && !elem.specialMarker) {
         elem.click();
         marker.options.isOpen = false;
@@ -350,12 +356,12 @@ const renderNoDataNotification = (element, message) => {
  */
 const loadMenuData = async (restaurant, languageSetting) => {
   try {
-    console.log('loadMenuData lang', languageSetting);
+    //console.log('loadMenuData lang', languageSetting);
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
       languageSetting, today);
     renderMenu(parsedMenu, restaurant, languageSetting);
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     // notify user if errors with data
     renderNoDataNotification(menuCardBody, (languageSetting === 'fi' ?
       'Ei ravintolatietoja saatavilla' :
@@ -388,7 +394,7 @@ campusDropdown.addEventListener('click', async (evt) => {
 searchButton.addEventListener('click', (event) => {
   event.preventDefault();
   for (let section of sections) {
-    console.log(section);
+    //console.log(section);
     if (section.innerHTML.toLowerCase().
       includes(searchInput.value.toLowerCase())) {
       section.style.display = 'block';
@@ -445,10 +451,13 @@ const renderLanguage = (language) => {
     link.textContent = '';
   });
 
+  coronaCarouselAllImg.forEach((carouselImg)=>{
+    carouselImg.alt = `${languageJson.carousel[`carousel-alt`]}`;
+  });
+
   coronaCarouselAllP.forEach((link) => {
     link.append(languageJson.carousel[`carousel-slide-${i}`]);
     link.innerHTML += `<a href="#" class="link-info briefing-link">Info</a>`;
-
     link.addEventListener('click', (event) => {
       event.preventDefault();
       coronaCarousel.style.display = 'none';
@@ -501,7 +510,8 @@ const renderLanguage = (language) => {
       const chapterImage = document.createElement('img');
       chapterImage.classList.add('article-image');
       chapterImage.setAttribute('loading', 'lazy');
-      chapterImage.src = article.image;
+      chapterImage.src = article.image.src;
+      chapterImage.alt = `${article.image.alt}`;
       infoChapter.appendChild(chapterImage);
     }
     infoChapter.appendChild(textWrapper);

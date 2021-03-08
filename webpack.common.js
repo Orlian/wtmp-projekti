@@ -41,7 +41,7 @@ module.exports = {
       },
     ]}),
     new HtmlWebpackPlugin({
-      title: 'WTMP Project',
+      title: 'Metropolia Campus PWA',
       meta: {
         viewport: 'width=device-width, initial-scale=1.0'
       },
