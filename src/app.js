@@ -51,7 +51,6 @@ const campusList = CampusData.campusList;
 const today = new Date().toISOString().split('T')[0];
 
 const map = L.map('map-card-body');
-const markerLayer = L.layerGroup().addTo(map);
 
 const defaultIcon = L.icon({
   iconUrl: './assets/pictures/pin.png',
@@ -119,7 +118,8 @@ const loadApiData = async (campus, language) => {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
   addMarker(campus.coords.latitude, campus.coords.longitude, `${campus.name}`,
-    {specialMarker: true}, true, (language === 'fi' ? 'kampus ikoni' : 'campus icon'), true);
+    {specialMarker: true}, true,
+    (language === 'fi' ? 'kampus ikoni' : 'campus icon'), true);
 };
 
 /**
@@ -157,7 +157,9 @@ const renderWeatherData = (weatherObject, lang, campus) => {
   const listItemImg = document.createElement('img');
   listItemImg.id = 'current-weather-icon';
   listItemImg.src = (`${weatherObject.currentWeather.icon}`);
-  listItemImg.alt = `${lang === 'fi' ? weatherObject.currentWeather.desc + ' ikoni' : weatherObject.currentWeather.desc + ' icon'}`;
+  listItemImg.alt = `${lang === 'fi' ?
+    weatherObject.currentWeather.desc + ' ikoni' :
+    weatherObject.currentWeather.desc + ' icon'}`;
   listItem.textContent = ` ${weatherObject.currentWeather.time} ${weatherObject.currentWeather.desc} ${weatherObject.currentWeather.temp.toFixed(
     0)}\u00B0C ${lang === 'fi' ?
     'Tuntuu kuin: ' :
@@ -171,7 +173,9 @@ const renderWeatherData = (weatherObject, lang, campus) => {
     const listItemImg = document.createElement('img');
     listItemImg.classList.add('hour-weather-icon');
     listItemImg.src = (`${weatherObject.weatherForecast[hourWeather].icon}`);
-    listItemImg.alt = `${lang === 'fi' ? weatherObject.weatherForecast[hourWeather].desc + ' ikoni' : weatherObject.weatherForecast[hourWeather].desc + ' icon'}`;
+    listItemImg.alt = `${lang === 'fi' ?
+      weatherObject.weatherForecast[hourWeather].desc + ' ikoni' :
+      weatherObject.weatherForecast[hourWeather].desc + ' icon'}`;
     listItem.textContent = ` ${weatherObject.weatherForecast[hourWeather].time} ${weatherObject.weatherForecast[hourWeather].desc} ${weatherObject.weatherForecast[hourWeather].temp.toFixed(
       0)}\u00B0C ${lang === 'fi' ?
       'Tuntuu kuin: ' :
@@ -187,13 +191,14 @@ const renderWeatherData = (weatherObject, lang, campus) => {
  * @param {number} lat - Campus latitude
  * @param {number} lon - Campus longitude
  * @param {string} language - Active language
+ * @param {boolean} firstLoad - Tells the function whether to create markers or just update timetables
  * @returns {Promise<void>}
  */
-const loadBusStops = async (lat, lon, language) => {
+const loadBusStops = async (lat, lon, language, firstLoad = true) => {
   try {
     const stops = await HSLData.getStopsByRadius(lat, lon, 700);
     //console.log('stops data:', stops.data.stopsByRadius.edges);
-    renderBusStops(stops.data.stopsByRadius.edges , language);
+    renderBusStops(stops.data.stopsByRadius.edges, language, firstLoad);
   } catch (err) {
     //console.error('loadBusStops error', err.message);
     renderNoDataNotification(hslCard, (language === 'fi' ?
@@ -206,61 +211,79 @@ const loadBusStops = async (lat, lon, language) => {
  * Renders HSL-data into relevant html elements
  * @param {Object} stops - GraphQl object containing data of stops and departures
  * @param {string} language - Active language
+ * @param {boolean} firstLoad - Tells the function whether to create markers or just update timetables
  */
-const renderBusStops = (stops, language) => {
-  hslCardUl.innerHTML = '';
-  for (let stop of stops) {
-    const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
-    const stopLi = document.createElement('li');
-    stopLi.classList.add('list-group-item');
-    stopLi.setAttribute('data-bs-toggle', 'collapse');
-    stopLi.setAttribute('href', `#${collapseId}`);
-    stopLi.setAttribute('role', 'button');
-    stopLi.ariaExpanded = 'false';
-    stopLi.setAttribute('aria-controls', 'collapse');
-    stopLi.innerHTML = `<h1 class="h5">${stop.node.stop.name} - ${stop.node.distance}m</h1>`;
+const renderBusStops = (stops, language, firstLoad) => {
+  if (!firstLoad) {
+    const stopList = document.querySelectorAll('.list-group .list-group-item');
+    stopList.forEach((stop) => {
 
-    const stopCollapse = document.createElement('div');
-    stopCollapse.classList.add('collapse');
-    stopCollapse.id = `${collapseId}`;
-
-    const stopCollapseUl = document.createElement('ul');
-    stopCollapseUl.classList.add('list-group');
-
-    for (let arrival of stop.node.stop.stoptimesWithoutPatterns) {
-      const stopCollapseLi = document.createElement('li');
-      stopCollapseLi.classList.add('list-group-item');
-      let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
-      if (arrivaltime > 0) {
-        arrivaltime = HSLData.formatTime(arrivaltime);
-        stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ?
-          arrival.headsign :
-          ''} - ${arrival.trip.route.shortName}`;
-      } else {
-        stopCollapseLi.textContent += `${language === 'fi' ? 'lähtee huomenna' : 'leaves tomorrow'}`;
-      }
-      stopCollapseUl.appendChild(stopCollapseLi);
-    }
-    if (stop.node.stop.stoptimesWithoutPatterns.length === 0) {
-      const stopCollapseLi = document.createElement('li');
-      stopCollapseLi.classList.add('list-group-item');
-      stopCollapseLi.textContent = 'No upcoming departures';
-      stopCollapseUl.appendChild(stopCollapseLi);
-    }
-    stopCollapse.appendChild(stopCollapseUl);
-    stopLi.appendChild(stopCollapse);
-    hslCardUl.append(stopLi);
-    const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
-      stop.node.stop.name, stopLi, false, (language === 'fi' ? 'pysäkki ikoni' : 'public transport stop icon'));
-    stopLi.addEventListener('click', (evt) => {
-      if (!marker.options.isOpen) {
-        marker.openPopup();
-        //console.log('marker isOpen', marker.options.isOpen);
-      } else {
-        marker.closePopup();
-        //console.log('marker isOpen', marker.options.isOpen);
-      }
     });
+  } else {
+    hslCardUl.innerHTML = '';
+    for (let stop of stops) {
+      const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
+      const stopLi = document.createElement('li');
+      stopLi.classList.add('list-group-item');
+      stopLi.setAttribute('data-bs-toggle', 'collapse');
+      stopLi.setAttribute('href', `#${collapseId}`);
+      stopLi.setAttribute('role', 'button');
+      stopLi.ariaExpanded = 'false';
+      stopLi.setAttribute('aria-controls', 'collapse');
+      stopLi.innerHTML = `<h2>${stop.node.stop.name} - ${stop.node.distance}m</h2>`;
+
+      const stopCollapse = document.createElement('div');
+      stopCollapse.classList.add('collapse');
+      stopCollapse.id = `${collapseId}`;
+
+      const stopCollapseUl = document.createElement('ul');
+      stopCollapseUl.classList.add('list-group');
+      let stopIterator = 0;
+      for (let arrival of stop.node.stop.stoptimesWithoutPatterns) {
+        const stopCollapseLi = document.createElement('li');
+        stopCollapseLi.classList.add('list-group-item');
+        let arrivaltime = HSLData.secondsFromArrival(arrival.realtimeArrival);
+        if (arrivaltime > 0) {
+          arrivaltime = HSLData.formatTime(arrivaltime);
+          stopCollapseLi.textContent += `${arrivaltime} ${arrival.headsign ?
+            arrival.headsign :
+            ''} - ${arrival.trip.route.shortName}`;
+        } else if (arrivaltime <= 0 && stopIterator !== 0) {
+          stopCollapseLi.textContent += `${language === 'fi' ?
+            'lähtee huomenna' :
+            'leaves tomorrow'}`;
+        } else {
+          stopCollapseLi.textContent += `${language === 'fi' ?
+            'NYT' :
+            'NOW'} ${arrival.headsign ?
+            arrival.headsign :
+            ''} - ${arrival.trip.route.shortName}`;
+        }
+        stopCollapseUl.appendChild(stopCollapseLi);
+        stopIterator++;
+      }
+      if (stop.node.stop.stoptimesWithoutPatterns.length === 0) {
+        const stopCollapseLi = document.createElement('li');
+        stopCollapseLi.classList.add('list-group-item');
+        stopCollapseLi.textContent = 'No upcoming departures';
+        stopCollapseUl.appendChild(stopCollapseLi);
+      }
+      stopCollapse.appendChild(stopCollapseUl);
+      stopLi.appendChild(stopCollapse);
+      hslCardUl.append(stopLi);
+      const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
+        stop.node.stop.name, stopLi, false,
+        (language === 'fi' ? 'pysäkki ikoni' : 'public transport stop icon'));
+      stopLi.addEventListener('click', (evt) => {
+        if (!marker.options.isOpen) {
+          marker.openPopup();
+          //console.log('marker isOpen', marker.options.isOpen);
+        } else {
+          marker.closePopup();
+          //console.log('marker isOpen', marker.options.isOpen);
+        }
+      });
+    }
   }
 };
 
@@ -294,7 +317,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
       myCustomId: makeId(lat, lon),
       isOpen: isOpen,
       icon: (elem.specialMarker ? youIcon : defaultIcon),
-      alt: alt
+      alt: alt,
     }).
     addTo(map).
     bindPopup(popUp).on('popupopen', () => {
@@ -400,9 +423,9 @@ searchButton.addEventListener('click', (event) => {
   event.preventDefault();
   for (let section of sections) {
     //console.log(section);
-  if(searchInput.value === ''){
-    section.style.display = 'none';
-  }else if(section.innerHTML.toLowerCase().
+    if (searchInput.value === '') {
+      section.style.display = 'none';
+    } else if (section.innerHTML.toLowerCase().
       includes(searchInput.value.toLowerCase())) {
       section.style.display = 'block';
     } else {
@@ -458,7 +481,7 @@ const renderLanguage = (language) => {
     link.textContent = '';
   });
 
-  coronaCarouselAllImg.forEach((carouselImg)=>{
+  coronaCarouselAllImg.forEach((carouselImg) => {
     carouselImg.alt = `${languageJson.carousel[`carousel-alt`]}`;
   });
 
@@ -613,10 +636,10 @@ languageButton.addEventListener('click', (event) => {
 
 setInterval(async () => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
-  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList, campusKey);
-  markerLayer.clearLayers();
+  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
+    campusKey);
   await loadBusStops(activeCampus.coords.latitude,
-    activeCampus.coords.longitude, activeLanguage);
+    activeCampus.coords.longitude, activeLanguage, false);
   await loadWeatherData(activeCampus, activeLanguage);
-}, 6000);
+}, 60000);
 
