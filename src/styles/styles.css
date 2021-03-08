@@ -10633,18 +10633,39 @@ textarea.form-control-lg {
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Roboto Slab", serif;
+  overflow-x: hidden;
+}
+
 .container {
   padding: 0;
 }
 
-p {
-  font-family: "Roboto Slab", serif;
+p, li {
+  font-family: "Open Sans", sans-serif;
   font-weight: 400;
+}
+
+nav li {
+  font-family: "Roboto Slab", serif;
+}
+
+#corona-carousel p {
+  font-family: "Roboto Slab", serif;
+}
+
+#hsl-data .list-group-item h2, #hsl-data .list-group-item .h2 {
+  font-family: "Roboto Slab", serif;
 }
 
 #navbar-brand-img {
   height: auto;
   width: 8em;
+}
+
+h2, .h2 {
+  font-size: 1.2em;
 }
 
 #search-input {
@@ -10808,6 +10829,11 @@ section {
   align-items: center;
 }
 
+.article-text-wrapper h1, .article-text-wrapper .h1 {
+  text-align: center;
+  font-size: 1.5em;
+}
+
 .hsl-logo {
   background-image: url("../assets/pictures/hsl-logo.png");
   background-position: center;
@@ -10834,7 +10860,15 @@ section {
   color: #228B22;
 }
 
+#hsl-data .collapse, #hsl-data .collapsing {
+  font-size: 1em;
+}
+
 @media (max-width: 991.98px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
   #banner {
     background-position: center -7em !important;
     background-attachment: unset;
@@ -10894,12 +10928,66 @@ section {
     margin-bottom: 1em;
   }
 }
-@media (max-width: 370px) {
+@media (max-width: 420px) {
+  #banner-heading {
+    font-size: 1.5em;
+  }
+
+  .carousel-slide-p {
+    font-size: 0.9em;
+  }
+
+  #restaurant-card h1, #restaurant-card .h1 {
+    font-size: 1.2em;
+  }
+  #restaurant-card ul {
+    font-size: 0.9em;
+  }
+  #restaurant-card #dietInfo-p {
+    font-size: 0.9em;
+  }
+
+  #weather-card-body h1, #weather-card-body .h1 {
+    font-size: 1.2em;
+  }
+
+  #weather-card-ul {
+    font-size: 0.9em;
+  }
+  #weather-card-ul #current-weather-icon {
+    width: 3em;
+  }
+  #weather-card-ul .hour-weather-icon {
+    width: 3em;
+  }
+
   #hsl-section-header h1, #hsl-section-header .h1 {
-    font-size: 0.8em;
+    font-size: 1em;
   }
   #hsl-section-header .hsl-logo {
     width: 4rem;
+  }
+
+  #hsl-data ul li h2, #hsl-data ul li .h2 {
+    font-size: 1em;
+  }
+  #hsl-data .collapse .list-group, #hsl-data .collapsing .list-group {
+    font-size: 0.9em;
+  }
+}
+@media (max-width: 380px) {
+  .hsl-logo {
+    width: 3.5rem !important;
+  }
+
+  #weather-card-ul {
+    font-size: 0.8em;
+  }
+  #weather-card-ul #current-weather-icon {
+    width: 2em;
+  }
+  #weather-card-ul .hour-weather-icon {
+    width: 2em;
   }
 }
 
