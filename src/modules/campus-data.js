@@ -14,6 +14,12 @@ const campusList = [
     name: 'Arabia',
     coords: {latitude: 60.21015476867742, longitude: 24.976743641873423},
     image: {url: './assets/pictures/arabia.jpg', offset: -15},
+    address: 'Hämeentie 135 D 00560 Helsinki',
+    hours: {
+      fi: 'Ma - Pe  7:30 - 21:00',
+      en:'Mon - Fri  7:30 - 21:00'
+    },
+    directions: 'https://www.metropolia.fi/fi/metropoliasta/kampukset/arabia#saapumisohjeet',
     restaurant: {
       name: 'compas-arabia',
       displayname: 'Compas Arabia',
@@ -25,6 +31,11 @@ const campusList = [
     name: 'Karamalmi',
     coords: {latitude: 60.2238794, longitude: 24.758149},
     image: {url: './assets/pictures/karamalmi.jpg', offset: -12},
+    address: 'Karaportti 2 02610 Espoo',
+    hours: {
+      fi: 'Ma - Pe  7:30 - 21:00',
+      en:'Mon - Fri  7:30 - 21:00'
+    },
     restaurant: {
       name: 'fazer-karamalmi',
       displayname: 'Fazer Karamalmi',
@@ -36,6 +47,11 @@ const campusList = [
     name: 'Myllypuro',
     coords: {latitude: 60.2236145, longitude: 25.0783509},
     image: {url: './assets/pictures/myllypuro.jpg', offset: -18},
+    address: 'Myllypurontie 1 00920 Helsinki',
+    hours: {
+      fi: 'Ma - Pe  7:30 - 21:00',
+      en:'Mon - Fri  7:30 - 21:00'
+    },
     restaurant: {
       name: 'sodexo-myllypuro',
       displayname: 'Sodexo Myllypuro',
@@ -47,6 +63,11 @@ const campusList = [
     name: 'Myyrmäki',
     coords: {latitude: 60.2586191, longitude: 24.8454723},
     image: {url: './assets/pictures/myyrmaki.jpg', offset: -14},
+    address: 'Leiritie 1 01600 Vantaa',
+    hours: {
+      fi: 'Ma - Pe  7:30 - 21:00',
+      en:'Mon - Fri  7:30 - 21:00'
+    },
     restaurant: {
       name: 'sodexo-myyrmaki',
       displayname: 'Sodexo Myyrmäki',
