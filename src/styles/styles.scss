@@ -312,6 +312,11 @@ section {
     padding: 0;
     margin: 0.25rem 0 0.25rem 0.1rem;
   }
+
+  .modal-body {
+    font-size: 0.95em;
+  }
+
   .article-image{
     width: 40% !important;
   }
@@ -334,6 +339,9 @@ section {
   .carousel-item {
     background: colors.$primary-orange;
     height: 5em;
+  }
+  .modal-body {
+    font-size: 0.90em;
   }
   .article-image{
     display: none;
@@ -366,6 +374,10 @@ section {
       font-size: 1em;
     }
   }
+  article p {
+    padding-left: 0.2em;
+  }
+
   article:last-child {
     margin-bottom: 1em;
   }
