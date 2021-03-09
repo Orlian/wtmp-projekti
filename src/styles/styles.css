@@ -10732,6 +10732,10 @@ h2, .h2 {
   width: 50%;
   margin-bottom: 0.5rem;
 }
+#briefing-section article .article-text-wrapper a {
+  display: flex;
+  justify-content: center;
+}
 #briefing-section article img {
   width: 20%;
   height: inherit;
@@ -10905,11 +10909,15 @@ section {
   .article-text-wrapper {
     width: 100% !important;
   }
+
+  #briefing-section article h1, #briefing-section article .h1 {
+    font-size: 1.5em;
+  }
 }
 @media (max-width: 575.98px) {
   #banner {
     background-position: center 0 !important;
-    background-attachment: fixed;
+    background-attachment: unset;
   }
 
   #main-container {
@@ -10934,17 +10942,17 @@ section {
   }
 
   .carousel-slide-p {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 
   #restaurant-card h1, #restaurant-card .h1 {
     font-size: 1.2em;
   }
   #restaurant-card ul {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
   #restaurant-card #dietInfo-p {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 
   #weather-card-body h1, #weather-card-body .h1 {
@@ -10972,7 +10980,14 @@ section {
     font-size: 1em;
   }
   #hsl-data .collapse .list-group, #hsl-data .collapsing .list-group {
-    font-size: 0.9em;
+    font-size: 0.8em;
+  }
+
+  #briefing-section article h1, #briefing-section article .h1 {
+    font-size: 1.2em;
+  }
+  #briefing-section article .article-text-wrapper {
+    font-size: 0.8em;
   }
 }
 @media (max-width: 380px) {
