@@ -42,7 +42,6 @@ const bannerImage = document.querySelector('#banner');
 const bannerHeading = document.querySelector('#banner-heading');
 const languageButton = document.querySelector('#change-language-btn');
 const flagImg = document.querySelector('#flag-img');
-const campusModalCloseBtn = document.querySelector('#campus-modal-close-btn');
 const campusModalTitle = document.querySelector('.modal-title');
 const campusModalBody = document.querySelector('.modal-body');
 const hslSectionHeader = document.querySelector('#hsl-section-header h1');
@@ -632,16 +631,19 @@ bannerImage.addEventListener('click', (evt) => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
-  campusModalCloseBtn.textContent = (activeLanguage === 'fi' ?
-    'Sulje' :
-    'Close');
   campusModalTitle.textContent = activeCampus.name;
-  campusModalBody.innerHTML = `${activeLanguage === 'fi' ?
+  campusModalBody.innerHTML = `<strong>${activeLanguage === 'fi' ?
     'Käyntiosoite:' :
-    'Visit at:'} ${activeCampus.address}<br/>${activeLanguage === 'fi' ?
+    'Visit at:'}</strong> ${activeCampus.address}<br/><br/><strong>${activeLanguage ===
+  'fi' ?
     'Postiosoite:' :
-    'Postal address:'} ${activeCampus.postal} <br/>${activeLanguage ===
-  'fi' ? activeCampus.hours.fi : activeCampus.hours.en} <br/>`;
+    'Postal address:'}</strong> ${activeCampus.postal} <br/><br/><strong>${activeLanguage ===
+  'fi' ? 'Aukioloajat:' : 'Business hours:'}</strong> ${activeLanguage ===
+  'fi' ?
+    activeCampus.hours.fi :
+    activeCampus.hours.en} <br/><br/><strong>${activeLanguage === 'fi' ?
+    'Aulapalvelut:' :
+    'Lobby services:'}</strong> ${activeCampus.lobby.phone} <br/>${activeCampus.lobby.email}`;
 });
 
 setInterval(async () => {
