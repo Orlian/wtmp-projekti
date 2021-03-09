@@ -1,3 +1,9 @@
+'use strict';
+/**
+ * Functions for managing Language data from static json file app-text-data.json
+ * @module modules/translation-data
+ * @author oskarpi <oskarpi@metropolia.fi>
+ */
 import translationJson from '../assets/jsons/app-text-data.json';
 
 /**
