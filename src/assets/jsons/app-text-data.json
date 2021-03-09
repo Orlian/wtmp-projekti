@@ -36,7 +36,7 @@
       {
         "header": "Käsien peseminen",
         "text": ["Kastele kädet runsaalla vedellä", "Ota saippuaa ja hiero kämmeniä vastakkain", "Hiero kämmenselät, peukalot ja sormien välit", "Hiero sormia lomittain vastatusten", "Huuhdo kädet runsaalla vedellä", "Kuivaa kätesi huolellisesti käsipyyhepaperilla", "Sulje hana käsipyyhepaperilla ja laita stoppi tartunnoille"],
-        "link": "www.thl.fi/kasienpesuohje",
+        "link": "https://www.thl.fi/kasienpesuohje",
         "image":{
           "src": "./assets/pictures/corona-p3.jpg",
           "alt": "Etualalla nuori naisopiskelija pitää käsissään käsienpesukylttiä. Taustalla nuori miesopiskelija pesee käsiään."
@@ -45,7 +45,7 @@
       {
         "header": "Yski ja aivasta oikein",
         "text": ["Yski ja aivasta hihaasi, niin laitat stopin tartunnoille.", "Jos mahdollista, käytä kertakäyttöistä nenäliinaa.", "Laita käytetty liina roskiin ja pese kädet saippualla."],
-        "link": "www.thl.fi/yskimisohje",
+        "link": "https://www.thl.fi/yskimisohje",
         "image":{
           "src": "./assets/pictures/corona-p4.jpg",
           "alt": "Nuori miesopiskelija yskii kyynärtaipeeseen"
@@ -54,7 +54,7 @@
       {
         "header": "Turvavälit ja lähikontaktien vähentäminen",
         "text": ["Lähikontaktien vähentäminen on tärkeää, koska siten hidastetaan epidemian leviämistä.", "Kun liikut kampuksella tai ulkona, pidä vähintään 1–2 metrin etäisyys muihin ihmisiin.", "Älä kättele."],
-        "link": "www.thl.fi",
+        "link": "https://www.thl.fi",
         "image":{
           "src": "./assets/pictures/corona-p5.jpg",
           "alt": "Nuori miesopiskelija pitää käsissään kylttiä, jossa lukee \"Vältä ihmiskontakteja!\" #Covid19"
@@ -143,7 +143,7 @@
       {
         "header": "Washing hands",
         "text": ["Wet your hands with a lot of water", "Apply some soap and rub your hands palm to palm", "Rub the backs of your hands, your thumbs and between your fingers", "Rub your hands together with your fingers interlaced", "Rinse your hands with a lot of water", "Dry your hands carefully with a paper towel", "Use a paper towel to turn off the tap"],
-        "link": "www.thl.fi/handwash",
+        "link": "https://www.thl.fi/handwash",
         "image":{
          "src": "./assets/pictures/corona-p3.jpg",
           "alt": "On front Young female student holding handwash sign. On background young male student washing hands"
@@ -152,7 +152,7 @@
       {
         "header": "Cough and sneeze correctly",
         "text": ["Cough and sneeze into your sleeve to stop infections from spreading.", "If possible, use a paper tissue.", "Put the used tissue into a bin and wash your hands with soap."],
-        "link": "www.thl.fi/coughcorrectly",
+        "link": "https://www.thl.fi/coughcorrectly",
         "image":{
          "src":"./assets/pictures/corona-p4.jpg",
           "alt": "Young male student coughing into sleeve"
@@ -161,7 +161,7 @@
       {
         "header": "Reducing close contacts",
         "text": ["Reducing close contact is now also important, as this slows down the spread of the epidemic.", "When you are in the campus or outdoors, stay at least one - two meter away from others.", "Avoid shaking hands."],
-        "link": "www.thl.fi",
+        "link": "https://www.thl.fi",
         "image":{
          "src": "./assets/pictures/corona-p5.jpg",
          "alt": "Young male student holding with text \"Avoid contact with people!\" #Covid19"
