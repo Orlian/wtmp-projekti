@@ -7,45 +7,57 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import WeatherData from './modules/weather-data';
 import HSLData from './modules/hsl-data';
 import CampusData from './modules/campus-data';
-import CompassData from './modules/compass-data';
 import TranslationData from './modules/translation-data';
 import {isArray} from 'leaflet/src/core/Util';
-import {preventDefault} from 'leaflet/src/dom/DomEvent';
-import {layerGroup} from 'leaflet/dist/leaflet-src.esm';
 
-const weatherCardUl = document.querySelector('#weather-card-ul');
-const weatherCardBody = document.querySelector('#weather-card-body');
-const campusDropdown = document.querySelector('#campus-selection');
-const hslCardUl = document.querySelector('.hsl-data-ul');
-const hslCard = document.querySelector('#hsl-data');
-const menuCardBody = document.querySelector('#restaurant-body');
-const searchButton = document.querySelector('#search-button');
-const searchInput = document.querySelector('#search-input');
-const sections = document.querySelectorAll('section');
+// Navigation elements //
 const homeButton = document.querySelector('#navbar-brand-img');
 const homeLink = document.querySelector('#nav-item-home');
-const briefingNavLink = document.querySelector('#briefing-nav-link');
-const briefingLinks = document.querySelectorAll('.briefing-link');
 const menuLink = document.querySelector('#nav-item-menu');
 const hslLink = document.querySelector('#nav-item-hsl');
 const weatherLink = document.querySelector('#nav-item-weather');
 const campusLink = document.querySelector('#navbarDropdown');
+const campusDropdown = document.querySelector('#campus-selection');
+const briefingNavLink = document.querySelector('#briefing-nav-link');
+const languageButton = document.querySelector('#change-language-btn');
+const flagImg = document.querySelector('#flag-img');
+const searchInput = document.querySelector('#search-input');
+const searchButton = document.querySelector('#search-button');
+
+// Banner elements //
+const bannerImage = document.querySelector('#banner');
+const bannerHeading = document.querySelector('#banner-heading');
+
+// Modal elements //
+const campusModalTitle = document.querySelector('.modal-title');
+const campusModalBody = document.querySelector('.modal-body');
+
+// Carousel elements //
 const coronaCarousel = document.querySelector('#corona-carousel');
 const coronaCarouselAllP = document.querySelectorAll('.carousel-slide-p');
 const coronaCarouselAllImg = document.querySelectorAll('.carousel-item img');
+
+// Restaurant elements //
+const menuSection = document.querySelector('#menu-section');
+const menuCardBody = document.querySelector('#restaurant-body');
+
+// Weather elements //
+const weatherSection = document.querySelector('#weather-section');
+const weatherCardHeader = document.querySelector('#weather-card-header');
+const weatherCardUl = document.querySelector('#weather-card-ul');
+const weatherCardBody = document.querySelector('#weather-card-body');
+
+// HSL elements //
+const hslCardUl = document.querySelector('.hsl-data-ul');
+const hslCard = document.querySelector('#hsl-data');
+const hslSectionHeader = document.querySelector('#hsl-section-header h1');
+const hslSection = document.querySelector('#hsl-section');
+
+// Covid19 info elements //
 const briefingSection = document.querySelector('#briefing-section');
 const coronaInfo = document.querySelector('#corona-info');
-const menuSection = document.querySelector('#menu-section');
-const hslSection = document.querySelector('#hsl-section');
-const weatherSection = document.querySelector('#weather-section');
-const bannerImage = document.querySelector('#banner');
-const bannerHeading = document.querySelector('#banner-heading');
-const languageButton = document.querySelector('#change-language-btn');
-const flagImg = document.querySelector('#flag-img');
-const campusModalTitle = document.querySelector('.modal-title');
-const campusModalBody = document.querySelector('.modal-body');
-const hslSectionHeader = document.querySelector('#hsl-section-header h1');
-const weatherCardHeader = document.querySelector('#weather-card-header');
+
+const sections = document.querySelectorAll('section');
 
 const campusKey = 'activeCampus';
 const languageKey = 'language';
@@ -56,6 +68,7 @@ const today = new Date().toISOString().split('T')[0];
 const map = L.map('map-card-body');
 const markerLayer = L.layerGroup().addTo(map);
 
+// Leaflet icons //
 const defaultIcon = L.icon({
   iconUrl: './assets/pictures/pin.png',
   iconSize: [32, 36],
@@ -74,6 +87,7 @@ const youIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = defaultIcon;
+
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -95,7 +109,6 @@ if ('serviceWorker' in navigator) {
 const init = async () => {
   CampusData.fetchLocalCampus(campusKey);
   const languageSetting = TranslationData.getCurrentLanguage(languageKey);
-  //console.log('init lang', languageSetting);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
   loadBanner(activeCampus);
@@ -111,7 +124,6 @@ const init = async () => {
  * @returns {Promise<void>}
  */
 const loadApiData = async (campus, language) => {
-  //console.log('loadApiData lang', language);
   await loadWeatherData(campus, language);
   await loadBusStops(campus.coords.latitude, campus.coords.longitude, language);
   await loadMenuData(campus.restaurant, language);
@@ -132,14 +144,11 @@ const loadApiData = async (campus, language) => {
  */
 const loadWeatherData = async (campus, lang) => {
   try {
-    //console.log('loadWeatherData lang', lang);
     const weather = await WeatherData.getHourlyForecast(campus.coords.latitude,
       campus.coords.longitude,
       lang);
-    //console.log(weather);
     renderWeatherData(weather, lang, campus);
   } catch (error) {
-    //console.log(error.message);
     renderNoDataNotification(weatherCardBody, (lang === 'fi' ?
       'Ei säätietoja saatavilla' :
       'No weather data available'));
@@ -198,10 +207,8 @@ const renderWeatherData = (weatherObject, lang, campus) => {
 const loadBusStops = async (lat, lon, language) => {
   try {
     const stops = await HSLData.getStopsByRadius(lat, lon, 700);
-    //console.log('stops data:', stops.data.stopsByRadius.edges);
     renderBusStops(stops.data.stopsByRadius.edges, language);
   } catch (err) {
-    //console.error('loadBusStops error', err.message);
     renderNoDataNotification(hslCard, (language === 'fi' ?
       'Ei HSL-tietoja saatavilla' :
       'No HSL-data available'));
@@ -271,10 +278,8 @@ const renderBusStops = (stops, language) => {
     stopLi.addEventListener('click', (evt) => {
       if (!marker.options.isOpen) {
         marker.openPopup();
-        //console.log('marker isOpen', marker.options.isOpen);
       } else {
         marker.closePopup();
-        //console.log('marker isOpen', marker.options.isOpen);
       }
     });
   }
@@ -307,20 +312,17 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
     setContent(text);
   const marker = L.marker([lat, lon],
     {
-      myCustomId: makeId(lat, lon),
       isOpen: isOpen,
       icon: (elem.specialMarker ? youIcon : defaultIcon),
       alt: alt,
     }).
     addTo(markerLayer).
     bindPopup(popUp).on('popupopen', () => {
-      //console.log('popupopen event');
       if (!marker.options.isOpen && !elem.specialMarker) {
         elem.click();
         marker.options.isOpen = true;
       }
     }).on('popupclose', () => {
-      //console.log('popupclose event');
       if (marker.options.isOpen && !elem.specialMarker) {
         elem.click();
         marker.options.isOpen = false;
@@ -377,13 +379,10 @@ const renderNoDataNotification = (element, message) => {
  */
 const loadMenuData = async (restaurant, languageSetting) => {
   try {
-    //console.log('loadMenuData lang', languageSetting);
     const parsedMenu = await restaurant.type.getDailyMenu(restaurant.id,
       languageSetting, today);
     renderMenu(parsedMenu, restaurant, languageSetting);
   } catch (error) {
-    //console.error(error);
-    // notify user if errors with data
     renderNoDataNotification(menuCardBody, (languageSetting === 'fi' ?
       'Ei ravintolatietoja saatavilla' :
       'No restaurant data available'));
@@ -400,29 +399,6 @@ const loadBanner = (campus) => {
   bannerHeading.textContent = campus.name;
 };
 
-campusDropdown.addEventListener('click', async (evt) => {
-  const currentCampus = CampusData.getCurrentCampus(
-    evt.target.getAttribute('data-name'), campusList, campusKey);
-  CampusData.saveLocalCampus(campusKey, currentCampus.name);
-  loadBanner(currentCampus);
-  await loadApiData(currentCampus,
-    TranslationData.getCurrentLanguage(languageKey));
-});
-
-searchButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  for (let section of sections) {
-    //console.log(section);
-    if (searchInput.value === '') {
-      section.style.display = 'none';
-    } else if (section.innerHTML.toLowerCase().
-      includes(searchInput.value.toLowerCase())) {
-      section.style.display = 'block';
-    } else {
-      section.style.display = 'none';
-    }
-  }
-});
 
 /**
  * Removes the 'active' class and attribute from all links
@@ -439,6 +415,7 @@ const removePageAttributes = () => {
   weatherLink.classList.remove('active');
   weatherLink.removeAttribute('aria-current');
 };
+
 
 /**
  * Renders language into relevant html elements.
@@ -542,6 +519,44 @@ const renderLanguage = (language) => {
 
 init();
 
+setInterval(async () => {
+  const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
+  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
+    campusKey);
+  markerLayer.clearLayers();
+  addMarker(activeCampus.coords.latitude, activeCampus.coords.longitude,
+    `${activeCampus.name}`,
+    {specialMarker: true}, true,
+    (activeLanguage === 'fi' ? 'kampus ikoni' : 'campus icon'));
+  await loadBusStops(activeCampus.coords.latitude,
+    activeCampus.coords.longitude, activeLanguage);
+  await loadWeatherData(activeCampus, activeLanguage);
+}, 60000);
+
+// Event listeners //
+searchButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  for (let section of sections) {
+    if (searchInput.value === '') {
+      section.style.display = 'none';
+    } else if (section.innerHTML.toLowerCase().
+      includes(searchInput.value.toLowerCase())) {
+      section.style.display = 'block';
+    } else {
+      section.style.display = 'none';
+    }
+  }
+});
+
+campusDropdown.addEventListener('click', async (evt) => {
+  const currentCampus = CampusData.getCurrentCampus(
+    evt.target.getAttribute('data-name'), campusList, campusKey);
+  CampusData.saveLocalCampus(campusKey, currentCampus.name);
+  loadBanner(currentCampus);
+  await loadApiData(currentCampus,
+    TranslationData.getCurrentLanguage(languageKey));
+});
+
 homeButton.addEventListener('click', (event) => {
   event.preventDefault();
   coronaCarousel.style.display = 'block';
@@ -644,18 +659,3 @@ bannerImage.addEventListener('click', (evt) => {
     'Aulapalvelut:  ' :
     'Lobby services:  '}</strong>   ${activeCampus.lobby.phone} <br/>${activeCampus.lobby.email}`;
 });
-
-setInterval(async () => {
-  const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
-  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
-    campusKey);
-  markerLayer.clearLayers();
-  addMarker(activeCampus.coords.latitude, activeCampus.coords.longitude,
-    `${activeCampus.name}`,
-    {specialMarker: true}, true,
-    (activeLanguage === 'fi' ? 'kampus ikoni' : 'campus icon'));
-  await loadBusStops(activeCampus.coords.latitude,
-    activeCampus.coords.longitude, activeLanguage);
-  await loadWeatherData(activeCampus, activeLanguage);
-}, 60000);
-

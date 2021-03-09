@@ -13,7 +13,7 @@ const campusList = [
   {
     name: 'Arabia',
     coords: {latitude: 60.21015476867742, longitude: 24.976743641873423},
-    image: {url: './assets/pictures/arabia.jpg', offset: -22},
+    image: {url: './assets/pictures/arabia.webp', offset: -22},
     address: 'Hämeentie 135 D 00560 Helsinki',
     postal: 'Metropolia Ammattikorkeakoulu PL 4072 00079 Metropolia',
     hours: {
@@ -35,7 +35,7 @@ const campusList = [
   {
     name: 'Karamalmi',
     coords: {latitude: 60.2238794, longitude: 24.758149},
-    image: {url: './assets/pictures/karamalmi.jpg', offset: -23},
+    image: {url: './assets/pictures/karamalmi.webp', offset: -23},
     address: 'Karaportti 2 02610 Espoo',
     postal: 'Metropolia Ammattikorkeakoulu PL 4070 00079 Metropolia',
     hours: {
@@ -56,7 +56,7 @@ const campusList = [
   {
     name: 'Myllypuro',
     coords: {latitude: 60.2236145, longitude: 25.0783509},
-    image: {url: './assets/pictures/myllypuro.jpg', offset: -26},
+    image: {url: './assets/pictures/myllypuro.webp', offset: -26},
     address: 'Myllypurontie 1 00920 Helsinki',
     postal: 'Metropolia Ammattikorkeakoulu PL 4000 00079 Metropolia',
     hours: {
@@ -77,7 +77,7 @@ const campusList = [
   {
     name: 'Myyrmäki',
     coords: {latitude: 60.2586191, longitude: 24.8454723},
-    image: {url: './assets/pictures/myyrmaki.jpg', offset: -25},
+    image: {url: './assets/pictures/myyrmaki.webp', offset: -25},
     address: 'Leiritie 1 01600 Vantaa',
     postal: 'Metropolia Ammattikorkeakoulu PL 4071 00079 Metropolia',
     hours: {
