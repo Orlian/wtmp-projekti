@@ -10639,6 +10639,10 @@ body {
   background: #fafafa;
 }
 
+#main-container {
+  overflow-x: hidden;
+}
+
 .container {
   padding: 0;
 }

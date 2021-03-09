@@ -633,17 +633,17 @@ bannerImage.addEventListener('click', (evt) => {
     campusKey);
   campusModalTitle.textContent = activeCampus.name;
   campusModalBody.innerHTML = `<strong>${activeLanguage === 'fi' ?
-    'Käyntiosoite:' :
-    'Visit at:'}</strong> ${activeCampus.address}<br/><br/><strong>${activeLanguage ===
+    'Käyntiosoite:  ' :
+    'Visit at:  '}</strong>${activeCampus.address}<br/><br/><strong>${activeLanguage ===
   'fi' ?
-    'Postiosoite:' :
-    'Postal address:'}</strong> ${activeCampus.postal} <br/><br/><strong>${activeLanguage ===
-  'fi' ? 'Aukioloajat:' : 'Business hours:'}</strong> ${activeLanguage ===
+    'Postiosoite:  ' :
+    'Postal address:  '}</strong>${activeCampus.postal} <br/><br/><strong>${activeLanguage ===
+  'fi' ? 'Aukioloajat:' : 'Business hours:  '}</strong>   ${activeLanguage ===
   'fi' ?
     activeCampus.hours.fi :
     activeCampus.hours.en} <br/><br/><strong>${activeLanguage === 'fi' ?
-    'Aulapalvelut:' :
-    'Lobby services:'}</strong> ${activeCampus.lobby.phone} <br/>${activeCampus.lobby.email}`;
+    'Aulapalvelut:  ' :
+    'Lobby services:  '}</strong>   ${activeCampus.lobby.phone} <br/>${activeCampus.lobby.email}`;
 });
 
 setInterval(async () => {
