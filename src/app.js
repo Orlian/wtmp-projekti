@@ -632,9 +632,16 @@ bannerImage.addEventListener('click', (evt) => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
-  campusModalCloseBtn.textContent = (activeLanguage === 'fi' ? 'Sulje' : 'Close');
+  campusModalCloseBtn.textContent = (activeLanguage === 'fi' ?
+    'Sulje' :
+    'Close');
   campusModalTitle.textContent = activeCampus.name;
-  campusModalBody.innerHTML = `${activeCampus.address} <br/>${activeLanguage === 'fi' ? activeCampus.hours.fi : activeCampus.hours.en}`;
+  campusModalBody.innerHTML = `${activeLanguage === 'fi' ?
+    'Käyntiosoite:' :
+    'Visit at:'} ${activeCampus.address}<br/>${activeLanguage === 'fi' ?
+    'Postiosoite:' :
+    'Postal address:'} ${activeCampus.postal} <br/>${activeLanguage ===
+  'fi' ? activeCampus.hours.fi : activeCampus.hours.en} <br/>`;
 });
 
 setInterval(async () => {
@@ -642,7 +649,8 @@ setInterval(async () => {
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
   markerLayer.clearLayers();
-  addMarker(activeCampus.coords.latitude, activeCampus.coords.longitude, `${activeCampus.name}`,
+  addMarker(activeCampus.coords.latitude, activeCampus.coords.longitude,
+    `${activeCampus.name}`,
     {specialMarker: true}, true,
     (activeLanguage === 'fi' ? 'kampus ikoni' : 'campus icon'));
   await loadBusStops(activeCampus.coords.latitude,

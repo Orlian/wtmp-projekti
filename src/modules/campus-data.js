@@ -15,9 +15,14 @@ const campusList = [
     coords: {latitude: 60.21015476867742, longitude: 24.976743641873423},
     image: {url: './assets/pictures/arabia.jpg', offset: -15},
     address: 'Hämeentie 135 D 00560 Helsinki',
+    postal: 'Metropolia Ammattikorkeakoulu PL 4072 00079 Metropolia',
     hours: {
       fi: 'Ma - Pe  7:30 - 21:00',
       en:'Mon - Fri  7:30 - 21:00'
+    },
+    lobby: {
+      phone: '040 579 8403',
+      email: 'aulapalvelut.arabia@metropolia.fi'
     },
     directions: 'https://www.metropolia.fi/fi/metropoliasta/kampukset/arabia#saapumisohjeet',
     restaurant: {
@@ -32,9 +37,14 @@ const campusList = [
     coords: {latitude: 60.2238794, longitude: 24.758149},
     image: {url: './assets/pictures/karamalmi.jpg', offset: -12},
     address: 'Karaportti 2 02610 Espoo',
+    postal: 'Metropolia Ammattikorkeakoulu PL 4070 00079 Metropolia',
     hours: {
       fi: 'Ma - Pe  7:30 - 21:00',
       en:'Mon - Fri  7:30 - 21:00'
+    },
+    lobby: {
+      phone: '040 545 1572',
+      email: 'aulapalvelut.karamalmi@metropolia.fi'
     },
     restaurant: {
       name: 'fazer-karamalmi',
@@ -48,9 +58,14 @@ const campusList = [
     coords: {latitude: 60.2236145, longitude: 25.0783509},
     image: {url: './assets/pictures/myllypuro.jpg', offset: -18},
     address: 'Myllypurontie 1 00920 Helsinki',
+    postal: 'Metropolia Ammattikorkeakoulu PL 4000 00079 Metropolia',
     hours: {
       fi: 'Ma - Pe  7:30 - 21:00',
       en:'Mon - Fri  7:30 - 21:00'
+    },
+    lobby: {
+      phone: '040 193 7758',
+      email: 'aulapalvelut.myllypuro@metropolia.fi'
     },
     restaurant: {
       name: 'sodexo-myllypuro',
@@ -64,9 +79,14 @@ const campusList = [
     coords: {latitude: 60.2586191, longitude: 24.8454723},
     image: {url: './assets/pictures/myyrmaki.jpg', offset: -14},
     address: 'Leiritie 1 01600 Vantaa',
+    postal: 'Metropolia Ammattikorkeakoulu PL 4071 00079 Metropolia',
     hours: {
       fi: 'Ma - Pe  7:30 - 21:00',
       en:'Mon - Fri  7:30 - 21:00'
+    },
+    lobby: {
+      phone: '040 545 1573',
+      email: 'aulapalvelut.myyrmaki@metropolia.fi'
     },
     restaurant: {
       name: 'sodexo-myyrmaki',
