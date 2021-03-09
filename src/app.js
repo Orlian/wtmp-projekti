@@ -74,7 +74,7 @@ const youIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = defaultIcon;
-/*
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').
@@ -86,8 +86,6 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-
- */
 
 /**
  * Initialization function that calls all relevant functions at page load
@@ -525,6 +523,7 @@ const renderLanguage = (language) => {
       const chapterLink = document.createElement('a');
       chapterLink.textContent = article.link;
       chapterLink.href = article.link;
+      chapterLink.setAttribute('target', '_blank');
       textWrapper.appendChild(chapterLink);
     }
 
