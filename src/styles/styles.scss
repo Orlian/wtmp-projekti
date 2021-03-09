@@ -11,6 +11,7 @@
 body {
   font-family: fonts.$robotoslab;
   overflow-x: hidden;
+  background: #fafafa;
 }
 
 .container {
@@ -24,6 +25,14 @@ p, li{
 
 nav li{
   font-family: fonts.$robotoslab;
+}
+
+.nav-link.active, h1, h2{
+ font-weight: fonts.$l;
+}
+
+#banner-heading{
+  margin-bottom: 0;
 }
 
 #corona-carousel p{
@@ -252,6 +261,21 @@ section {
     font-size: 1em;
   }
 }
+
+@include media-breakpoint-up(lg) {
+  #briefing-section{
+    .container{
+      width: 80%;
+    }
+    article{
+      img{
+        max-height: 16em;
+        width: auto;
+      }
+    }
+  }
+}
+
 @include media-breakpoint-down(lg) {
   .navbar-collapse{
     text-align: center;
@@ -269,6 +293,12 @@ section {
   }
   #hsl-data{
     margin-bottom: 0.5em;
+  }
+}
+
+@include media-breakpoint-between(md, lg) {
+  .carousel-item img{
+    height: 4em;
   }
 }
 
@@ -334,6 +364,9 @@ section {
     #dietInfo-p{
       font-size: 0.8em;
     }
+    p{
+      font-size: 0.8em;
+    }
   }
   #weather-card-body{
     h1{
@@ -351,7 +384,7 @@ section {
   }
   #hsl-section-header{
     h1{
-      font-size: 1em;
+      font-size: 0.97em;
     }
     .hsl-logo{
       width: 4rem;
