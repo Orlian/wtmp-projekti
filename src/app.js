@@ -408,9 +408,6 @@ campusDropdown.addEventListener('click', async (evt) => {
     evt.target.getAttribute('data-name'), campusList, campusKey);
   CampusData.saveLocalCampus(campusKey, currentCampus.name);
   loadBanner(currentCampus);
-  map.eachLayer((layer) => {
-    layer.remove();
-  });
   await loadApiData(currentCampus,
     TranslationData.getCurrentLanguage(languageKey));
 });
