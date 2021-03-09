@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Functions for managing Sodexo menu data
  * @module modules/sodexo-data
@@ -28,7 +29,6 @@ const parseSodexoMenu = (sodexoDailyMenu) => {
 
 /**
  * Get daily menu from Sodexo API
- *
  * @async
  * @param {number} restaurantId
  * @param {string} lang

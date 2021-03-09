@@ -3,7 +3,6 @@
  * Functions for managing Weather data from OpenWeather API
  * @module modules/weather-data
  * @author oskarpi <oskarpi@metropolia.fi>
- *
  */
 import {fetchGetJson} from './network';
 
@@ -13,10 +12,8 @@ const appid = 'd5f46b97c0d3618c2e85e2939ec55a4b';
 
 /**
  * Parses array from hourly forecast data json file
- *
  * @param {Object} hourlyForecastData in json format
  * @returns {Object} parsed hourly forecast array
- *
  */
 const parseHourlyForecastData = (hourlyForecastData) => {
   const hourlyForecastArray = [];
@@ -46,7 +43,6 @@ const parseHourlyForecastData = (hourlyForecastData) => {
 
 /**
  * Get hourly weather data from openWeather API based on current coordinates
- *
  * @async
  * @param {number} lat
  * @param {number} lon

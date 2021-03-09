@@ -1,8 +1,8 @@
+'use strict';
 /**
  * Functions for managing Fazer menu data
  * @module modules/fazer-data
  * @author oskarpi <oskarpi@metropolia.fi>
- *
  */
 import {fazerProxyUrl} from "../settings";
 import {fetchGetJson} from "./network";
@@ -32,7 +32,6 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
 
 /**
  * Get daily menu from Fazer API
- *
  * @async
  * @param {number} restaurantId - Id of the restaurant
  * @param {string} lang
@@ -40,10 +39,8 @@ const parseDailyMenu = (menuData, dayOfWeek) => {
  * @return {Promise<string>} Daily menu data
  */
 const getDailyMenu = async (restaurantId, lang, date) => {
-  // TODO: use restaurantId to build correct URL
-  // Get number of the weekday (0: Sun, 1: Mon, etc.)
   let dayOfWeek = new Date().getDay();
-  // Fazer's index for Monday is 0, in JS it is 1
+
   dayOfWeek -= 1;
   if (dayOfWeek === -1) {
     dayOfWeek = 6;

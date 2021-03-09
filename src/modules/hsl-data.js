@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Functions for dealing with HSL traffic data
  * @module modules/hsl-data
@@ -9,7 +10,6 @@ const apiUrl = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql'
 
 /**
  * Fetches nearby stops based on user coordinates and their upcoming buses
- *
  * @param {number} lat - User's latitude
  * @param {number} lon - User's longitude
  * @param {number} radius - Search radius in meters
@@ -56,22 +56,19 @@ const getStopsByRadius = async (lat, lon, radius) => {
  * @returns {number}
  */
 const secondsFromArrival = (arrivalTime) =>{
-  //let currentTime = new Date()-new Date().setHours(0,0,0,0);
   let now = new Date();
   let hours = now.getHours()*(60*60);
   let minutes = now.getMinutes()*60;
   let seconds = now.getSeconds();
 
   let secSinceMidnight = hours+minutes+seconds;
-  //console.log(currentTime);
-  let secondsFromArrival = arrivalTime-(secSinceMidnight);
-  return secondsFromArrival;
+  let totalSeconds = arrivalTime-(secSinceMidnight);
+  return totalSeconds;
 };
 
 
 /**
  * Converts HSL time to more readable format
- *
  * @param {number} seconds - since midnight
  * @returns {string} HH:MM
  */

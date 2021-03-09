@@ -1,14 +1,13 @@
+'use strict';
 /**
  * Network functions
  * @module modules/network
  * @author oskarpi <oskarpi@metropolia.fi>
- *
  */
 import {networkProxyUrl} from "../settings";
 
 /**
  * Creates HTTP Get request
- *
  * @param {string} url API endpoint
  * @param {boolean} useProxy wheter to use the proxy server
  * @returns {Object} json data
@@ -29,7 +28,6 @@ const fetchGetJson = async (url, useProxy = false) => {
 
 /**
  * Creates HTTP POST request
- *
  * @param {string} url API endpoint
  * @param {string} contentType
  * @param {Object} body request payload

@@ -1,3 +1,9 @@
+'use strict';
+/**
+ * Functions for managing Compass Group menu data from static json file compass-data.json
+ * @module modules/compass-data
+ * @author oskarpi <oskarpi@metropolia.fi>
+ */
 import compassWeekMenu from '../assets/jsons/compass-data.json';
 
 /**
