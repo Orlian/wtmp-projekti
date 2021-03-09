@@ -108,6 +108,10 @@ h2{
     .article-text-wrapper {
       width: 50%;
       margin-bottom: 0.5rem;
+      a{
+        display: flex;
+        justify-content: center;
+      }
     }
 
     img {
@@ -283,12 +287,19 @@ section {
   .article-text-wrapper{
     width: 100% !important;
   }
+  #briefing-section{
+    article{
+      h1{
+        font-size: 1.5em;
+      }
+    }
+  }
 }
 
 @include media-breakpoint-down(sm) {
   #banner {
     background-position: center 0 !important;
-    background-attachment: fixed;
+    background-attachment: unset;
   }
   #main-container{
     padding: 0 3px;
@@ -311,17 +322,17 @@ section {
     font-size: 1.5em;
   }
   .carousel-slide-p{
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
   #restaurant-card{
     h1{
       font-size: 1.2em;
     }
     ul{
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
     #dietInfo-p{
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
   }
   #weather-card-body{
@@ -354,7 +365,17 @@ section {
     }
     .collapse, .collapsing{
       .list-group{
-        font-size: 0.9em;
+        font-size: 0.8em;
+      }
+    }
+  }
+  #briefing-section{
+    article{
+      h1{
+        font-size: 1.2em;
+      }
+      .article-text-wrapper{
+        font-size: 0.8em;
       }
     }
   }
