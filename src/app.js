@@ -42,6 +42,9 @@ const bannerImage = document.querySelector('#banner');
 const bannerHeading = document.querySelector('#banner-heading');
 const languageButton = document.querySelector('#change-language-btn');
 const flagImg = document.querySelector('#flag-img');
+const campusModalCloseBtn = document.querySelector('#campus-modal-close-btn');
+const campusModalTitle = document.querySelector('.modal-title');
+const campusModalBody = document.querySelector('.modal-body');
 const hslSectionHeader = document.querySelector('#hsl-section-header h1');
 const weatherCardHeader = document.querySelector('#weather-card-header');
 
@@ -625,6 +628,16 @@ languageButton.addEventListener('click', (event) => {
     TranslationData.saveLanguage(languageKey, 'fi');
   }
   init();
+});
+
+bannerImage.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
+  const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
+    campusKey);
+  campusModalCloseBtn.textContent = activeCampus === 'fi' ? 'Sulje' : 'Close';
+  campusModalTitle.textContent = activeCampus.name;
+  campusModalBody.innerHTML = `${activeCampus.address} <br/>${activeLanguage === 'fi' ? activeCampus.hours.fi : activeCampus.hours.en}`;
 });
 
 setInterval(async () => {
