@@ -635,7 +635,7 @@ bannerImage.addEventListener('click', (evt) => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
-  campusModalCloseBtn.textContent = activeCampus === 'fi' ? 'Sulje' : 'Close';
+  campusModalCloseBtn.textContent = (activeLanguage === 'fi' ? 'Sulje' : 'Close');
   campusModalTitle.textContent = activeCampus.name;
   campusModalBody.innerHTML = `${activeCampus.address} <br/>${activeLanguage === 'fi' ? activeCampus.hours.fi : activeCampus.hours.en}`;
 });
