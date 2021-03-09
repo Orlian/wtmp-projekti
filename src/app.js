@@ -11,6 +11,7 @@ import CompassData from './modules/compass-data';
 import TranslationData from './modules/translation-data';
 import {isArray} from 'leaflet/src/core/Util';
 import {preventDefault} from 'leaflet/src/dom/DomEvent';
+import {layerGroup} from 'leaflet/dist/leaflet-src.esm';
 
 const weatherCardUl = document.querySelector('#weather-card-ul');
 const weatherCardBody = document.querySelector('#weather-card-body');
@@ -51,6 +52,7 @@ const campusList = CampusData.campusList;
 const today = new Date().toISOString().split('T')[0];
 
 const map = L.map('map-card-body');
+const markerLayer = L.layerGroup().addTo(map);
 
 const defaultIcon = L.icon({
   iconUrl: './assets/pictures/pin.png',
@@ -119,7 +121,7 @@ const loadApiData = async (campus, language) => {
   }).addTo(map);
   addMarker(campus.coords.latitude, campus.coords.longitude, `${campus.name}`,
     {specialMarker: true}, true,
-    (language === 'fi' ? 'kampus ikoni' : 'campus icon'), true);
+    (language === 'fi' ? 'kampus ikoni' : 'campus icon'));
 };
 
 /**
@@ -191,14 +193,13 @@ const renderWeatherData = (weatherObject, lang, campus) => {
  * @param {number} lat - Campus latitude
  * @param {number} lon - Campus longitude
  * @param {string} language - Active language
- * @param {boolean} firstLoad - Tells the function whether to create markers or just update timetables
  * @returns {Promise<void>}
  */
-const loadBusStops = async (lat, lon, language, firstLoad = true) => {
+const loadBusStops = async (lat, lon, language) => {
   try {
     const stops = await HSLData.getStopsByRadius(lat, lon, 700);
     //console.log('stops data:', stops.data.stopsByRadius.edges);
-    renderBusStops(stops.data.stopsByRadius.edges, language, firstLoad);
+    renderBusStops(stops.data.stopsByRadius.edges, language);
   } catch (err) {
     //console.error('loadBusStops error', err.message);
     renderNoDataNotification(hslCard, (language === 'fi' ?
@@ -211,9 +212,8 @@ const loadBusStops = async (lat, lon, language, firstLoad = true) => {
  * Renders HSL-data into relevant html elements
  * @param {Object} stops - GraphQl object containing data of stops and departures
  * @param {string} language - Active language
- * @param {boolean} firstLoad - Tells the function whether to create markers or just update timetables
  */
-const renderBusStops = (stops, language, firstLoad) => {
+const renderBusStops = (stops, language) => {
   hslCardUl.innerHTML = '';
   for (let stop of stops) {
     const collapseId = makeId(stop.node.stop.lat, stop.node.stop.lon);
@@ -265,20 +265,18 @@ const renderBusStops = (stops, language, firstLoad) => {
     stopCollapse.appendChild(stopCollapseUl);
     stopLi.appendChild(stopCollapse);
     hslCardUl.append(stopLi);
-    if (firstLoad) {
-      const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
-        stop.node.stop.name, stopLi, false,
-        (language === 'fi' ? 'pysäkki ikoni' : 'public transport stop icon'));
-      stopLi.addEventListener('click', (evt) => {
-        if (!marker.options.isOpen) {
-          marker.openPopup();
-          //console.log('marker isOpen', marker.options.isOpen);
-        } else {
-          marker.closePopup();
-          //console.log('marker isOpen', marker.options.isOpen);
-        }
-      });
-    }
+    const marker = addMarker(stop.node.stop.lat, stop.node.stop.lon,
+      stop.node.stop.name, stopLi, false,
+      (language === 'fi' ? 'pysäkki ikoni' : 'public transport stop icon'));
+    stopLi.addEventListener('click', (evt) => {
+      if (!marker.options.isOpen) {
+        marker.openPopup();
+        //console.log('marker isOpen', marker.options.isOpen);
+      } else {
+        marker.closePopup();
+        //console.log('marker isOpen', marker.options.isOpen);
+      }
+    });
   }
 };
 
@@ -314,7 +312,7 @@ const addMarker = (lat, lon, text = '', elem = {}, isOpen = false, alt) => {
       icon: (elem.specialMarker ? youIcon : defaultIcon),
       alt: alt,
     }).
-    addTo(map).
+    addTo(markerLayer).
     bindPopup(popUp).on('popupopen', () => {
       //console.log('popupopen event');
       if (!marker.options.isOpen && !elem.specialMarker) {
@@ -633,8 +631,12 @@ setInterval(async () => {
   const activeLanguage = TranslationData.getCurrentLanguage(languageKey);
   const activeCampus = CampusData.getCurrentCampus('', CampusData.campusList,
     campusKey);
+  markerLayer.clearLayers();
+  addMarker(activeCampus.coords.latitude, activeCampus.coords.longitude, `${activeCampus.name}`,
+    {specialMarker: true}, true,
+    (activeLanguage === 'fi' ? 'kampus ikoni' : 'campus icon'));
   await loadBusStops(activeCampus.coords.latitude,
-    activeCampus.coords.longitude, activeLanguage, false);
+    activeCampus.coords.longitude, activeLanguage);
   await loadWeatherData(activeCampus, activeLanguage);
 }, 60000);
 
