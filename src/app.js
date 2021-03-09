@@ -523,6 +523,7 @@ const renderLanguage = (language) => {
       const chapterLink = document.createElement('a');
       chapterLink.textContent = article.link;
       chapterLink.href = article.link;
+      chapterLink.setAttribute('target', '_blank');
       textWrapper.appendChild(chapterLink);
     }
 
