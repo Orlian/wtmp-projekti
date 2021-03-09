@@ -257,8 +257,12 @@ section {
 }
 
 #hsl-data{
+  background-color: colors.$accent-turquoise;
   .collapse, .collapsing{
     font-size: 1em;
+    li{
+      background-color: rgb(190, 228, 248);
+    }
   }
 }
 
