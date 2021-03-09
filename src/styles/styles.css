@@ -11050,17 +11050,26 @@ section {
 }
 @media (max-width: 380px) {
   .hsl-logo {
-    width: 3.5rem !important;
+    width: 3rem !important;
+  }
+
+  #hsl-section-header h1, #hsl-section-header .h1 {
+    font-size: 0.87em;
   }
 
   #weather-card-ul {
-    font-size: 0.8em;
+    font-size: 0.75em;
   }
   #weather-card-ul #current-weather-icon {
     width: 2em;
   }
   #weather-card-ul .hour-weather-icon {
     width: 2em;
+  }
+}
+@media only screen and (max-width: 280px) {
+  .modal-body {
+    padding: 0.1em;
   }
 }
 
