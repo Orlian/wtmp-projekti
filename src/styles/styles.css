@@ -10636,6 +10636,7 @@ textarea.form-control-lg {
 body {
   font-family: "Roboto Slab", serif;
   overflow-x: hidden;
+  background: #fafafa;
 }
 
 .container {
@@ -10649,6 +10650,14 @@ p, li {
 
 nav li {
   font-family: "Roboto Slab", serif;
+}
+
+.nav-link.active, h1, .h1, h2, .h2 {
+  font-weight: 700;
+}
+
+#banner-heading {
+  margin-bottom: 0;
 }
 
 #corona-carousel p {
@@ -10702,6 +10711,16 @@ h2, .h2 {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
+#banner #more-info-icon {
+  position: absolute;
+  background: url("../assets/pictures/information.png") center no-repeat rgba(250, 250, 250, 0.7);
+  background-size: cover;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  bottom: 1rem;
+  left: 1rem;
 }
 
 #banner-card {
@@ -10864,10 +10883,25 @@ section {
   color: #228B22;
 }
 
+#hsl-data {
+  background-color: #00a0e1;
+}
 #hsl-data .collapse, #hsl-data .collapsing {
   font-size: 1em;
 }
+#hsl-data .collapse li, #hsl-data .collapsing li {
+  background-color: #bee4f8;
+}
 
+@media (min-width: 992px) {
+  #briefing-section .container {
+    width: 80%;
+  }
+  #briefing-section article img {
+    max-height: 16em;
+    width: auto;
+  }
+}
 @media (max-width: 991.98px) {
   .navbar-collapse {
     text-align: center;
@@ -10889,6 +10923,11 @@ section {
 
   #hsl-data {
     margin-bottom: 0.5em;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .carousel-item img {
+    height: 4em;
   }
 }
 @media (max-width: 767.98px) {
@@ -10954,6 +10993,9 @@ section {
   #restaurant-card #dietInfo-p {
     font-size: 0.8em;
   }
+  #restaurant-card p {
+    font-size: 0.8em;
+  }
 
   #weather-card-body h1, #weather-card-body .h1 {
     font-size: 1.2em;
@@ -10970,7 +11012,7 @@ section {
   }
 
   #hsl-section-header h1, #hsl-section-header .h1 {
-    font-size: 1em;
+    font-size: 0.97em;
   }
   #hsl-section-header .hsl-logo {
     width: 4rem;

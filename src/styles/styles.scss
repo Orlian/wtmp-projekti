@@ -87,6 +87,16 @@ h2{
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  #more-info-icon{
+    position: absolute;
+    background: url("../assets/pictures/information.png") center no-repeat rgba(250, 250, 250, 0.7);
+    background-size: cover;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    bottom: 1rem;
+    left: 1rem;
+  }
 }
 
 #banner-card {
